@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>困難點登入入口</title>
+
+    <!-- ✅ 改用 CSS 而不是 JS -->
+    <script src="static/js/package/tailwinds.js"></script>
+
+    <!-- Vue + Axios -->
+    <script src="static/js/package/vue.global.js"></script>
+    <script src="static/js/package/axios.min.js"></script>
+</head>
+
+<body class="bg-amber-50 flex items-center justify-center min-h-screen">
+
+    <div id="app" class="w-full flex justify-center">
+        <!-- Loading 畫面 -->
+        <div id="loadingScreen"
+            class="fixed inset-0 bg-black/50 flex justify-center items-center text-white text-2xl font-bold hidden z-50">
+            載入中...
+        </div>
+
+        <!-- Login Card -->
+        <div class="bg-amber-100 p-8 rounded-xl shadow-2xl w-96">
+            <h2 class="text-3xl font-bold text-center text-stone-700 mb-6 whitespace-nowrap">困難點會議</h2>
+
+            <form @submit.prevent="submitForm">
+                <!-- Username -->
+                <div class="mb-4">
+                  <input v-model="username" type="text" placeholder="請輸入AD帳號"
+                    class="w-full px-4 py-2 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent" required />
+                </div>
+
+                <!-- Password -->
+                <div class="mb-6">
+                  <input v-model="password" type="password" placeholder="請輸入AD密碼"
+                    class="w-full px-4 py-2 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent" required />
+                </div>
+
+                <!-- Submit -->
+                <button type="submit"
+                  class="w-full bg-amber-600 text-white py-2 px-4 rounded-md hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-600">
+                  輸入完按下 Enter 或是點我
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="static/js/login.js"></script>
+</body>
+</html>

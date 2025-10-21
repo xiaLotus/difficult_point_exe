@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>編輯會議記錄</title>
+    <script src="../static/js/package/tailwinds.js"></script>
+    <script src="../static/js/package/vue.global.js"></script>
+    <script src="../static/js/package/axios.min.js"></script>
+    <script src="../static/js/package/lucide.js"></script>
+    <script src="../static/js/package/sweetalert2@11.js"></script>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        
+        /* 動畫效果 */
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .content-left {
+            animation: slideInLeft 0.5s ease-out;
+        }
+        
+        .content-right {
+            animation: slideInRight 0.5s ease-out;
+        }
+        
+        /* 自定義滾動條 */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        /* 輸入框聚焦效果 */
+        .input-focus {
+            transition: all 0.2s ease;
+        }
+        
+        .input-focus:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            transform: translateY(-1px);
+        }
+        
+        /* 唯讀模式樣式 */
+        .readonly-input {
+            background-color: #f9fafb !important;
+            border-color: #e5e7eb !important;
+            color: #6b7280 !important;
+            cursor: not-allowed !important;
+        }
+        
+        .readonly-textarea {
+            background-color: #f9fafb !important;
+            border-color: #e5e7eb !important;
+            color: #6b7280 !important;
+            cursor: not-allowed !important;
+            resize: none !important;
+        }
+        
+        .readonly-select {
+            background-color: #f9fafb !important;
+            border-color: #e5e7eb !important;
+            color: #6b7280 !important;
+            cursor: not-allowed !important;
+            pointer-events: none !important;
+        }
+        
+        .readonly-dropdown {
+            background-color: #f9fafb !important;
+            border-color: #e5e7eb !important;
+            color: #6b7280 !important;
+            cursor: not-allowed !important;
+        }
+        
+        /* 多選下拉選單樣式 */
+        .dropdown-item {
+            transition: all 0.15s ease;
+        }
+        
+        .dropdown-item:hover {
+            padding-left: 12px;
+        }
+        
+        /* 標籤樣式 */
+        .tag {
+            animation: fadeIn 0.2s ease;
+        }
+        
+        /* 浮動按鈕效果 */
+        .floating-button {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .floating-button:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+        
+        /* 卡片陰影效果 */
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .card-shadow:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* 漸層背景 */
+        .gradient-border {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-slate-50 to-gray-100 font-sans leading-normal tracking-normal h-screen overflow-hidden">
+    <div id="app" class="h-full flex flex-col">
+        <!-- 頂部導航欄 -->
+        <nav class="bg-white shadow-lg border-b border-gray-200 z-40 flex-shrink-0">
+            <div class="px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <!-- 左側：返回按鈕和標題 -->
+                    <div class="flex items-center gap-4">
+                        <button @click="goBack" 
+                            class="flex items-center gap-2 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition-all duration-200 hover:shadow-md floating-button">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                            <span>返回列表</span>
+                        </button>
+                        <div class="h-6 w-px bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
+                        <div class="flex items-center gap-3">
+                            <div class="p-2 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg">
+                                <i :data-lucide="isReadOnly ? 'eye' : 'edit-3'" class="w-5 h-5 text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h1 class="text-xl font-bold text-gray-800">{{ isReadOnly ? '查看會議記錄' : '編輯會議記錄' }}</h1>
+                                <p class="text-sm text-gray-500">項次：{{ recordData.項次 }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 右側：使用者資訊和權限標示 -->
+                    <div class="flex items-center gap-3">
+                        <!-- 權限標示 -->
+                        <div v-if="userRole" :class="[
+                            'flex items-center gap-2 text-sm font-medium px-3 py-1.5 rounded-full border',
+                            userRole === '管理員' ? 'bg-gradient-to-r from-purple-50 to-purple-100 text-purple-800 border-purple-200' :
+                            userRole === '編輯人' ? 'bg-gradient-to-r from-green-50 to-green-100 text-green-800 border-green-200' :
+                            'bg-gradient-to-r from-amber-50 to-amber-100 text-amber-800 border-amber-200'
+                        ]">
+                            <i :data-lucide="userRole === '管理員' ? 'shield-check' : userRole === '編輯人' ? 'edit-3' : 'eye'" class="w-4 h-4"></i>
+                            <span>{{ userRole }}</span>
+                        </div>
+                        
+                        <!-- 使用者資訊 -->
+                        <div class="flex items-center gap-3 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-800 text-sm font-medium px-4 py-2 rounded-full border border-blue-200">
+                            <i data-lucide="user" class="w-4 h-4"></i>
+                            <span>{{ username }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 主要內容區域 -->
+        <div class="flex-1 flex gap-4 p-4 h-0 min-h-0">
+            <!-- 左側：編輯表單 (55%) -->
+            <div class="w-[55%] content-left">
+                <div class="bg-white rounded-xl shadow-lg h-full overflow-y-auto custom-scrollbar card-shadow">
+                    <!-- 表單標題 -->
+                    <div class="p-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50 flex-shrink-0">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-1 h-6 gradient-border rounded-full"></div>
+                                <h2 class="text-lg font-bold text-gray-800">{{ isReadOnly ? '基本資料查看' : '基本資料編輯' }}</h2>
+                            </div>
+                            <div v-if="isReadOnly" class="flex items-center gap-2 bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-sm font-medium">
+                                <i data-lucide="lock" class="w-4 h-4"></i>
+                                <span>唯讀模式</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 編輯表單 -->
+                    <div class="p-6 flex-1">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            
+                            <!-- 項次 -->
+                            <div class="group">
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
+                                    <i data-lucide="hash" class="w-4 h-4 text-gray-400"></i>
+                                    項次
+                                </label>
+                                <input v-model="recordData.項次" 
+                                    class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm text-gray-600 cursor-not-allowed" 
+                                    readonly />
+                            </div>
+
+                            <!-- 提案日期 -->
+                            <div class="group">
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
+                                    <i data-lucide="calendar" class="w-4 h-4 text-blue-500"></i>
+                                    提案日期
+                                </label>
+                                <input type="date"
+                                    :value="formatDateForInput(recordData.提案日期)"
+                                    @change="updateRecordDate('提案日期', $event.target.value)"
+                                    :class="[
+                                        'w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm transition-all',
+                                        isReadOnly ? 'readonly-input' : 'focus:border-blue-500 focus:ring-2 focus:ring-blue-100 input-focus'
+                                    ]"
+                                    :readonly="isReadOnly" />
+                            </div>
+
+                            <!-- 棟別 -->
+                            <div class="group relative" ref="BuildingDropdown">
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
+                                    <i data-lucide="building-2" class="w-4 h-4 text-blue-500"></i>
+                                    棟別
+                                </label>
+                                <div @click="toggleBuildingDropdown"
+                                    :class="[
+                                        'w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm bg-white flex items-center justify-between transition-all',
+                                        isReadOnly ? 'readonly-dropdown' : 'cursor-pointer hover:border-blue-400 hover:shadow-md input-focus'
+                                    ]">
+                                    <div v-if="recordData.棟別Array && recordData.棟別Array.length" class="flex flex-wrap gap-1.5">
+                                        <span v-for="b in recordData.棟別Array" :key="b"
+                                            class="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-blue-100 to-blue-200 text-blue-700 rounded-full text-xs font-medium tag">
+                                            {{ b }}
+                                            <button v-if="!isReadOnly" @click.stop="removeBuildingSelection(b)" 
+                                                class="hover:bg-blue-300 rounded-full p-0.5 transition-colors">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                </svg>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <span v-else class="text-gray-400">請選擇棟別</span>
+                                    <i v-if="!isReadOnly" data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
+                                </div>
+                                <div v-if="showBuildingDropdown && !isReadOnly"
+                                    class="absolute mt-2 w-full border border-gray-200 rounded-xl bg-white shadow-2xl z-20 max-h-48 overflow-y-auto">
+                                    <button @click.stop="toggleBuildingSelection('全棟別')"
+                                        :class="['w-full text-left px-4 py-3 hover:bg-blue-50 flex items-center gap-3 dropdown-item border-b border-gray-200',
+                                            recordData.棟別Array && recordData.棟別Array.includes('全棟別') ? 'bg-blue-50 text-blue-700 font-medium' : 'font-medium']">
+                                        <input type="checkbox" :checked="recordData.棟別Array && recordData.棟別Array.includes('全棟別')" 
+                                            class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500" @click.stop>
+                                        全棟別
+                                    </button>
+                                    <button v-for="building in buildings" :key="building"
+                                        @click.stop="toggleBuildingSelection(building)"
+                                        :class="['w-full text-left px-4 py-3 flex items-center gap-3 dropdown-item',
+                                            recordData.棟別Array && recordData.棟別Array.includes('全棟別') ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-50',
+                                            recordData.棟別Array && recordData.棟別Array.includes(building) ? 'bg-blue-50 text-blue-700' : '']">
+                                        <input type="checkbox" 
+                                            :checked="recordData.棟別Array && recordData.棟別Array.includes(building)" 
+                                            :disabled="recordData.棟別Array && recordData.棟別Array.includes('全棟別')"
+                                            class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500" 
+                                            @click.stop>
+                                        {{ building }}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- 樓層 -->
+                            <div class="group relative" ref="floorDropdown">
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
+                                    <i data-lucide="layers" class="w-4 h-4 text-green-500"></i>
+                                    樓層
+                                </label>
+                                <div @click="toggleFloorDropdown"
+                                    :class="[
+                                        'w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm bg-white flex items-center justify-between transition-all',
+                                        isReadOnly ? 'readonly-dropdown' : 'cursor-pointer hover:border-green-400 hover:shadow-md input-focus'
+                                    ]">
+                                    <div v-if="recordData.樓層Array && recordData.樓層Array.length" class="flex flex-wrap gap-1.5">
+                                        <span v-for="f in recordData.樓層Array" :key="f"
+                                            class="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-green-100 to-green-200 text-green-700 rounded-full text-xs font-medium tag">
+                                            {{ f }}
+                                            <button v-if="!isReadOnly" @click.stop="removeFloorSelection(f)" 
+                                                class="hover:bg-green-300 rounded-full p-0.5 transition-colors">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                </svg>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <span v-else class="text-gray-400">請選擇樓層</span>
+                                    <i v-if="!isReadOnly" data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
+                                </div>
+                                <div v-if="showFloorDropdown && !isReadOnly"
+                                    class="absolute mt-2 w-full border border-gray-200 rounded-xl bg-white shadow-2xl z-20 max-h-48 overflow-y-auto">
+                                    <button @click.stop="toggleFloorSelection('全樓層')"
+                                        :class="['w-full text-left px-4 py-3 hover:bg-green-50 flex items-center gap-3 dropdown-item border-b border-gray-200',
+                                            recordData.樓層Array && recordData.樓層Array.includes('全樓層') ? 'bg-green-50 text-green-700 font-medium' : 'font-medium']">
+                                        <input type="checkbox" :checked="recordData.樓層Array && recordData.樓層Array.includes('全樓層')" 
+                                            class="w-4 h-4 text-green-600 rounded focus:ring-green-500" @click.stop>
+                                        全樓層
+                                    </button>
+                                    <button v-for="floor in floors" :key="floor"
+                                        @click.stop="toggleFloorSelection(floor)"
+                                        :class="['w-full text-left px-4 py-3 flex items-center gap-3 dropdown-item',
+                                            recordData.樓層Array && recordData.樓層Array.includes('全樓層') ? 'opacity-50 cursor-not-allowed' : 'hover:bg-green-50',
+                                            recordData.樓層Array && recordData.樓層Array.includes(floor) ? 'bg-green-50 text-green-700' : '']">
+                                        <input type="checkbox" 
+                                            :checked="recordData.樓層Array && recordData.樓層Array.includes(floor)" 
+                                            :disabled="recordData.樓層Array && recordData.樓層Array.includes('全樓層')"
+                                            class="w-4 h-4 text-green-600 rounded focus:ring-green-500" 
+                                            @click.stop>
+                                        {{ floor }}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- 站點 -->
+                            <div class="group col-span-2">
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
+                                    <i data-lucide="map-pin" class="w-4 h-4 text-cyan-500"></i>
+                                    站點 {{ !isReadOnly ? '(按 Enter 可新增多個)' : '' }}
+                                </label>
+                                <textarea v-model="recordData.站點" 
+                                    @keydown="handleStationKeydown"
+                                    :class="[
+                                        'w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm transition-all resize-none',
+                                        isReadOnly ? 'readonly-textarea' : 'focus:border-blue-500 focus:ring-2 focus:ring-blue-100 input-focus'
+                                    ]"
+                                    rows="2"
+                                    :placeholder="isReadOnly ? '' : '輸入站點，按 Enter 可新增多個站點'"
+                                    :readonly="isReadOnly"></textarea>
+                            </div>
+
+                            <!-- 類別 -->
+                            <div class="group">
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
+                                    <i data-lucide="tag" class="w-4 h-4 text-purple-500"></i>
+                                    類別
+                                </label>
+                                <select v-model="recordData.類別" 
+                                    :class="[
+                                        'w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm transition-all',
+                                        isReadOnly ? 'readonly-select' : 'focus:border-blue-500 focus:ring-2 focus:ring-blue-100 input-focus'
+                                    ]"
+                                    :disabled="isReadOnly">
+                                    <option value="專案">專案</option>
+                                    <option value="工作">工作</option>
+                                </select>
+                            </div>
+
+                            <!-- 提案人 -->
+                            <div class="group">
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
+                                    <i data-lucide="user" class="w-4 h-4 text-indigo-500"></i>
+                                    提案人
+                                </label>
+                                <input v-model="recordData.提案人" 
+                                    :class="[
+                                        'w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm transition-all',
+                                        isReadOnly ? 'readonly-input' : 'focus:border-blue-500 focus:ring-2 focus:ring-blue-100 input-focus'
+                                    ]"
+                                    :placeholder="isReadOnly ? '' : '輸入提案人'"
+                                    :readonly="isReadOnly" />
+                            </div>
+
+                            <!-- 案件分類 -->
+                            <div class="group">
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
+                                    <i data-lucide="folder" class="w-4 h-4 text-amber-500"></i>
+                                    案件分類
+                                </label>
+                                <select v-model="recordData.案件分類" 
+                                    :class="[
+                                        'w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm transition-all',
+                                        isReadOnly ? 'readonly-select' : 'focus:border-blue-500 focus:ring-2 focus:ring-blue-100 input-focus'
+                                    ]"
+                                    :disabled="isReadOnly">
+                                    <option value="ALL">ALL</option>
+                                    <option value="軟體">軟體</option>
+                                    <option value="硬體">硬體</option>
+                                </select>
+                            </div>
+
+                            <!-- PDCA -->
+                            <div class="group">
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
+                                    <i data-lucide="repeat" class="w-4 h-4 text-pink-500"></i>
+                                    PDCA
+                                </label>
+                                <select v-model="recordData.PDCA" 
+                                    :class="[
+                                        'w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm transition-all',
+                                        isReadOnly ? 'readonly-select' : 'focus:border-blue-500 focus:ring-2 focus:ring-blue-100 input-focus'
+                                    ]"
+                                    :disabled="isReadOnly">
+                                    <option value="P">P - Plan (計劃)</option>
+                                    <option value="D">D - Do (執行)</option>
+                                    <option value="C">C - Check (檢查)</option>
+                                    <option value="A">A - Act (行動)</option>
+                                </select>
+                            </div>
+
+                            <!-- 截止日期 -->
+                            <div class="group">
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
+                                    <i data-lucide="calendar-x" class="w-4 h-4 text-red-500"></i>
+                                    截止日期
+                                </label>
+                                <input type="date"
+                                    :value="formatDateForInput(recordData.截止日期)"
+                                    @change="updateRecordDate('截止日期', $event.target.value)"
+                                    :class="[
+                                        'w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm transition-all resize-none',
+                                        isReadOnly ? 'readonly-textarea' : 'focus:border-blue-500 focus:ring-2 focus:ring-blue-100 input-focus'
+                                    ]"
+                                    :readonly="isReadOnly" />
+                            </div>
+
+                            <!-- 專案Owner -->
+                            <div class="group relative"> <!-- 【修改】加上 relative -->
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
+                                    <i data-lucide="user-check" class="w-4 h-4 text-emerald-500"></i>
+                                    專案Owner
+                                </label>
+
+                                <input
+                                    ref="ownerInputRef"
+                                    v-model="recordData.專案Owner"
+                                    @input="searchOwners"
+                                    @keydown="handleOwnerInputKeydown"
+                                    @focus="searchOwners"
+                                    @blur="setTimeout(() => { showOwnerDropdown = false }, 200)"
+                                    :class="[
+                                        'w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm transition-all',
+                                        isReadOnly ? 'readonly-input' : 'focus:border-blue-500 focus:ring-2 focus:ring-blue-100 input-focus'
+                                    ]"
+                                    :placeholder="isReadOnly ? '' : '輸入姓名或工號搜尋，用逗號分隔多人'"
+                                    :readonly="isReadOnly"
+                                    autocomplete="off"
+                                />
+                                <!-- 【新增】搜尋結果下拉選單 (這部分保持不變) -->
+                                <div v-if="showOwnerDropdown && !isReadOnly"
+                                    class="absolute mt-1 w-full border border-gray-200 rounded-xl bg-white shadow-2xl z-20 max-h-60 overflow-y-auto custom-scrollbar">
+                                    <ul>
+                                        <li v-for="(owner, index) in ownerSearchResults"
+                                            :key="owner.工號"
+                                            @mousedown.prevent="selectOwner(owner)"
+                                            :class="['px-4 py-3 cursor-pointer hover:bg-blue-50 transition-colors', { 'bg-blue-100': index === focusedOwnerIndex }]">
+                                            <div class="font-medium text-gray-800">{{ owner.姓名 }}</div>
+                                            <div class="text-xs text-gray-500">{{ owner.工號 }}</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <!-- 項目DueDate -->
+                            <div class="group">
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
+                                    <i data-lucide="calendar-check" class="w-4 h-4 text-teal-500"></i>
+                                    項目DueDate
+                                </label>
+                                <input type="date"
+                                    :value="formatDateForInput(recordData.項目DueDate)"
+                                    @change="updateRecordDate('項目DueDate', $event.target.value)"
+                                    :class="[
+                                        'w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm transition-all',
+                                        isReadOnly ? 'readonly-input' : 'focus:border-blue-500 focus:ring-2 focus:ring-blue-100 input-focus'
+                                    ]"
+                                    :readonly="isReadOnly" />
+                            </div>
+
+                            <!-- Status -->
+                            <div class="group">
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
+                                    <i data-lucide="activity" class="w-4 h-4 text-orange-500"></i>
+                                    Status
+                                </label>
+                                <select v-model="recordData.Status" 
+                                    :class="[
+                                        'w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm transition-all',
+                                        isReadOnly ? 'readonly-select' : 'focus:border-blue-500 focus:ring-2 focus:ring-blue-100 input-focus'
+                                    ]"
+                                    :disabled="isReadOnly">
+                                    <option value="New">New</option>
+                                    <option value="On Going">On Going</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Closed">Closed</option>
+                                </select>
+                            </div>
+
+                            <!-- 問題描述 -->
+                            <div class="group col-span-2">
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
+                                    <i data-lucide="alert-circle" class="w-4 h-4 text-red-500"></i>
+                                    問題描述
+                                </label>
+                                <textarea v-model="recordData.問題描述" 
+                                    :class="[
+                                        'w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm transition-all resize-none',
+                                        isReadOnly ? 'readonly-textarea' : 'focus:border-blue-500 focus:ring-2 focus:ring-blue-100 input-focus'
+                                    ]"
+                                    rows="4"
+                                    :placeholder="isReadOnly ? '' : '請詳細描述問題...'"
+                                    :readonly="isReadOnly"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- 操作按鈕 -->
+                        <div class="flex justify-center gap-4 mt-8 pt-6 border-t border-gray-200">
+                            <button @click="goBack" 
+                                class="flex items-center gap-2 bg-white border-2 border-gray-300 text-gray-700 font-medium py-3 px-6 rounded-xl hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 shadow-md hover:shadow-lg floating-button">
+                                <i data-lucide="x" class="w-4 h-4"></i>
+                                {{ isReadOnly ? '關閉查看' : '取消編輯' }}
+                            </button>
+                            <button v-if="!isReadOnly" @click="saveRecord" 
+                                class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium py-3 px-6 rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-md hover:shadow-lg floating-button">
+                                <i data-lucide="save" class="w-4 h-4"></i>
+                                儲存變更
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右側：進度紀錄管理 (45%) -->
+            <div class="w-[45%] flex flex-col h-full content-right">
+                
+                <!-- 上方：新增進度紀錄區域 (30%) -->
+                <div class="h-[30%] min-h-[180px] bg-white rounded-xl shadow-lg card-shadow border border-gray-200 mb-3">
+                    <div class="p-4 border-b border-gray-200 bg-gradient-to-r from-green-50 to-emerald-50 rounded-t-xl flex-shrink-0">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-3 h-6 bg-gradient-to-b from-green-400 to-emerald-500 rounded-full shadow-sm"></div>
+                                <h3 class="text-base font-bold text-gray-800">{{ isReadOnly ? '進度紀錄查看' : '新增本次進度紀錄' }}</h3>
+                            </div>
+                            <div v-if="isReadOnly" class="flex items-center gap-2 bg-amber-100 text-amber-700 px-2 py-1 rounded-full text-xs font-medium">
+                                <i data-lucide="lock" class="w-3 h-3"></i>
+                                <span>唯讀</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 flex flex-col h-[calc(100%-70px)]">
+                        <textarea v-model="newProgressRecord" 
+                            :class="[
+                                'flex-1 w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm transition-all resize-none placeholder-gray-400',
+                                isReadOnly ? 'readonly-textarea' : 'focus:border-green-500 focus:ring-1 focus:ring-green-100 input-focus bg-gray-50/50'
+                            ]"
+                            :placeholder="isReadOnly ? '提案人無法新增進度記錄' : '請以 mm/dd: 格式開始輸入進度，例如：01/15: 已聯繫相關部門進行處理'"
+                            :readonly="isReadOnly"></textarea>
+                        
+                        <div v-if="!isReadOnly" class="flex gap-3 mt-4">
+                            <button @click="resetProgressRecord" 
+                                class="flex-1 flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2.5 px-4 rounded-xl transition-all duration-200 text-sm shadow-sm hover:shadow-md floating-button">
+                                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                                重置
+                            </button>
+                            <button @click="addProgressRecord" 
+                                class="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white font-medium py-2.5 px-4 rounded-xl hover:from-green-600 hover:to-emerald-600 transition-all duration-200 text-sm shadow-md hover:shadow-lg floating-button">
+                                <i data-lucide="plus" class="w-4 h-4"></i>
+                                新增
+                            </button>
+                        </div>
+                        
+                        <div v-if="isReadOnly" class="mt-4 text-center text-sm text-blue-600 bg-blue-50 border border-blue-200 rounded-xl py-3 px-4">
+                            <i data-lucide="eye" class="w-4 h-4 inline mr-2"></i>
+                            您可以查看所有項目內容，但無法進行修改操作
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 下方：進度歷史紀錄 (65%) -->
+                <div class="flex-1 bg-white rounded-xl shadow-lg card-shadow border border-gray-200 flex flex-col min-h-0">
+                    <div class="p-4 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-pink-50 rounded-t-xl flex-shrink-0">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-3 h-6 bg-gradient-to-b from-purple-400 to-pink-500 rounded-full shadow-sm"></div>
+                                <h3 class="text-base font-bold text-gray-800">進度歷史紀錄</h3>
+                            </div>
+                            <span class="text-sm text-gray-500 bg-white px-3 py-1.5 rounded-full border border-gray-200 shadow-sm font-medium">
+                                共 {{ progressHistory.length }} 筆
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 overflow-y-auto custom-scrollbar p-4 min-h-0">
+                        <div v-if="progressHistory.length === 0" class="text-center py-16">
+                            <div class="text-gray-300 mb-4">
+                                <i data-lucide="clipboard-list" class="w-16 h-16 mx-auto"></i>
+                            </div>
+                            <p class="text-gray-400 text-sm font-medium">暫無進度紀錄</p>
+                            <p class="text-gray-300 text-xs mt-1">{{ isReadOnly ? '此記錄尚無進度更新' : '新增第一筆進度更新' }}</p>
+                        </div>
+                        
+                        <div v-else class="space-y-3">
+                            <div v-for="(record, index) in progressHistory" :key="index" 
+                                :class="['relative p-4 rounded-xl border transition-all duration-300 hover:shadow-sm group', 
+                                         index === 0 ? 'border-green-200 bg-gradient-to-r from-green-50 to-emerald-50 latest' : 'border-gray-200 bg-white hover:border-blue-200']">
+                                
+                                <!-- 左側時間軸點 -->
+                                <div :class="['absolute -left-2 top-6 w-4 h-4 rounded-full border-2 border-white shadow-sm',
+                                             index === 0 ? 'bg-green-500' : 'bg-blue-400']"></div>
+                                
+                                <!-- 頂部資訊列 -->
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-2">
+                                        <div :class="['w-2 h-2 rounded-full', index === 0 ? 'bg-green-500' : 'bg-blue-400']"></div>
+                                        <span class="text-sm font-semibold text-gray-600 bg-white px-3 py-1 rounded-full shadow-sm">
+                                            {{ getProgressDate(record) }}
+                                        </span>
+                                        <span v-if="index === 0" class="bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 text-xs px-2 py-1 rounded-full font-bold border border-green-200 shadow-sm">
+                                            最新
+                                        </span>
+                                    </div>
+                                    <button v-if="!isReadOnly" @click="deleteProgressRecord(index)" 
+                                        class="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-600 transition-all p-1.5 hover:bg-red-50 rounded-lg duration-200">
+                                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                                
+                                <!-- 內容區域 -->
+                                <div class="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap ml-4 font-medium">
+                                    {{ getProgressContent(record) }}
+                                </div>
+                                
+                                <!-- 底部分隔線（除了最後一項） -->
+                                <div v-if="index < progressHistory.length - 1" class="absolute -bottom-1.5 left-4 right-4 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../static/js/editing_meeting.js"></script>
+</body>
+</html>
