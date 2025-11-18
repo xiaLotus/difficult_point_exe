@@ -1,24 +1,21 @@
 ﻿{
-  "username": "C8849",
+  "username": "C9228",
   "filter_state": {
     "checkedDates": [],
     "checkedBuildings": [],
     "checkedFloors": [],
     "checkedStations": [],
     "checkedCategories": [],
-    "checkedProposers": [],
+    "checkedProposers": [
+      "王柏翰"
+    ],
     "checkedDescriptions": [],
     "checkedCaseCategories": [],
-    "checkedStatus": [
-      "Pending",
-      "New",
-      "Closed",
-      "On Going"
-    ],
+    "checkedStatus": [],
     "checkedPDCA": [],
     "checkedProjectOwners": [],
     "checkedDueDates": [],
     "checkedItemDueDates": []
   },
-  "last_updated": "2025-10-07T14:39:38.128352"
+  "last_updated": "2025-10-20T11:45:43.959640"
 }

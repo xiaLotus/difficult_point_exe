@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>📊 每週案件累積統計總覽</title>
+
+  <!-- 套件 -->
+  <script src="../static/js/package/tailwinds.js"></script>
+  <script src="../static/js/package/vue.global.js"></script>
+  <script src="../static/js/package/axios.min.js"></script>
+  <script src="../static/js/package/lucide.js"></script>
+  <script src="../static/js/package/sweetalert2@11.js"></script>
+  <script src="../static/js/package/chart.js"></script>
+
+  <!-- 🎨 白底統一風格 CSS -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: linear-gradient(145deg, #f8fafc, #e0e7ff, #ddd6fe, #fce7f3);
+      background-size: 400% 400%;
+      animation: gradientMove 15s ease infinite;
+      color: #1e293b;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* 背景動態漸層 */
+    @keyframes gradientMove {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* 背景裝飾光點 */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: moveBackground 20s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes moveBackground {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+
+    /* 淡入動畫 */
+    .animate-fadeIn { 
+      animation: fadeIn 1s ease-out; 
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 主容器 - 白色卡片效果 */
+    #app {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(25px) saturate(180%);
+      border: 1px solid rgba(139, 92, 246, 0.15);
+      border-radius: 32px;
+      box-shadow: 
+        0 25px 50px rgba(139, 92, 246, 0.08),
+        0 10px 20px rgba(0, 0, 0, 0.03),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    #app:hover {
+      box-shadow: 
+        0 30px 60px rgba(139, 92, 246, 0.12),
+        0 15px 25px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+    }
+
+    /* 標題樣式 */
+    h2, h3 { 
+      color: #1e293b;
+      text-shadow: 0 2px 4px rgba(139, 92, 246, 0.1);
+    }
+
+    /* Header 裝飾線 */
+    .header-line {
+      height: 2px;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(139, 92, 246, 0.3) 20%, 
+        rgba(236, 72, 153, 0.3) 80%, 
+        transparent
+      );
+      margin: 1rem 0;
+      border-radius: 2px;
+    }
+
+    /* Spinner 載入動畫 */
+    .spinner {
+      position: absolute;
+      top: 50%; 
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px; 
+      height: 56px;
+      border: 5px solid rgba(139, 92, 246, 0.15);
+      border-top: 5px solid #8b5cf6;
+      border-radius: 50%;
+      animation: spin 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+      z-index: 10;
+    }
+    @keyframes spin { 
+      to { transform: translate(-50%, -50%) rotate(360deg); } 
+    }
+
+    /* 圖表區塊容器 */
+    .chart-container {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(139, 92, 246, 0.15);
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: 
+        0 10px 30px rgba(139, 92, 246, 0.06),
+        0 4px 12px rgba(0, 0, 0, 0.03),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(139, 92, 246, 0.05), 
+        transparent
+      );
+      transition: left 0.6s ease;
+    }
+
+    .chart-container:hover::before {
+      left: 100%;
+    }
+
+    .chart-container:hover {
+      border-color: rgba(139, 92, 246, 0.25);
+      box-shadow: 
+        0 15px 40px rgba(139, 92, 246, 0.1),
+        0 8px 16px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+      transform: translateY(-2px);
+    }
+
+    /* 圖表標題徽章 */
+    .chart-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(236, 72, 153, 0.08));
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #6366f1;
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.1);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Canvas 樣式 */
+    canvas {
+      background: transparent !important;
+      border-radius: 16px;
+    }
+
+    /* 按鈕增強效果 */
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn-primary:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn-primary:active {
+      transform: scale(0.95);
+    }
+
+    /* 更新時間標籤 */
+    .time-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 12px;
+      font-size: 0.85rem;
+      color: #3b82f6;
+      backdrop-filter: blur(10px);
+    }
+
+    /* 響應式設計 */
+    @media (max-width: 768px) {
+      #app {
+        border-radius: 20px;
+        padding: 1.5rem !important;
+      }
+
+      .chart-container {
+        padding: 1.25rem;
+      }
+
+      h2 {
+        font-size: 1.5rem !important;
+      }
+
+      .btn-primary {
+        padding: 0.625rem 1rem !important;
+        font-size: 0.875rem !important;
+      }
+    }
+
+    /* 滾動條美化 */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(226, 232, 240, 0.5);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #6366f1, #8b5cf6);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #818cf8, #a78bfa);
+    }
+
+    /* 圖表圖例懸停效果 */
+    .chart-container canvas:hover {
+      cursor: crosshair;
+    }
+
+    /* 脈動動畫 */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.95; transform: scale(0.98); }
+    }
+
+    .pulse {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+
+<body class="flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
+  <div id="app" class="w-full max-w-[1600px] p-6 sm:p-8 lg:p-10 animate-fadeIn relative">
+
+    <!-- ===== Header Section ===== -->
+    <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-8">
+      
+      <!-- 標題區 -->
+      <div class="flex items-start gap-4">
+        <div class="p-3 bg-gradient-to-br from-indigo-500/15 to-purple-500/15 rounded-2xl border border-indigo-400/30 shadow-md">
+          <i data-lucide="bar-chart-3" class="w-10 h-10 text-indigo-600"></i>
+        </div>
+        <div>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            每週案件累積統計總覽
+          </h2>
+          <p class="text-sm sm:text-base text-gray-600 mt-1.5 flex items-center gap-2">
+            <i data-lucide="trending-up" class="w-4 h-4 text-gray-500"></i>
+            <span>顯示近 8 週累積狀態與工作概況</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- 按鈕群 -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+        
+        <!-- 更新圖表按鈕 -->
+        <button 
+          @click="refreshCharts"
+          :disabled="isUpdating"
+          class="btn-primary flex items-center justify-center gap-2 px-5 py-3
+                 bg-gradient-to-r from-blue-500/10 to-indigo-500/10
+                 backdrop-blur-md border border-blue-500/30
+                 text-blue-700 font-semibold text-sm
+                 rounded-xl shadow-md
+                 hover:from-blue-500/15 hover:to-indigo-500/15
+                 hover:border-blue-500/50 hover:shadow-lg
+                 hover:shadow-blue-500/10 hover:scale-[1.02]
+                 active:scale-95 transition-all
+                 disabled:opacity-40 disabled:cursor-not-allowed
+                 disabled:hover:scale-100">
+          <i data-lucide="refresh-cw" class="w-4 h-4" :class="{ 'animate-spin': isUpdating }"></i>
+          <span>{{ isUpdating ? '更新中...' : '更新圖表' }}</span>
+        </button>
+
+        <!-- 前往會議系統按鈕 -->
+        <button 
+          @click="goMeetingPage"
+          class="btn-primary flex items-center justify-center gap-2 px-5 py-3
+                 bg-gradient-to-r from-purple-600 to-pink-600
+                 text-white font-semibold text-sm
+                 rounded-xl shadow-md shadow-purple-500/20
+                 hover:shadow-lg hover:shadow-purple-500/30
+                 hover:scale-[1.02] hover:from-purple-500 hover:to-pink-500
+                 active:scale-95 transition-all">
+          <i data-lucide="external-link" class="w-4 h-4"></i>
+          <span>前往困難點會議系統</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 裝飾線 -->
+    <div class="header-line"></div>
+
+    <!-- 更新時間標籤 -->
+    <div class="flex justify-between items-center mb-8">
+      <div class="time-badge">
+        <i data-lucide="clock" class="w-4 h-4"></i>
+        <span>更新時間：{{ new Date().toLocaleString('zh-TW', { 
+          year: 'numeric', 
+          month: '2-digit', 
+          day: '2-digit', 
+          hour: '2-digit', 
+          minute: '2-digit',
+          second: '2-digit'
+        }) }}</span>
+      </div>
+    </div>
+
+    <!-- Spinner 載入動畫 -->
+    <div v-if="showSpinner" class="spinner"></div>
+
+    <!-- ===== 第一張圖：累積狀態統計 ===== -->
+    <section class="chart-container mb-8 animate-fadeIn" style="animation-delay: 0.1s;">
+      <div class="chart-badge">
+        <i data-lucide="pie-chart" class="w-5 h-5 text-indigo-600"></i>
+        <span>每週案件狀態累積分析</span>
+      </div>
+      <h3 class="text-base sm:text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
+        <span class="inline-block w-1 h-6 bg-gradient-to-b from-blue-500 to-green-500 rounded-full"></span>
+        New → On Going → Pending → Closed
+      </h3>
+      <div class="relative">
+        <canvas id="chartStatus" class="w-full" style="max-height: 400px;"></canvas>
+      </div>
+    </section>
+
+    <!-- ===== 第二張圖：累積工作概況 ===== -->
+    <section class="chart-container animate-fadeIn" style="animation-delay: 0.2s;">
+      <div class="chart-badge">
+        <i data-lucide="activity" class="w-5 h-5 text-purple-600"></i>
+        <span>每週工作累積概況分析</span>
+      </div>
+      <h3 class="text-base sm:text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
+        <span class="inline-block w-1 h-6 bg-gradient-to-b from-blue-600 to-red-500 rounded-full"></span>
+        On Going → Closed → OverDue
+      </h3>
+      <div class="relative">
+        <canvas id="chartWorkload" class="w-full" style="max-height: 400px;"></canvas>
+      </div>
+    </section>
+
+    <!-- Footer 裝飾 -->
+    <div class="mt-8 pt-6 border-t border-gray-200 text-center">
+      <p class="text-xs text-gray-500 flex items-center justify-center gap-2">
+        <i data-lucide="shield-check" class="w-4 h-4 text-gray-400"></i>
+        <span>困難點會議管理系統 © 2025 - 數據統計儀表板</span>
+      </p>
+    </div>
+
+  </div>
+
+  <!-- JS 主程式 -->
+  <script src="../static/js/datachart.js"></script>
+
+</body>
+</html>

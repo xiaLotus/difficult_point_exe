@@ -9,6 +9,8 @@
     <script src="../static/js/package/axios.min.js"></script>
     <script src="../static/js/package/lucide.js"></script>
     <script src="../static/js/package/sweetalert2@11.js"></script>
+    <script src="../static/js/package/xlsx.min.js"></script>
+
 
     <style>
         html, body {
@@ -396,7 +398,6 @@
                                     <div class="text-xs text-gray-500">移除所有篩選條件</div>
                                 </div>
                             </button>
-                            
                             <!-- 欄位設定 -->
                             <button @click.stop="showMobileColumnSettings = true; showMobileMenu = false" 
                                 class="w-full text-left px-4 py-3 hover:bg-blue-50 flex items-center gap-3 text-gray-700 transition-colors group">
@@ -417,8 +418,19 @@
                             </button>
                             
                             <!-- 分隔線 -->
-                            <div class="border-t border-gray-200 mx-4 my-2"></div>
-                            
+                            <!-- <div class="border-t border-gray-200 mx-4 my-2"></div> -->
+                            <!-- 查閱圖表 -->
+                            <button @click.stop="goDataChart(); showMobileMenu = false"
+                                class="w-full text-left px-4 py-3 hover:bg-purple-50 flex items-center gap-3 text-gray-700 transition-colors group">
+                                <div class="w-9 h-9 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform shadow-md">
+                                    <i data-lucide="bar-chart-3" class="w-4 h-4 text-white"></i>
+                                </div>
+                                <div>
+                                    <div class="font-medium">查閱圖表</div>
+                                    <div class="text-xs text-gray-500">查看每週統計與趨勢</div>
+                                </div>
+                            </button>
+
                             <!-- 登出 -->
                             <button @click.stop="logout(); showMobileMenu = false" 
                                 class="w-full text-left px-4 py-3 hover:bg-red-50 flex items-center gap-3 text-red-600 transition-colors group">
@@ -505,6 +517,14 @@
                             </div>
                         </transition>
                     </div>
+                    <!-- 查閱圖表 -->
+                    <button @click="goDataChart"
+                        class="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-indigo-500 
+                            hover:from-purple-600 hover:to-indigo-600 text-white font-medium 
+                            px-4 py-2 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg group">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+                        <span>查閱圖表</span>
+                    </button>
                     
                     <!-- 登出按鈕 -->
                     <button @click="logout" 
@@ -1848,7 +1868,7 @@
                                 提案人
                             </label>
                             <!-- <input v-model="newRecord.提案人"  -->
-                            <input v-model="infoname" 
+                            <input v-model="this.infoname" 
                                 class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all input-focus" 
                                 placeholder="輸入提案人" />
                         </div>

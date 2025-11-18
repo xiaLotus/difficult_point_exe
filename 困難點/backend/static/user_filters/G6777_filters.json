@@ -1,5 +1,5 @@
 ﻿{
-  "username": "C8849",
+  "username": "G6777",
   "filter_state": {
     "checkedDates": [],
     "checkedBuildings": [],
@@ -9,16 +9,11 @@
     "checkedProposers": [],
     "checkedDescriptions": [],
     "checkedCaseCategories": [],
-    "checkedStatus": [
-      "Pending",
-      "New",
-      "Closed",
-      "On Going"
-    ],
+    "checkedStatus": [],
     "checkedPDCA": [],
     "checkedProjectOwners": [],
     "checkedDueDates": [],
     "checkedItemDueDates": []
   },
-  "last_updated": "2025-10-07T14:39:38.128352"
+  "last_updated": "2025-11-14T13:38:20.857292"
 }

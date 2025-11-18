@@ -1,4 +1,3 @@
-from tabulate import tabulate  # ✅ 新增 tabulate
 from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
 from ldap3 import Server, Connection, ALL, NTLM # type: ignore
@@ -13,6 +12,7 @@ import os
 from routes.auth import auth_bp  # ✅ 確保有匯入 Blueprint
 from routes.meeting_routes import meeting_bp
 from utils.config import config  # ✅ 匯入配置
+from waitress import serve
 
 def create_app():
     app = Flask(__name__)
@@ -53,4 +53,5 @@ def create_app():
 
 if __name__ == "__main__":
     app = create_app()
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    # serve(app, host='10.11.99.84', port=8115)
+    app.run()

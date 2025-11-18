@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 def authenticate_user(username, password):
     try:
-        # ✅ 從配置檔讀取 LDAP 設定
+        # # ✅ 從配置檔讀取 LDAP 設定
         # ldap_server = config.get('LDAP', 'server')
         # ldap_domain = config.get('LDAP', 'domain')
         

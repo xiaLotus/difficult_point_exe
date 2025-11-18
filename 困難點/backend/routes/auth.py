@@ -36,7 +36,7 @@ def get_infoname():
         # ✅ 從配置檔讀取路徑
         json_path = config.get_path('Paths', 'employee_info')
         
-        with open(json_path, "r", encoding="utf-8-sig") as f: # type: ignore
+        with open(json_path, "r", encoding="utf-8-sig") as f:
             infonames = json.load(f)
 
         result = next((item for item in infonames if item["工號"] == emp_id), None)
@@ -61,7 +61,7 @@ def check_Permission():
         # ✅ 從配置檔讀取路徑
         permissions_path = config.get_path('Paths', 'permissions')
         
-        with open(permissions_path, 'r', encoding='utf-8-sig') as f: # type: ignore
+        with open(permissions_path, 'r', encoding='utf-8') as f:
             permission_data = json.load(f)
     except Exception as e:
         logger.error(f"無法加載 proposals.json：{str(e)}")

@@ -2819,106 +2819,152 @@ const app = Vue.createApp({
         return;
       }
 
-      // 指定欄位順序
       const columns = [
-        '項次', '提案日期', '距今', '棟別', '樓層', '站點', '類別', '提案人', '案件分類',
-        '問題描述', 'PDCA', '截止日期', '專案Owner', '項目DueDate', '進度紀錄', 'Status'
+        '項次', '提案日期', '距今', '棟別', '樓層', '站點', '類別',
+        '提案人', '案件分類', '問題描述', 'PDCA', '截止日期',
+        '專案Owner', '項目DueDate', '進度紀錄', 'Status'
       ];
 
-      // 欄位標題（中文）
-      const titles = columns.map(col => `"${col}"`);
-      const rows = [titles.join(',')];
+      // 整理資料 & 避免科學記號 + 處理 Proxy(Array)
+      const exportData = this.filteredData.map(record => {
+        const row = {};
+        columns.forEach(col => {
+          let val = "";
 
-      this.filteredData.forEach(record => {
-        const row = columns.map(col => {
-          const val = record[col] !== undefined ? String(record[col]) : '';
-          return `"${val.replace(/"/g, '""')}"`;
+          if (col === "進度紀錄") {
+            const progress = record["進度紀錄"];
+            // ✅ 若是 Proxy 陣列，取第一筆
+            if (Array.isArray(progress)) {
+              val = progress[0] ?? "";
+            } else if (progress && typeof progress === "object" && progress.length !== undefined) {
+              // 若是 Proxy 但 Array.isArray 失敗，用 Object.values 取
+              val = Object.values(progress)[0] ?? "";
+            } else {
+              val = progress ?? "";
+            }
+          } else {
+            val = record[col] ?? "";
+          }
+
+          // ✅ 防止科學記號
+          if (col === "項次" || (/^\d+$/.test(val) && val.length > 11)) {
+            val = "" + val;
+          }
+
+          row[col] = val;
         });
-        rows.push(row.join(','));
+        return row;
       });
 
-      const csvContent = rows.join('\n');
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8-sig;' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = `困難點會議紀錄_${new Date().toISOString().slice(0, 10)}_(Security C).csv`;
-      link.click();
+      // 🔍 Debug 輸出，方便你確認實際內容
+      console.log("✅ 匯出資料 sample：", exportData[0]);
+
+      // 🔸 建立 worksheet
+      const worksheet = XLSX.utils.json_to_sheet(exportData, { header: columns });
+
+      // 🔸 標題列樣式（第一列）
+      columns.forEach((col, i) => {
+        const cellAddress = XLSX.utils.encode_cell({ r: 0, c: i });
+        if (worksheet[cellAddress]) {
+          worksheet[cellAddress].s = {
+            font: { bold: true, color: { rgb: "000000" } },
+            fill: { patternType: "solid", fgColor: { rgb: "DDDDDD" } },
+            alignment: { horizontal: "center", vertical: "center" },
+            border: {
+              top: { style: "thin", color: { rgb: "999999" } },
+              bottom: { style: "thin", color: { rgb: "999999" } },
+              left: { style: "thin", color: { rgb: "999999" } },
+              right: { style: "thin", color: { rgb: "999999" } },
+            },
+          };
+        }
+      });
+
+      // 🔸 整行上色邏輯
+      const range = XLSX.utils.decode_range(worksheet["!ref"]);
+      const statusIndex = columns.indexOf("Status");
+
+      for (let R = 1; R <= range.e.r; R++) {
+        const statusCell = XLSX.utils.encode_cell({ r: R, c: statusIndex });
+        const statusVal = (worksheet[statusCell]?.v || "").trim();
+
+        let fillColor = null;
+        if (statusVal === "New") fillColor = "FFF59D";        // 黃
+        else if (statusVal === "On Going") fillColor = "FFCC80"; // 橘
+        else if (statusVal === "Done" || statusVal === "完成") fillColor = "C8E6C9"; // 綠
+
+        if (fillColor) {
+          // 對該列每個儲存格上色
+          for (let C = 0; C <= range.e.c; C++) {
+            const cellAddress = XLSX.utils.encode_cell({ r: R, c: C });
+            if (!worksheet[cellAddress]) continue;
+
+            worksheet[cellAddress].s = {
+              fill: { patternType: "solid", fgColor: { rgb: fillColor } },
+              alignment: { vertical: "center" },
+              border: {
+                top: { style: "thin", color: { rgb: "BBBBBB" } },
+                bottom: { style: "thin", color: { rgb: "BBBBBB" } },
+                left: { style: "thin", color: { rgb: "BBBBBB" } },
+                right: { style: "thin", color: { rgb: "BBBBBB" } },
+              },
+            };
+          }
+        }
+      }
+
+      // 🔸 自動調整欄寬
+      const colWidths = columns.map(col => {
+        const maxLength = Math.max(
+          col.length,
+          ...exportData.map(row => String(row[col] || "").length)
+        );
+        return { wch: Math.min(maxLength + 2, 40) };
+      });
+      worksheet["!cols"] = colWidths;
+
+      // 🔸 匯出
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "困難點會議紀錄");
+      const filename = `困難點會議紀錄_${new Date().toISOString().slice(0, 10)}_(Security C).xlsx`;
+      XLSX.writeFile(workbook, filename);
     },
 
-    // 在 methods 中新增
-    // async saveFilterState() {
-    //   if (!this.username) return;
 
-    //   const filterState = {
-    //     checkedDates: this.checkedDates,
-    //     checkedBuildings: this.checkedBuildings,
-    //     checkedFloors: this.checkedFloors,
-    //     checkedStations: this.checkedStations,
-    //     checkedCategories: this.checkedCategories,
-    //     checkedProposers: this.checkedProposers,
-    //     checkedDescriptions: this.checkedDescriptions,
-    //     checkedCaseCategories: this.checkedCaseCategories,
-    //     checkedStatus: this.checkedStatus,
-    //     checkedPDCA: this.checkedPDCA,
-    //     checkedProjectOwners: this.checkedProjectOwners,
-    //     checkedDueDates: this.checkedDueDates,
-    //     checkedItemDueDates: this.checkedItemDueDates
-    //   };
+      async saveFilterState() {
+        if (!this.username) return;
 
-    //   try {
-    //     const res = await axios.post(
-    //       "http://127.0.0.1:5000/api/save_filter_state",
-    //       {
-    //         username: this.username,
-    //         filter_state: filterState
-    //       }
-    //     );
+        const filter_state = {
+            checkedDates: this.checkedDates,
+            checkedBuildings: this.checkedBuildings,
+            checkedFloors: this.checkedFloors,
+            checkedStations: this.checkedStations,
+            checkedCategories: this.checkedCategories,
+            checkedProposers: this.checkedProposers,
+            checkedDescriptions: this.checkedDescriptions,
+            checkedCaseCategories: this.checkedCaseCategories,
+            checkedStatus: this.checkedStatus,
+            checkedPDCA: this.checkedPDCA,
+            checkedProjectOwners: this.checkedProjectOwners,
+            checkedDueDates: this.checkedDueDates,
+            checkedItemDueDates: this.checkedItemDueDates
+        };
 
-    //     // 🆕 檢查回傳格式
-    //     if (res.data && res.data.status === "success") {
-    //       console.log("✅ 篩選狀態已保存");
-    //     } else {
-    //       console.warn("⚠️ 後端沒有回傳成功格式:", res.data);
-    //     }
-    //   } catch (error) {
-    //     console.error("保存篩選狀態失敗:", error.message || error);
-    //   }
-    // },
+        try {
+            const response = await axios.post('http://127.0.0.1:5000/api/save_filter_state', {
+                username: this.username,
+                filter_state: filter_state
+            });
 
-    async saveFilterState() {
-      if (!this.username) return;
-
-      const filter_state = {
-          checkedDates: this.checkedDates,
-          checkedBuildings: this.checkedBuildings,
-          checkedFloors: this.checkedFloors,
-          checkedStations: this.checkedStations,
-          checkedCategories: this.checkedCategories,
-          checkedProposers: this.checkedProposers,
-          checkedDescriptions: this.checkedDescriptions,
-          checkedCaseCategories: this.checkedCaseCategories,
-          checkedStatus: this.checkedStatus,
-          checkedPDCA: this.checkedPDCA,
-          checkedProjectOwners: this.checkedProjectOwners,
-          checkedDueDates: this.checkedDueDates,
-          checkedItemDueDates: this.checkedItemDueDates
-      };
-
-      try {
-          const response = await axios.post('http://127.0.0.1:5000/api/save_filter_state', {
-              username: this.username,
-              filter_state: filter_state
-          });
-
-          if (response.data.status === 'success') {
-              console.log('✅ 篩選狀態已儲存');
-          } else {
-              console.warn('⚠️ 儲存失敗:', response.data.message);
-          }
-      } catch (error) {
-          console.error('❌ 儲存篩選狀態失敗:', error);
-      }
-  },
+            if (response.data.status === 'success') {
+                console.log('✅ 篩選狀態已儲存');
+            } else {
+                console.warn('⚠️ 儲存失敗:', response.data.message);
+            }
+        } catch (error) {
+            console.error('❌ 儲存篩選狀態失敗:', error);
+        }
+    },
 
       async loadFilterState() {
         if (!this.username) return;
@@ -2940,36 +2986,6 @@ const app = Vue.createApp({
             this.isLoadingFilters = false;
         }
     },
-    // async loadFilterState() {
-    //     if (!this.username) return;
-        
-    //     try {
-    //         const response = await axios.get(`http://127.0.0.1:5000/api/load_filter_state?username=${encodeURIComponent(this.username)}`);
-            
-    //         if (response.data.status === 'success' && response.data.filter_state) {
-    //             const state = response.data.filter_state;
-                
-    //             // 載入所有篩選狀態
-    //             this.checkedDates = state.checkedDates || [];
-    //             this.checkedBuildings = state.checkedBuildings || [];
-    //             this.checkedFloors = state.checkedFloors || [];
-    //             this.checkedStations = state.checkedStations || [];
-    //             this.checkedCategories = state.checkedCategories || [];
-    //             this.checkedProposers = state.checkedProposers || [];
-    //             this.checkedDescriptions = state.checkedDescriptions || [];
-    //             this.checkedCaseCategories = state.checkedCaseCategories || [];
-    //             this.checkedStatus = state.checkedStatus || [];
-    //             this.checkedPDCA = state.checkedPDCA || [];
-    //             this.checkedProjectOwners = state.checkedProjectOwners || [];
-    //             this.checkedDueDates = state.checkedDueDates || [];
-    //             this.checkedItemDueDates = state.checkedItemDueDates || [];
-                
-    //             console.log('篩選狀態已從後台載入');
-    //         }
-    //     } catch (error) {
-    //         console.error('載入篩選狀態失敗:', error);
-    //     }
-    // },
 
     // ✅ 套用篩選狀態
     applyFilters(filters) {
@@ -3030,8 +3046,11 @@ const app = Vue.createApp({
             console.error('❌ 載入篩選狀態失敗:', error);
         }
     },
-
-    
+    goDataChart() {
+        const username = localStorage.getItem('username') || '';
+        window.location.href = `datachart.html?username=${encodeURIComponent(username)}`;
+    }
+        
   },
   
   watch: {
@@ -3096,7 +3115,25 @@ const app = Vue.createApp({
     this.username = urlParams.get("username");
     
     console.log("🔌 Vue 應用已掛載,使用者:", this.username);
-    
+    if (!this.username || this.username === 'null' || this.username === null) {
+      console.warn("⚠️ 偵測到 username 為 null，執行登出並重定向到登入頁面");
+      
+      // 清除所有相關的 localStorage 資料
+      try {
+        localStorage.removeItem('username');
+        localStorage.removeItem('selectedRowId');
+        localStorage.removeItem('scrollPosition');
+        localStorage.removeItem('columnVisibility');
+        console.log("🧹 已清除 localStorage 資料");
+      } catch (e) {
+        console.error("清除 localStorage 時發生錯誤:", e);
+      }
+      
+      // 立即重定向到登入頁面
+      window.location.href = '../index.html';
+      return; // 停止執行後續代碼
+    }
+
     this.loadColumnVisibility();
     
     if (this.username) {

@@ -2,6 +2,7 @@ const app = Vue.createApp({
   data() {
     return {
       username: null,
+      infoname: '',
       recordId: null,
       scrollPosition: 0,
       hasUnsavedChanges: false,
@@ -180,8 +181,9 @@ const app = Vue.createApp({
           this.userRole = '提案人';
           this.isReadOnly = true;
           this.permissionChecked = true;
-          console.log(`✓ 用戶 ${this.username} 擁有提案人權限 - 只能查看`);
-          await this.showViewModeDialog('提案人');
+          console.log(`✓ 用戶 ${this.username} 擁有提案人權限`);
+          // 注意：提案人是否可編輯自己的案件，將在 loadRecordData 中判斷
+          // 暫不顯示唯讀對話框，待 loadRecordData 判斷是否為本人案件後再決定
           return true;
         }
 
@@ -191,7 +193,7 @@ const app = Vue.createApp({
           this.isReadOnly = true;
           this.permissionChecked = true;
           console.log(`✓ 用戶 ${this.username} 擁有預覽人權限 - 只能查看`);
-          await this.showViewModeDialog('預覽人');
+          // await this.showViewModeDialog('預覽人');
           return true;
         }
 
@@ -482,6 +484,23 @@ parseUrlParams() {
             
             console.log("記錄資料載入成功:", this.recordData);
             console.log("用戶角色:", this.userRole, "唯讀模式:", this.isReadOnly);
+            // 🆕 權限判斷：提案人只能編輯自己的案件
+            if (this.userRole === '提案人') {
+              if (this.recordData.提案人 === this.username) {
+                // 提案人是本人，允許編輯
+                this.isReadOnly = false;
+                console.log(`✅ 提案人 ${this.username} 可修改自己的案件`);
+              } else {
+                // 提案人不是本人，強制唯讀
+                this.isReadOnly = true;
+                console.log(`🔒 提案人 ${this.username} 僅可查看他人案件`);
+                await this.showViewModeDialog('提案人');
+              }
+            } else if (this.userRole === '預覽人') {
+              // 預覽人始終唯讀
+              this.isReadOnly = true;
+              await this.showViewModeDialog('預覽人');
+            }
           } else {
             console.error("找不到對應的記錄");
             await Swal.fire({
@@ -868,11 +887,13 @@ parseUrlParams() {
     // === 儲存功能 ===
     async saveRecord(silent = false) {
       if (this.isReadOnly) {
+        // 如果真的是唯讀（例如看別人案件），才提示
         if (!silent) {
-          this.checkOperationPermission();
+          this.checkOperationPermission(); // 會提示 + reset
         }
         return false;
       }
+
       
       try {
         const requiredFields = [
@@ -1006,7 +1027,23 @@ parseUrlParams() {
         }
         return false;
       }
-    }
+    },
+      async getUserInfoName(){
+        try {
+            const response = await axios.get(`http://127.0.0.1:5000/api/getinfoname`, {
+              params: { username: this.username }  // 傳遞當前使用者
+            });
+
+            if (response.data.status === 'success') {
+                console.log("✅ infoname:", response.data.姓名);  // ✅ 改這裡
+                this.infoname = response.data.姓名
+            } else {
+                console.warn('⚠️ 後端沒有儲存的篩選資料');
+            }
+        } catch (error) {
+            console.error('❌ 載入篩選狀態失敗:', error);
+        }
+    },
   },
 
   watch: {
@@ -1023,29 +1060,42 @@ parseUrlParams() {
 
   async mounted() {
     this.parseUrlParams();
-    // --- 【新增】載入員工資料 ---
-    this.loadAllOwnersData()
+    this.loadAllOwnersData();
     this.newProgressRecord = this.getTodayDatePrefix();
-    
-    if (this.username && this.recordId) {
-      // 先檢查權限
-      const hasPermission = await this.checkUserPermission();
-      if (!hasPermission) return;
-      
-      // 設置頁面離開檢測（只有非唯讀模式才需要）
-      if (!this.isReadOnly) {
-        this.setupBeforeUnloadHandler();
-      }
-      
-      await this.loadRecordData();
-    } else {
-      console.warn("缺少必要參數，返回主頁面");
+    this.getUserInfoName();
+    if (!this.username || !this.recordId) {
       this.goBack();
+      return;
     }
 
-    this.$nextTick(() => {
-      lucide.createIcons();
-    });
+    // 1️⃣ 先檢查基本權限（是否為管理員/編輯人/提案人/預覽人）
+    const hasPermission = await this.checkUserPermission();
+    if (!hasPermission) return;
+
+    // 2️⃣ 再載入記錄資料
+    await this.loadRecordData();
+
+    // 3️⃣ 載完後，針對「提案人」做「是否本人」的最終判斷
+    if (this.userRole === '提案人') {
+      if (this.infoname === this.recordData.提案人 && this.recordData.Status === 'New') {
+        this.isReadOnly = false;
+        console.log(`提案人: ${this.recordData.提案人}`)
+        console.log(`✅ 提案人 ${this.username} 可修改自己的案件`);
+      } else {
+        this.isReadOnly = true;
+        console.log(`🔒 提案人 ${this.username} 僅可查看他人案件`);
+        // await this.showViewModeDialog('提案人'); // ✅ 只彈一次
+      }
+    }
+
+    // 4️⃣ 設置離開頁面監聽（僅非唯讀）
+    if (!this.isReadOnly) {
+      this.setupBeforeUnloadHandler();
+    }
+
+    this.$nextTick(() => 
+      lucide.createIcons()
+    );
     document.addEventListener('click', this.handleClickOutside);
   },
 
