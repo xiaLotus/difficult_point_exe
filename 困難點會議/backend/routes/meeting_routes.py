@@ -40,15 +40,28 @@ def upload_meeting_images():
     """
     上傳多張圖片到指定記錄的資料夾
     
+    Query Parameters:
+        username (str): 上傳者的員工編號
+    
     請求格式 (multipart/form-data):
-    - record_id: 記錄的 UUID
-    - images: 多個圖片檔案
+        record_id (str): 記錄的 UUID
+        images (files): 多個圖片檔案
     """
     try:
+        # ✅ 獲取上傳者信息
+        username = request.args.get('username')
+        if not username:
+            logger.warning("圖片上傳請求缺少 username 參數")
+            return jsonify({
+                'status': 'error',
+                'message': '缺少 username 參數'
+            }), 400
+        
         record_id = request.form.get('record_id')
         
         # 驗證 record_id
         if not record_id:
+            logger.warning(f"用戶 {username} 的圖片上傳請求缺少 record_id")
             return jsonify({
                 'status': 'error',
                 'message': '缺少 record_id 參數'
@@ -58,10 +71,14 @@ def upload_meeting_images():
         files = request.files.getlist('images')
         
         if not files or len(files) == 0:
+            logger.warning(f"用戶 {username} 的圖片上傳請求沒有包含圖片文件")
             return jsonify({
                 'status': 'error',
                 'message': '沒有上傳任何圖片'
             }), 400
+        
+        # ✅ 記錄上傳開始
+        logger.info(f"📤 用戶 {username} 開始上傳圖片 - 記錄ID: {record_id}, 圖片數量: {len(files)}")
         
         # 取得/建立資料夾
         folder_path = get_image_folder(record_id)
@@ -77,11 +94,13 @@ def upload_meeting_images():
             if file and file.filename:
                 # 驗證檔案類型
                 if not allowed_file(file.filename):
-                    errors.append(f'{file.filename}: 不支援的檔案格式')
+                    error_msg = f'{file.filename}: 不支援的檔案格式'
+                    errors.append(error_msg)
+                    logger.warning(f"用戶 {username} 上傳失敗 - {error_msg}")
                     continue
                 
                 # 生成安全的檔案名稱
-                # 格式: 序號_日期時間_原始檔名
+                # 格式: 序號_日期時間_UUID.副檔名
                 original_ext = file.filename.rsplit('.', 1)[1].lower()
                 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
                 new_filename = f"{start_index + idx}_{timestamp}_{uuid.uuid4().hex[:8]}.{original_ext}"
@@ -90,12 +109,36 @@ def upload_meeting_images():
                 file_path = os.path.join(folder_path, new_filename)
                 file.save(file_path)
                 
+                # 獲取文件大小
+                file_size = os.path.getsize(file_path)
+                file_size_mb = file_size / (1024 * 1024)
+                
+                # ✅ 記錄每個成功上傳的文件
+                logger.info(
+                    f"✅ 圖片上傳成功 - "
+                    f"用戶: {username}, "
+                    f"記錄ID: {record_id}, "
+                    f"原始文件名: {file.filename}, "
+                    f"新文件名: {new_filename}, "
+                    f"大小: {file_size_mb:.2f}MB"
+                )
+                
                 # 記錄成功上傳的檔案
                 uploaded_files.append({
                     'filename': new_filename,
                     'original_name': file.filename,
                     'path': f'../../backend/static/meeting_images/{record_id}/{new_filename}'
                 })
+        
+        # ✅ 記錄上傳完成摘要
+        if uploaded_files:
+            logger.info(
+                f"📊 上傳完成 - "
+                f"用戶: {username}, "
+                f"記錄ID: {record_id}, "
+                f"成功: {len(uploaded_files)}張, "
+                f"失敗: {len(errors)}張"
+            )
         
         return jsonify({
             'status': 'success',
@@ -106,6 +149,9 @@ def upload_meeting_images():
         })
         
     except Exception as e:
+        username = request.args.get('username', '未知')
+        record_id = request.form.get('record_id', '未知')
+        logger.error(f"❌ 圖片上傳失敗 - 用戶: {username}, 記錄ID: {record_id}, 錯誤: {str(e)}")
         return jsonify({
             'status': 'error',
             'message': f'上傳失敗: {str(e)}'
@@ -157,17 +203,89 @@ def get_meeting_images(record_id):
         }), 500
 
 
+@meeting_bp.route('/get_meeting_image/<record_id>/<filename>', methods=['GET'])
+def get_meeting_image(record_id, filename):
+    """
+    獲取會議圖片
+    
+    URL Parameters:
+        record_id (str): 記錄 ID
+        filename (str): 圖片文件名
+        
+    Query Parameters:
+        username (str): 用戶員工編號
+        
+    Returns:
+        File: 圖片文件
+    """
+    from flask import send_file
+    import mimetypes
+    
+    try:
+        username = request.args.get('username')
+        if not username:
+            return jsonify({
+                'status': 'error',
+                'message': '缺少 username 參數'
+            }), 400
+        
+        # 獲取圖片路徑
+        base_path = config.get_path('Paths', 'meeting_images')
+        image_path = os.path.join(base_path, record_id, secure_filename(filename))
+        
+        if not os.path.exists(image_path):
+            logger.error(f"圖片不存在: {image_path}")
+            return jsonify({
+                'status': 'error',
+                'message': '圖片不存在'
+            }), 404
+        
+        # ✅ 根據文件擴展名動態設置 MIME type
+        mimetype, _ = mimetypes.guess_type(filename)
+        if mimetype is None:
+            mimetype = 'application/octet-stream'  # 默認類型
+        
+        logger.info(f"返回圖片: {filename}, MIME type: {mimetype}")
+        
+        # 返回圖片文件
+        return send_file(image_path, mimetype=mimetype)
+        
+    except Exception as e:
+        logger.error(f"獲取會議圖片失敗: {e}")
+        return jsonify({
+            'status': 'error',
+            'message': f'獲取圖片失敗: {str(e)}'
+        }), 500
+
+
 @meeting_bp.route('/delete_meeting_image', methods=['POST'])
 def delete_meeting_image():
     """
     刪除指定的圖片
+    
+    Query Parameters:
+        username (str): 執行刪除的用戶員工編號
+    
+    Request Body:
+        record_id (str): 記錄 ID
+        filename (str): 圖片文件名
     """
     try:
+        # ✅ 獲取用戶信息
+        username = request.args.get('username')
+        if not username:
+            logger.warning("圖片刪除請求缺少 username 參數")
+            return jsonify({
+                'status': 'error',
+                'message': '缺少 username 參數'
+            }), 400
+        
         data = request.json
         record_id = data.get('record_id')
         filename = data.get('filename')
         
         if not record_id or not filename:
+            logger.warning(f"用戶 {username} 的圖片刪除請求缺少必要參數")
             return jsonify({
                 'status': 'error',
                 'message': '缺少必要參數'
@@ -177,18 +295,50 @@ def delete_meeting_image():
         file_path = os.path.join(base_path, record_id, secure_filename(filename))
         
         if os.path.exists(file_path):
+            # 獲取文件大小（刪除前）
+            file_size = os.path.getsize(file_path)
+            file_size_mb = file_size / (1024 * 1024)
+            
+            # 刪除文件
             os.remove(file_path)
+            
+            # ✅ 記錄刪除操作
+            logger.info(
+                f"🗑️ 圖片已刪除 - "
+                f"用戶: {username}, "
+                f"記錄ID: {record_id}, "
+                f"文件名: {filename}, "
+                f"大小: {file_size_mb:.2f}MB"
+            )
+            
             return jsonify({
                 'status': 'success',
                 'message': '圖片已刪除'
             })
         else:
+            logger.warning(
+                f"⚠️ 圖片刪除失敗(文件不存在) - "
+                f"用戶: {username}, "
+                f"記錄ID: {record_id}, "
+                f"文件名: {filename}"
+            )
             return jsonify({
                 'status': 'error',
                 'message': '圖片不存在'
             }), 404
             
     except Exception as e:
+        username = request.args.get('username', '未知')
+        record_id = data.get('record_id', '未知') if 'data' in locals() else '未知'
+        filename = data.get('filename', '未知') if 'data' in locals() else '未知'
+        
+        logger.error(
+            f"❌ 圖片刪除失敗 - "
+            f"用戶: {username}, "
+            f"記錄ID: {record_id}, "
+            f"文件名: {filename}, "
+            f"錯誤: {str(e)}"
+        )
         return jsonify({
             'status': 'error',
             'message': f'刪除失敗: {str(e)}'
@@ -199,26 +349,67 @@ def delete_meeting_image():
 def delete_all_meeting_images(record_id):
     """
     刪除指定記錄的所有圖片（包含資料夾）
+    
+    Query Parameters:
+        username (str): 執行刪除的用戶員工編號
     """
     try:
         import shutil
+        
+        # ✅ 獲取用戶信息
+        username = request.args.get('username')
+        if not username:
+            logger.warning("批量刪除圖片請求缺少 username 參數")
+            return jsonify({
+                'status': 'error',
+                'message': '缺少 username 參數'
+            }), 400
         
         base_path = config.get_path('Paths', 'meeting_images')
         folder_path = os.path.join(base_path, record_id)
         
         if os.path.exists(folder_path):
+            # ✅ 計算要刪除的圖片數量和總大小
+            image_files = [f for f in os.listdir(folder_path) if allowed_file(f)]
+            total_count = len(image_files)
+            total_size = sum(os.path.getsize(os.path.join(folder_path, f)) for f in image_files)
+            total_size_mb = total_size / (1024 * 1024)
+            
+            # 刪除整個文件夾
             shutil.rmtree(folder_path)
+            
+            # ✅ 記錄批量刪除操作
+            logger.info(
+                f"🗑️ 批量刪除圖片 - "
+                f"用戶: {username}, "
+                f"記錄ID: {record_id}, "
+                f"刪除數量: {total_count}張, "
+                f"總大小: {total_size_mb:.2f}MB"
+            )
+            
             return jsonify({
                 'status': 'success',
                 'message': '已刪除該記錄的所有圖片'
             })
         else:
+            logger.info(
+                f"ℹ️ 批量刪除圖片(無圖片) - "
+                f"用戶: {username}, "
+                f"記錄ID: {record_id}"
+            )
             return jsonify({
                 'status': 'success',
                 'message': '該記錄沒有圖片'
             })
             
     except Exception as e:
+        username = request.args.get('username', '未知')
+        logger.error(
+            f"❌ 批量刪除圖片失敗 - "
+            f"用戶: {username}, "
+            f"記錄ID: {record_id}, "
+            f"錯誤: {str(e)}"
+        )
         return jsonify({
             'status': 'error',
             'message': f'刪除失敗: {str(e)}'

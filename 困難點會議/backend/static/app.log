@@ -5970,3 +5970,309 @@
 2025-12-07 21:34:23 [INFO] werkzeug: 127.0.0.1 - - [07/Dec/2025 21:34:23] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
 2025-12-07 21:34:24 [INFO] werkzeug: 127.0.0.1 - - [07/Dec/2025 21:34:24] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
 2025-12-07 21:34:24 [INFO] werkzeug: 127.0.0.1 - - [07/Dec/2025 21:34:24] "POST /api/save_filter_state HTTP/1.1" 200 -
+2025-12-09 19:00:45 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-12-09 19:00:45 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2025-12-09 19:26:22 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '預覽人'}
+2025-12-09 19:26:22 [INFO] routes.auth: 確認 K18251 具備 預覽人 的權限
+2025-12-09 19:26:22 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:26:22] "GET /api/check_Permission?filename=K18251&role=預覽人 HTTP/1.1" 200 -
+2025-12-09 19:26:22 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:26:22] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-12-09 19:26:22 [INFO] routes.auth: 收到用戶名為 K18251 的登錄請求
+2025-12-09 19:26:22 [INFO] utils.auth: K18251 成功登入
+2025-12-09 19:26:22 [INFO] routes.auth: 用戶名為 K18251 的登錄成功
+2025-12-09 19:26:22 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:26:22] "POST /api/login HTTP/1.1" 200 -
+2025-12-09 19:26:23 [INFO] root: 處理完成，共 45 筆記錄
+2025-12-09 19:26:23 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2025-12-09 19:26:23 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:26:23] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:26:25 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2025-12-09 19:26:25 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2025-12-09 19:26:25 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:26:25] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2025-12-09 19:26:25 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:26:25] "GET /api/load_filter_state?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:26:25 [INFO] root: 處理完成，共 45 筆記錄
+2025-12-09 19:26:25 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2025-12-09 19:26:25 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:26:25] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:26:25 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2025-12-09 19:26:25 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:26:25] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:26:26 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:26:26] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2025-12-09 19:26:26 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:26:26] "POST /api/save_filter_state HTTP/1.1" 200 -
+2025-12-09 19:27:12 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2025-12-09 19:27:12 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2025-12-09 19:27:12 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:12] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2025-12-09 19:27:12 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:12] "GET /api/load_filter_state?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:27:12 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2025-12-09 19:27:12 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:12] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:27:12 [INFO] root: 處理完成，共 45 筆記錄
+2025-12-09 19:27:12 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2025-12-09 19:27:12 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:12] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:27:12 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:12] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2025-12-09 19:27:12 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:12] "POST /api/save_filter_state HTTP/1.1" 200 -
+2025-12-09 19:27:17 [INFO] root: D:\網頁\困難點會議\backend\static\emoinfo.json 資訊已上拋
+2025-12-09 19:27:17 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:17] "GET /api/get_all_owners HTTP/1.1" 200 -
+2025-12-09 19:27:17 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2025-12-09 19:27:17 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:17] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:27:17 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2025-12-09 19:27:17 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2025-12-09 19:27:17 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:17] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2025-12-09 19:27:17 [INFO] root: 處理完成，共 45 筆記錄
+2025-12-09 19:27:17 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2025-12-09 19:27:17 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:17] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:27:17 [INFO] utils.progress_manager: 載入記錄 20251206111232 的進度歷史，共 3 筆
+2025-12-09 19:27:17 [INFO] routes.meeting_routes: K18251 取得記錄 20251206111232 的進度歷史
+2025-12-09 19:27:17 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:17] "GET /api/get_progress_history/20251206111232?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:27:18 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:18] "GET /api/get_meeting_images/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:27:18 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:18] "GET /api/get_comments/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:27:18 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:18] "[33mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1_20251206_180151_64a47fe2.jpg?username=K18251 HTTP/1.1[0m" 404 -
+2025-12-09 19:27:18 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:18] "[33mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/6_20251206_180151_2552bb2e.png?username=K18251 HTTP/1.1[0m" 404 -
+2025-12-09 19:27:18 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:18] "[33mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/8_20251206_180151_ab5ba77e.png?username=K18251 HTTP/1.1[0m" 404 -
+2025-12-09 19:27:20 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:20] "[33mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1_20251206_180151_64a47fe2.jpg?username=K18251 HTTP/1.1[0m" 404 -
+2025-12-09 19:27:32 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:32] "OPTIONS /api/add_comment?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:27:32 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:32] "POST /api/add_comment?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:27:32 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:32] "POST /api/upload_comment_images?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:27:32 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:32] "GET /api/get_comments/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:27:32 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:32] "GET /api/get_comment_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1765279652802_img1.jpg?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:27:34 [INFO] root: D:\網頁\困難點會議\backend\static\emoinfo.json 資訊已上拋
+2025-12-09 19:27:34 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:34] "GET /api/get_all_owners HTTP/1.1" 200 -
+2025-12-09 19:27:34 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2025-12-09 19:27:34 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:34] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:27:34 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2025-12-09 19:27:34 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2025-12-09 19:27:34 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:34] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2025-12-09 19:27:34 [INFO] root: 處理完成，共 45 筆記錄
+2025-12-09 19:27:34 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2025-12-09 19:27:34 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:34] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:27:34 [INFO] utils.progress_manager: 載入記錄 20251206111232 的進度歷史，共 3 筆
+2025-12-09 19:27:34 [INFO] routes.meeting_routes: K18251 取得記錄 20251206111232 的進度歷史
+2025-12-09 19:27:34 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:34] "GET /api/get_progress_history/20251206111232?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:27:35 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:35] "GET /api/get_meeting_images/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:27:35 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:35] "GET /api/get_comments/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:27:35 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:35] "[33mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1_20251206_180151_64a47fe2.jpg?username=K18251 HTTP/1.1[0m" 404 -
+2025-12-09 19:27:35 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:35] "[33mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/6_20251206_180151_2552bb2e.png?username=K18251 HTTP/1.1[0m" 404 -
+2025-12-09 19:27:35 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:35] "[33mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/8_20251206_180151_ab5ba77e.png?username=K18251 HTTP/1.1[0m" 404 -
+2025-12-09 19:27:35 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:35] "[36mGET /api/get_comment_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1765279652802_img1.jpg?username=K18251 HTTP/1.1[0m" 304 -
+2025-12-09 19:27:37 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:27:37] "[33mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1_20251206_180151_64a47fe2.jpg?username=K18251 HTTP/1.1[0m" 404 -
+2025-12-09 19:33:33 [INFO] root: D:\網頁\困難點會議\backend\static\emoinfo.json 資訊已上拋
+2025-12-09 19:33:33 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:33] "GET /api/get_all_owners HTTP/1.1" 200 -
+2025-12-09 19:33:33 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2025-12-09 19:33:33 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:33] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:33 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2025-12-09 19:33:33 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2025-12-09 19:33:33 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:33] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2025-12-09 19:33:33 [INFO] root: 處理完成，共 45 筆記錄
+2025-12-09 19:33:33 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2025-12-09 19:33:33 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:33] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:33 [INFO] utils.progress_manager: 載入記錄 20251206111232 的進度歷史，共 3 筆
+2025-12-09 19:33:33 [INFO] routes.meeting_routes: K18251 取得記錄 20251206111232 的進度歷史
+2025-12-09 19:33:33 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:33] "GET /api/get_progress_history/20251206111232?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:33 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:33] "GET /api/get_meeting_images/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:33 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:33] "GET /api/get_comments/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:33 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:33] "[33mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1_20251206_180151_64a47fe2.jpg?username=K18251 HTTP/1.1[0m" 404 -
+2025-12-09 19:33:33 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:33] "[33mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/6_20251206_180151_2552bb2e.png?username=K18251 HTTP/1.1[0m" 404 -
+2025-12-09 19:33:33 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:33] "[33mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/8_20251206_180151_ab5ba77e.png?username=K18251 HTTP/1.1[0m" 404 -
+2025-12-09 19:33:33 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:33] "[36mGET /api/get_comment_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1765279652802_img1.jpg?username=K18251 HTTP/1.1[0m" 304 -
+2025-12-09 19:33:36 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-12-09 19:33:36 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2025-12-09 19:33:37 [INFO] root: D:\網頁\困難點會議\backend\static\emoinfo.json 資訊已上拋
+2025-12-09 19:33:37 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:37] "GET /api/get_all_owners HTTP/1.1" 200 -
+2025-12-09 19:33:37 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2025-12-09 19:33:37 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:37] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:37 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2025-12-09 19:33:37 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2025-12-09 19:33:37 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:37] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2025-12-09 19:33:37 [INFO] root: 處理完成，共 45 筆記錄
+2025-12-09 19:33:37 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2025-12-09 19:33:37 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:37] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:37 [INFO] utils.progress_manager: 載入記錄 20251206111232 的進度歷史，共 3 筆
+2025-12-09 19:33:37 [INFO] routes.meeting_routes: K18251 取得記錄 20251206111232 的進度歷史
+2025-12-09 19:33:37 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:37] "GET /api/get_progress_history/20251206111232?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:37 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:37] "GET /api/get_meeting_images/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:37 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:37] "GET /api/get_comments/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:37 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:37] "[36mGET /api/get_comment_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1765279652802_img1.jpg?username=K18251 HTTP/1.1[0m" 304 -
+2025-12-09 19:33:37 [INFO] routes.meeting_routes: 返回圖片: 1_20251206_180151_64a47fe2.jpg, MIME type: image/jpeg
+2025-12-09 19:33:37 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:37] "GET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1_20251206_180151_64a47fe2.jpg?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:37 [INFO] routes.meeting_routes: 返回圖片: 6_20251206_180151_2552bb2e.png, MIME type: image/png
+2025-12-09 19:33:37 [INFO] routes.meeting_routes: 返回圖片: 8_20251206_180151_ab5ba77e.png, MIME type: image/png
+2025-12-09 19:33:37 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:37] "GET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/8_20251206_180151_ab5ba77e.png?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:37 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:37] "GET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/6_20251206_180151_2552bb2e.png?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:45 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:45] "OPTIONS /api/delete_meeting_image?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:45 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:45] "POST /api/delete_meeting_image?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:47 [INFO] root: D:\網頁\困難點會議\backend\static\emoinfo.json 資訊已上拋
+2025-12-09 19:33:47 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:47] "GET /api/get_all_owners HTTP/1.1" 200 -
+2025-12-09 19:33:47 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2025-12-09 19:33:47 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:47] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:47 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2025-12-09 19:33:47 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2025-12-09 19:33:47 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:47] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2025-12-09 19:33:47 [INFO] root: 處理完成，共 45 筆記錄
+2025-12-09 19:33:47 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2025-12-09 19:33:47 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:47] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:47 [INFO] utils.progress_manager: 載入記錄 20251206111232 的進度歷史，共 3 筆
+2025-12-09 19:33:47 [INFO] routes.meeting_routes: K18251 取得記錄 20251206111232 的進度歷史
+2025-12-09 19:33:47 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:47] "GET /api/get_progress_history/20251206111232?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:47 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:47] "GET /api/get_meeting_images/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:47 [INFO] routes.meeting_routes: 返回圖片: 6_20251206_180151_2552bb2e.png, MIME type: image/png
+2025-12-09 19:33:47 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:47] "[36mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/6_20251206_180151_2552bb2e.png?username=K18251 HTTP/1.1[0m" 304 -
+2025-12-09 19:33:47 [INFO] routes.meeting_routes: 返回圖片: 8_20251206_180151_ab5ba77e.png, MIME type: image/png
+2025-12-09 19:33:47 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:47] "[36mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/8_20251206_180151_ab5ba77e.png?username=K18251 HTTP/1.1[0m" 304 -
+2025-12-09 19:33:47 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:47] "GET /api/get_comments/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:47 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:47] "[36mGET /api/get_comment_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1765279652802_img1.jpg?username=K18251 HTTP/1.1[0m" 304 -
+2025-12-09 19:33:50 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:50] "OPTIONS /api/delete_meeting_image?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:50 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:50] "POST /api/delete_meeting_image?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:52 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:52] "OPTIONS /api/delete_meeting_image?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:52 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:52] "POST /api/delete_meeting_image?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:53 [INFO] root: D:\網頁\困難點會議\backend\static\emoinfo.json 資訊已上拋
+2025-12-09 19:33:53 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:53] "GET /api/get_all_owners HTTP/1.1" 200 -
+2025-12-09 19:33:53 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2025-12-09 19:33:53 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:53] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:53 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2025-12-09 19:33:53 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2025-12-09 19:33:53 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:53] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2025-12-09 19:33:53 [INFO] root: 處理完成，共 45 筆記錄
+2025-12-09 19:33:53 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2025-12-09 19:33:53 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:53] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:53 [INFO] utils.progress_manager: 載入記錄 20251206111232 的進度歷史，共 3 筆
+2025-12-09 19:33:53 [INFO] routes.meeting_routes: K18251 取得記錄 20251206111232 的進度歷史
+2025-12-09 19:33:53 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:53] "GET /api/get_progress_history/20251206111232?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:54 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:54] "GET /api/get_meeting_images/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:54 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:54] "GET /api/get_comments/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:33:54 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:33:54] "[36mGET /api/get_comment_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1765279652802_img1.jpg?username=K18251 HTTP/1.1[0m" 304 -
+2025-12-09 19:34:06 [INFO] root: D:\網頁\困難點會議\backend\static\emoinfo.json 資訊已上拋
+2025-12-09 19:34:06 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:34:06] "GET /api/get_all_owners HTTP/1.1" 200 -
+2025-12-09 19:34:06 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2025-12-09 19:34:06 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:34:06] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:34:06 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2025-12-09 19:34:06 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2025-12-09 19:34:06 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:34:06] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2025-12-09 19:34:06 [INFO] root: 處理完成，共 45 筆記錄
+2025-12-09 19:34:06 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2025-12-09 19:34:06 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:34:06] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:34:06 [INFO] utils.progress_manager: 載入記錄 20251206111232 的進度歷史，共 3 筆
+2025-12-09 19:34:06 [INFO] routes.meeting_routes: K18251 取得記錄 20251206111232 的進度歷史
+2025-12-09 19:34:06 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:34:06] "GET /api/get_progress_history/20251206111232?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:34:06 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:34:06] "GET /api/get_meeting_images/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:34:06 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:34:06] "GET /api/get_comments/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:34:06 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:34:06] "[36mGET /api/get_comment_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1765279652802_img1.jpg?username=K18251 HTTP/1.1[0m" 304 -
+2025-12-09 19:41:03 [INFO] root: D:\網頁\困難點會議\backend\static\emoinfo.json 資訊已上拋
+2025-12-09 19:41:03 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:03] "GET /api/get_all_owners HTTP/1.1" 200 -
+2025-12-09 19:41:03 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2025-12-09 19:41:03 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:03] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:03 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2025-12-09 19:41:03 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2025-12-09 19:41:03 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:03] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2025-12-09 19:41:03 [INFO] root: 處理完成，共 45 筆記錄
+2025-12-09 19:41:03 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2025-12-09 19:41:03 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:03] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:03 [INFO] utils.progress_manager: 載入記錄 20251206111232 的進度歷史，共 3 筆
+2025-12-09 19:41:03 [INFO] routes.meeting_routes: K18251 取得記錄 20251206111232 的進度歷史
+2025-12-09 19:41:03 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:03] "GET /api/get_progress_history/20251206111232?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:03 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:03] "GET /api/get_meeting_images/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:03 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:03] "GET /api/get_comments/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:03 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:03] "GET /api/get_comment_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1765279652802_img1.jpg?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:08 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:08] "POST /api/upload_meeting_images?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:08 [INFO] routes.meeting_routes: 返回圖片: 1_20251209_194108_3763822b.jpg, MIME type: image/jpeg
+2025-12-09 19:41:08 [INFO] routes.meeting_routes: 返回圖片: 2_20251209_194108_bf76d8a9.jpg, MIME type: image/jpeg
+2025-12-09 19:41:08 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:08] "GET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1_20251209_194108_3763822b.jpg?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:08 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:08] "GET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/2_20251209_194108_bf76d8a9.jpg?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:11 [INFO] root: D:\網頁\困難點會議\backend\static\emoinfo.json 資訊已上拋
+2025-12-09 19:41:11 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:11] "GET /api/get_all_owners HTTP/1.1" 200 -
+2025-12-09 19:41:11 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2025-12-09 19:41:11 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:11] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:11 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2025-12-09 19:41:11 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2025-12-09 19:41:11 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:11] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2025-12-09 19:41:11 [INFO] root: 處理完成，共 45 筆記錄
+2025-12-09 19:41:11 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2025-12-09 19:41:11 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:11] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:11 [INFO] utils.progress_manager: 載入記錄 20251206111232 的進度歷史，共 3 筆
+2025-12-09 19:41:11 [INFO] routes.meeting_routes: K18251 取得記錄 20251206111232 的進度歷史
+2025-12-09 19:41:11 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:11] "GET /api/get_progress_history/20251206111232?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:11 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:11] "GET /api/get_meeting_images/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:11 [INFO] routes.meeting_routes: 返回圖片: 1_20251209_194108_3763822b.jpg, MIME type: image/jpeg
+2025-12-09 19:41:11 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:11] "GET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1_20251209_194108_3763822b.jpg?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:11 [INFO] routes.meeting_routes: 返回圖片: 2_20251209_194108_bf76d8a9.jpg, MIME type: image/jpeg
+2025-12-09 19:41:11 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:11] "GET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/2_20251209_194108_bf76d8a9.jpg?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:11 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:11] "GET /api/get_comments/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:11 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:11] "GET /api/get_comment_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1765279652802_img1.jpg?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:40 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-12-09 19:41:40 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2025-12-09 19:41:40 [INFO] root: D:\網頁\困難點會議\backend\static\emoinfo.json 資訊已上拋
+2025-12-09 19:41:40 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:40] "GET /api/get_all_owners HTTP/1.1" 200 -
+2025-12-09 19:41:40 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2025-12-09 19:41:40 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:40] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:40 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2025-12-09 19:41:40 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2025-12-09 19:41:40 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:40] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2025-12-09 19:41:40 [INFO] root: 處理完成，共 45 筆記錄
+2025-12-09 19:41:40 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2025-12-09 19:41:40 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:40] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:40 [INFO] utils.progress_manager: 載入記錄 20251206111232 的進度歷史，共 3 筆
+2025-12-09 19:41:40 [INFO] routes.meeting_routes: K18251 取得記錄 20251206111232 的進度歷史
+2025-12-09 19:41:40 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:40] "GET /api/get_progress_history/20251206111232?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:40 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:40] "GET /api/get_meeting_images/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:40 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:40] "GET /api/get_comments/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:41:40 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:40] "[36mGET /api/get_comment_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1765279652802_img1.jpg?username=K18251 HTTP/1.1[0m" 304 -
+2025-12-09 19:41:40 [INFO] routes.meeting_routes: 返回圖片: 1_20251209_194108_3763822b.jpg, MIME type: image/jpeg
+2025-12-09 19:41:40 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:40] "[36mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1_20251209_194108_3763822b.jpg?username=K18251 HTTP/1.1[0m" 304 -
+2025-12-09 19:41:40 [INFO] routes.meeting_routes: 返回圖片: 2_20251209_194108_bf76d8a9.jpg, MIME type: image/jpeg
+2025-12-09 19:41:40 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:41:40] "[36mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/2_20251209_194108_bf76d8a9.jpg?username=K18251 HTTP/1.1[0m" 304 -
+2025-12-09 19:49:41 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-12-09 19:49:41 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2025-12-09 19:49:42 [INFO] root: D:\網頁\困難點會議\backend\static\emoinfo.json 資訊已上拋
+2025-12-09 19:49:42 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:49:42] "GET /api/get_all_owners HTTP/1.1" 200 -
+2025-12-09 19:49:42 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2025-12-09 19:49:42 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:49:42] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:49:42 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2025-12-09 19:49:42 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2025-12-09 19:49:42 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:49:42] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2025-12-09 19:49:42 [INFO] root: 處理完成，共 45 筆記錄
+2025-12-09 19:49:42 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2025-12-09 19:49:42 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:49:42] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:49:42 [INFO] utils.progress_manager: 載入記錄 20251206111232 的進度歷史，共 3 筆
+2025-12-09 19:49:42 [INFO] routes.meeting_routes: K18251 取得記錄 20251206111232 的進度歷史
+2025-12-09 19:49:42 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:49:42] "GET /api/get_progress_history/20251206111232?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:49:42 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:49:42] "GET /api/get_meeting_images/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:49:42 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:49:42] "GET /api/get_comments/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:49:42 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:49:42] "[36mGET /api/get_comment_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1765279652802_img1.jpg?username=K18251 HTTP/1.1[0m" 304 -
+2025-12-09 19:49:42 [INFO] routes.meeting_routes: 返回圖片: 1_20251209_194108_3763822b.jpg, MIME type: image/jpeg
+2025-12-09 19:49:42 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:49:42] "[36mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1_20251209_194108_3763822b.jpg?username=K18251 HTTP/1.1[0m" 304 -
+2025-12-09 19:49:42 [INFO] routes.meeting_routes: 返回圖片: 2_20251209_194108_bf76d8a9.jpg, MIME type: image/jpeg
+2025-12-09 19:49:42 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:49:42] "[36mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/2_20251209_194108_bf76d8a9.jpg?username=K18251 HTTP/1.1[0m" 304 -
+2025-12-09 19:49:47 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:49:47] "OPTIONS /api/delete_meeting_image?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:49:47 [INFO] routes.meeting_routes: 🗑️ 圖片已刪除 - 用戶: K18251, 記錄ID: 1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae, 文件名: 1_20251209_194108_3763822b.jpg, 大小: 0.15MB
+2025-12-09 19:49:47 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:49:47] "POST /api/delete_meeting_image?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:49:53 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:49:53] "OPTIONS /api/delete_meeting_image?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:49:53 [INFO] routes.meeting_routes: 🗑️ 圖片已刪除 - 用戶: K18251, 記錄ID: 1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae, 文件名: 2_20251209_194108_bf76d8a9.jpg, 大小: 0.08MB
+2025-12-09 19:49:53 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:49:53] "POST /api/delete_meeting_image?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:49:58 [INFO] routes.meeting_routes: 📤 用戶 K18251 開始上傳圖片 - 記錄ID: 1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae, 圖片數量: 2
+2025-12-09 19:49:58 [INFO] routes.meeting_routes: ✅ 圖片上傳成功 - 用戶: K18251, 記錄ID: 1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae, 原始文件名: messageImage_1764841099603.jpg, 新文件名: 1_20251209_194958_1630809f.jpg, 大小: 0.15MB
+2025-12-09 19:49:58 [INFO] routes.meeting_routes: ✅ 圖片上傳成功 - 用戶: K18251, 記錄ID: 1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae, 原始文件名: Screenshot_20251208_205619_Free_Fire.jpg, 新文件名: 2_20251209_194958_ce87a627.jpg, 大小: 0.08MB
+2025-12-09 19:49:58 [INFO] routes.meeting_routes: 📊 上傳完成 - 用戶: K18251, 記錄ID: 1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae, 成功: 2張, 失敗: 0張
+2025-12-09 19:49:58 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:49:58] "POST /api/upload_meeting_images?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:49:58 [INFO] routes.meeting_routes: 返回圖片: 1_20251209_194958_1630809f.jpg, MIME type: image/jpeg
+2025-12-09 19:49:58 [INFO] routes.meeting_routes: 返回圖片: 2_20251209_194958_ce87a627.jpg, MIME type: image/jpeg
+2025-12-09 19:49:58 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:49:58] "GET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1_20251209_194958_1630809f.jpg?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:49:58 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:49:58] "GET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/2_20251209_194958_ce87a627.jpg?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:50:02 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:50:02] "OPTIONS /api/delete_comment?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:50:02 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:50:02] "DELETE /api/delete_comment?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:50:02 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:50:02] "GET /api/get_comments/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:50:04 [INFO] root: D:\網頁\困難點會議\backend\static\emoinfo.json 資訊已上拋
+2025-12-09 19:50:04 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:50:04] "GET /api/get_all_owners HTTP/1.1" 200 -
+2025-12-09 19:50:04 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2025-12-09 19:50:04 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:50:04] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:50:04 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2025-12-09 19:50:04 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2025-12-09 19:50:04 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:50:04] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2025-12-09 19:50:04 [INFO] root: 處理完成，共 45 筆記錄
+2025-12-09 19:50:04 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2025-12-09 19:50:04 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:50:04] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:50:04 [INFO] utils.progress_manager: 載入記錄 20251206111232 的進度歷史，共 3 筆
+2025-12-09 19:50:04 [INFO] routes.meeting_routes: K18251 取得記錄 20251206111232 的進度歷史
+2025-12-09 19:50:04 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:50:04] "GET /api/get_progress_history/20251206111232?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:50:04 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:50:04] "GET /api/get_meeting_images/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -
+2025-12-09 19:50:04 [INFO] routes.meeting_routes: 返回圖片: 1_20251209_194958_1630809f.jpg, MIME type: image/jpeg
+2025-12-09 19:50:04 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:50:04] "[36mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/1_20251209_194958_1630809f.jpg?username=K18251 HTTP/1.1[0m" 304 -
+2025-12-09 19:50:04 [INFO] routes.meeting_routes: 返回圖片: 2_20251209_194958_ce87a627.jpg, MIME type: image/jpeg
+2025-12-09 19:50:04 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:50:04] "[36mGET /api/get_meeting_image/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae/2_20251209_194958_ce87a627.jpg?username=K18251 HTTP/1.1[0m" 304 -
+2025-12-09 19:50:04 [INFO] werkzeug: 127.0.0.1 - - [09/Dec/2025 19:50:04] "GET /api/get_comments/1a5c70e2-0022-4e4d-a2ab-5299e5ca1bae?username=K18251 HTTP/1.1" 200 -

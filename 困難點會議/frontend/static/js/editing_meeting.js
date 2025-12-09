@@ -1026,14 +1026,17 @@ parseUrlParams() {
 
         console.log("準備儲存資料:", payload);
 
-        // ✅ 上傳圖片（如果有新增的話）
+        // ✅ 圖片已在選擇時立即上傳，這裡不需要再上傳
+        // 檢查是否有未上傳的圖片（理論上不應該有）
         const newImages = this.images.filter(img => !img.existing && img.file);
-        if (newImages.length > 0 && !silent) {
+        if (newImages.length > 0) {
+          console.warn('⚠️ 發現未上傳的圖片，正在上傳...');
           const uploadResult = await this.uploadImages();
           if (!uploadResult.success) {
             return false;
           }
         }
+        
         const response = await axios.put(
           `http://127.0.0.1:5000/api/update_record?username=${encodeURIComponent(this.username)}`, 
           payload
@@ -1069,8 +1072,7 @@ parseUrlParams() {
           
           // 顯示成功訊息並提供選擇
           if (!silent) {
-            const hasNewImages = this.images.filter(img => !img.existing && img.file).length > 0;
-            const uploadedImages = this.images.filter(img => img.existing).length;
+            const totalImages = this.images.length;
             
             const result = await Swal.fire({
               icon: 'success',
@@ -1078,13 +1080,13 @@ parseUrlParams() {
               html: `
                 <div class="text-left">
                   <p class="mb-3 text-gray-700">會議記錄已成功更新</p>
-                  ${hasNewImages || uploadedImages > 0 ? `
+                  ${totalImages > 0 ? `
                     <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-3">
                       <p class="text-sm text-blue-700 flex items-center gap-2">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
                         </svg>
-                        圖片已上傳：${uploadedImages} 張
+                        共有 ${totalImages} 張圖片
                       </p>
                     </div>
                   ` : ''}
@@ -1197,20 +1199,24 @@ handleDrop(event) {
   }
 },
 
-// 📸 處理圖片檔案
-processImages(files) {
+// 📸 處理圖片檔案（選擇後立即上傳）
+async processImages(files) {
   const maxSize = 10 * 1024 * 1024; // 10MB
   const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/webp'];
   
-  files.forEach(file => {
+  // 驗證所有檔案
+  const validFiles = [];
+  for (const file of files) {
     if (!validTypes.includes(file.type)) {
       Swal.fire({
         icon: 'error',
         title: '不支援的檔案格式',
         text: `${file.name} 不是有效的圖片格式`,
-        confirmButtonColor: '#ef4444'
+        confirmButtonColor: '#ef4444',
+        scrollbarPadding: false,
+        heightAuto: false
       });
-      return;
+      continue;
     }
     
     if (file.size > maxSize) {
@@ -1218,23 +1224,103 @@ processImages(files) {
         icon: 'error',
         title: '檔案過大',
         text: `${file.name} 超過 10MB 限制`,
-        confirmButtonColor: '#ef4444'
+        confirmButtonColor: '#ef4444',
+        scrollbarPadding: false,
+        heightAuto: false
       });
-      return;
+      continue;
     }
     
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      this.images.push({
-        file: file,
-        url: e.target.result,
-        name: file.name,
-        existing: false
-      });
-      this.hasUnsavedChanges = true;
-    };
-    reader.readAsDataURL(file);
+    validFiles.push(file);
+  }
+  
+  if (validFiles.length === 0) return;
+  
+  // 顯示上傳中提示
+  Swal.fire({
+    title: '上傳中...',
+    html: `正在上傳 ${validFiles.length} 張圖片`,
+    allowOutsideClick: false,
+    allowEscapeKey: false,
+    showConfirmButton: false,
+    scrollbarPadding: false,
+    heightAuto: false,
+    didOpen: () => {
+      Swal.showLoading();
+    }
   });
+  
+  try {
+    // 立即上傳圖片
+    const formData = new FormData();
+    formData.append('record_id', this.recordData.id);
+    
+    validFiles.forEach((file) => {
+      formData.append('images', file);
+    });
+    
+    console.log(`準備上傳 ${validFiles.length} 張圖片`);
+    
+    const response = await axios.post(
+      `http://127.0.0.1:5000/api/upload_meeting_images?username=${encodeURIComponent(this.username)}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    );
+    
+    if (response.data && response.data.status === 'success') {
+      console.log('圖片上傳成功:', response.data.uploaded);
+      
+      // 將上傳成功的圖片加入到圖片列表
+      response.data.uploaded.forEach(uploadedImg => {
+        this.images.push({
+          url: this.getMeetingImageUrl(uploadedImg.filename),
+          name: uploadedImg.filename,
+          filename: uploadedImg.filename,
+          file: null,
+          existing: true  // 已經上傳到服務器
+        });
+      });
+      
+      // 關閉上傳中提示
+      Swal.close();
+      
+      // 顯示成功提示
+      Swal.fire({
+        icon: 'success',
+        title: '上傳成功',
+        text: `成功上傳 ${validFiles.length} 張圖片`,
+        timer: 1500,
+        showConfirmButton: false,
+        scrollbarPadding: false,
+        heightAuto: false
+      });
+      
+      // 刷新圖標
+      this.$nextTick(() => {
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+      });
+      
+    } else {
+      throw new Error(response.data?.message || '上傳失敗');
+    }
+  } catch (error) {
+    console.error('圖片上傳失敗:', error);
+    
+    Swal.fire({
+      icon: 'error',
+      title: '上傳失敗',
+      text: error.response?.data?.message || error.message || '請稍後再試',
+      confirmButtonColor: '#ef4444',
+      scrollbarPadding: false,
+      heightAuto: false
+    });
+  }
 },
 
 // 📸 移除單張圖片
@@ -1242,8 +1328,6 @@ async removeImage(index) {
   if (this.isReadOnly) return;
   
   const image = this.images[index];
-  const isExisting = image.existing === true;
-  
   
   // 💾 保存當前滾動位置
   const scrollContainer = document.querySelector('.content-left');
@@ -1254,7 +1338,7 @@ async removeImage(index) {
       <div class="text-left">
         <p class="mb-2">確定要刪除這張圖片嗎？</p>
         <p class="text-sm text-gray-600">檔案名稱: <span class="font-medium">${image.name}</span></p>
-        ${isExisting ? '<p class="text-sm text-red-600 mt-2">⚠️ 這是已上傳的圖片，刪除後將無法復原</p>' : ''}
+        <p class="text-sm text-red-600 mt-2">⚠️ 圖片刪除後將無法復原</p>
       </div>
     `,
     icon: 'warning',
@@ -1281,7 +1365,8 @@ async removeImage(index) {
   
   if (!result.isConfirmed) return;
   
-  if (isExisting) {
+  // ✅ 所有圖片都是已上傳狀態，直接從服務器刪除
+  if (image.existing) {
     try {
       const response = await axios.post(
         `http://127.0.0.1:5000/api/delete_meeting_image?username=${encodeURIComponent(this.username)}`,
@@ -1359,8 +1444,7 @@ async removeImage(index) {
 async clearAllImages() {
   if (this.isReadOnly) return;
   
-  const existingCount = this.images.filter(img => img.existing).length;
-  const newCount = this.images.filter(img => !img.existing).length;
+  const totalCount = this.images.length;
   
   // 💾 保存當前滾動位置
   const scrollContainer = document.querySelector('.content-left');
@@ -1371,11 +1455,12 @@ async clearAllImages() {
     html: `
       <div class="text-left">
         <p class="mb-3">確定要清除所有圖片嗎？</p>
-        <ul class="list-disc list-inside space-y-1 text-sm text-gray-600">
-          ${existingCount > 0 ? `<li class="text-red-600">已上傳的圖片: ${existingCount} 張 (將從伺服器刪除)</li>` : ''}
-          ${newCount > 0 ? `<li>新選擇的圖片: ${newCount} 張</li>` : ''}
-        </ul>
-        ${existingCount > 0 ? '<p class="text-sm text-red-600 mt-3">⚠️ 已上傳的圖片刪除後無法復原！</p>' : ''}
+        <div class="bg-red-50 border border-red-200 rounded-lg p-3">
+          <p class="text-sm text-red-700">
+            將刪除 ${totalCount} 張圖片
+          </p>
+        </div>
+        <p class="text-sm text-red-600 mt-3">⚠️ 圖片刪除後無法復原！</p>
       </div>
     `,
     icon: 'warning',
@@ -1536,13 +1621,13 @@ async uploadImages() {
     if (response.data && response.data.status === 'success') {
       console.log('圖片上傳成功:', response.data.uploaded);
       
-      // 將新上傳的圖片標記為已存在
+      // ✅ 將新上傳的圖片標記為已存在，並使用 API 端點獲取圖片
       newImages.forEach((img, index) => {
         const imgIndex = this.images.indexOf(img);
         if (imgIndex !== -1 && response.data.uploaded[index]) {
           this.images[imgIndex].existing = true;
           this.images[imgIndex].filename = response.data.uploaded[index].filename;
-          this.images[imgIndex].url = response.data.uploaded[index].path;
+          this.images[imgIndex].url = this.getMeetingImageUrl(response.data.uploaded[index].filename);  // ✅ 使用 API 端點
         }
       });
       
@@ -1578,15 +1663,20 @@ async loadExistingImages() {
     );
     
     if (response.data && response.data.status === 'success' && response.data.images) {
-      this.images = response.data.images.map(img => ({
-        url: img.url,
-        name: img.filename,
-        filename: img.filename,
-        file: null,
-        existing: true
-      }));
+      this.images = response.data.images.map(img => {
+        const imageUrl = this.getMeetingImageUrl(img.filename);
+        console.log(`🖼️ 載入圖片: ${img.filename} -> ${imageUrl}`);  // ✅ 調試信息
+        return {
+          url: imageUrl,  // ✅ 使用 API 端點而不是相對路徑
+          name: img.filename,
+          filename: img.filename,
+          file: null,
+          existing: true
+        };
+      });
       
       console.log(`✓ 成功載入 ${this.images.length} 張圖片`);
+      console.log(`📋 圖片列表:`, this.images);  // ✅ 調試信息
     } else {
       console.log('該項目沒有圖片');
       this.images = [];
@@ -1788,6 +1878,11 @@ async uploadCommentImages(timestamp) {
 // 獲取留言圖片 URL
 getCommentImageUrl(filename) {
   return `http://127.0.0.1:5000/api/get_comment_image/${this.recordData.id}/${filename}?username=${encodeURIComponent(this.username)}`;
+},
+
+// ✅ 獲取會議圖片 URL（新增）
+getMeetingImageUrl(filename) {
+  return `http://127.0.0.1:5000/api/get_meeting_image/${this.recordData.id}/${filename}?username=${encodeURIComponent(this.username)}`;
 },
 
 // 查看留言圖片
