@@ -182,7 +182,25 @@ const app = Vue.createApp({
                     beginAtZero: true
                     }
                 }
+                },
+                plugins: [{
+                afterDatasetsDraw: (chart) => {
+                    const ctx = chart.ctx;
+                    chart.data.datasets.forEach((dataset, i) => {
+                    const meta = chart.getDatasetMeta(i);
+                    meta.data.forEach((bar, index) => {
+                        const data = dataset.data[index];
+                        if (data > 0) {  // 只顯示大於 0 的數字
+                        ctx.fillStyle = '#1e293b';
+                        ctx.font = 'bold 11px sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+                        ctx.fillText(data, bar.x, bar.y - 5);
+                        }
+                    });
+                    });
                 }
+                }]
             }
             );
 
@@ -233,7 +251,25 @@ const app = Vue.createApp({
                     beginAtZero: true
                     }
                 }
+                },
+                plugins: [{
+                afterDatasetsDraw: (chart) => {
+                    const ctx = chart.ctx;
+                    chart.data.datasets.forEach((dataset, i) => {
+                    const meta = chart.getDatasetMeta(i);
+                    meta.data.forEach((bar, index) => {
+                        const data = dataset.data[index];
+                        if (data > 0) {  // 只顯示大於 0 的數字
+                        ctx.fillStyle = '#1e293b';
+                        ctx.font = 'bold 11px sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+                        ctx.fillText(data, bar.x, bar.y - 5);
+                        }
+                    });
+                    });
                 }
+                }]
             }
             );
 
