@@ -8,6 +8,7 @@ from utils.meeting_utils import load_meeting_records, get_all_owner
 from utils.save_record import save_new_record, update_existing_record
 from utils.progress_manager import progress_manager
 from utils.config import config  # ✅ 匯入配置
+from utils.comment_utils import load_comments  # ✅ 匯入留言工具
 import uuid
 from datetime import datetime
 from filelock import FileLock
@@ -421,6 +422,52 @@ def meeting_records():
     try:
         username = request.args.get("username", "").strip()
         data = load_meeting_records()
+        
+        # ✅ 為每筆記錄載入最新的留言討論
+        for record in data:
+            record_id = record.get('id') or record.get('項次')
+            if record_id:
+                # 載入該記錄的所有留言
+                comments = load_comments(str(record_id))
+                
+                # 將留言轉換為列表（按時間戳排序）
+                if comments:
+                    # 取得所有留言的內容，按時間戳排序
+                    comment_list = []
+                    for timestamp in sorted(comments.keys()):
+                        comment_data = comments[timestamp]
+                        # 格式化留言內容：日期 + 姓名 + 內容
+                        created_at = comment_data.get('created_at', '')
+                        display_name = comment_data.get('display_name', '')
+                        content = comment_data.get('content', '')
+                        
+                        # 格式化日期（從 ISO 格式轉為友好格式）
+                        try:
+                            from datetime import datetime as dt
+                            date_obj = dt.fromisoformat(created_at)
+                            date_str = date_obj.strftime('%m/%d')
+                        except:
+                            date_str = created_at[:10] if len(created_at) >= 10 else ''
+                        
+                        # 組合格式：日期 姓名: 內容
+                        if content:
+                            # 有文字內容
+                            formatted_comment = f"{date_str} {display_name}: {content}"
+                        elif comment_data.get('images') and len(comment_data.get('images', [])) > 0:
+                            # 沒有文字但有圖片
+                            formatted_comment = f"{date_str} {display_name}: 圖片"
+                        else:
+                            formatted_comment = ''
+                        
+                        if formatted_comment:
+                            comment_list.append(formatted_comment)
+                    
+                    record['留言討論'] = comment_list
+                else:
+                    record['留言討論'] = []
+            else:
+                record['留言討論'] = []
+        
         logger.info(f"{username} 從後端抓取資料")
         return jsonify({"status": "success", "data": data})
     except Exception as e:

@@ -103,6 +103,7 @@ const app = Vue.createApp({
         '專案Owner': false,  // 預設隱藏
         '項目DueDate': false,  // 預設隱藏
         '進度紀錄': true,
+        '留言討論': true,
         'Status': true,
         '操作': true
       },

@@ -9,7 +9,7 @@
     <script src="../static/js/package/axios.min.js"></script>
     <script src="../static/js/package/lucide.js"></script>
     <script src="../static/js/package/sweetalert2@11.js"></script>
-    <script src="../static/js/package/xlsx.min.js"></script>
+    <script src="../static/js/package/xlsx.full.min.js"></script>
 
 
     <style>
@@ -1404,6 +1404,12 @@
                             進度紀錄
                         </th>
                         
+                        <!-- 留言討論 -->
+                        <th v-if="isColumnVisible('留言討論')" 
+                            class="py-3 px-2 text-sm font-semibold text-gray-700 text-center whitespace-nowrap border-b border-gray-200">
+                            留言討論
+                        </th>
+                        
                         <!-- Status -->
                         <th v-if="isColumnVisible('Status')" 
                             class="relative py-3 px-2 text-sm font-semibold text-gray-700 text-center whitespace-nowrap border-b border-gray-200"
@@ -1605,6 +1611,12 @@
                         <td v-if="isColumnVisible('進度紀錄')" 
                             class="px-4 py-2 text-sm whitespace-pre-wrap break-words min-w-[180px]">
                             {{ formatRecordText(record.進度紀錄[record.進度紀錄.length - 1]) }}
+                        </td>
+                        
+                        <!-- 留言討論 -->
+                        <td v-if="isColumnVisible('留言討論')" 
+                            class="px-4 py-2 text-sm whitespace-pre-wrap break-words min-w-[180px]">
+                            {{ formatRecordText(record.留言討論 && record.留言討論.length > 0 ? record.留言討論[record.留言討論.length - 1] : '' ) }}
                         </td>
                         
                         <!-- Status -->

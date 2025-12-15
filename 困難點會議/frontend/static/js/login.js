@@ -33,8 +33,8 @@ const app = Vue.createApp({
         if (loginRes.data.success) {
           setTimeout(() => {
             localStorage.setItem('username', this.username);
-            // window.location.href = `meeting/defficultmeeting.html?username=${encodeURIComponent(this.username)}`;
-            window.location.href = `meeting/datachart.html?username=${encodeURIComponent(this.username)}`
+            window.location.href = `meeting/defficultmeeting.html?username=${encodeURIComponent(this.username)}`;
+            // window.location.href = `meeting/datachart.html?username=${encodeURIComponent(this.username)}`
           }, 300);
         } else {
           alert('帳號或密碼錯誤');
