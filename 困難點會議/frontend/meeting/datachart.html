@@ -291,6 +291,29 @@
     .pulse {
       animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
+
+    /* 自定義黑框彈窗樣式 */
+    .custom-dark-popup {
+      border-radius: 16px !important;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .custom-dark-popup .swal2-title {
+      font-size: 1.25rem !important;
+      font-weight: 700 !important;
+      padding: 1rem 1.5rem 0.5rem !important;
+    }
+
+    .custom-dark-popup .swal2-html-container {
+      padding: 0.5rem 1.5rem 1.5rem !important;
+      margin: 0 !important;
+    }
+
+    .custom-dark-popup .swal2-confirm {
+      border-radius: 8px !important;
+      padding: 0.5rem 1.5rem !important;
+      font-weight: 600 !important;
+    }
   </style>
 </head>
 
@@ -391,7 +414,7 @@
     </section>
 
     <!-- ===== 第二張圖：累積工作概況 ===== -->
-    <section class="chart-container animate-fadeIn" style="animation-delay: 0.2s;">
+    <section class="chart-container mb-8 animate-fadeIn" style="animation-delay: 0.2s;">
       <div class="chart-badge">
         <i data-lucide="activity" class="w-5 h-5 text-purple-600"></i>
         <span>每週工作累積概況分析</span>
@@ -402,6 +425,25 @@
       </h3>
       <div class="relative">
         <canvas id="chartWorkload" class="w-full" style="max-height: 400px;"></canvas>
+      </div>
+    </section>
+
+    <!-- ===== 第三張圖：負責人案件數量 ===== -->
+    <section class="chart-container animate-fadeIn" style="animation-delay: 0.3s;">
+      <div class="chart-badge">
+        <i data-lucide="users" class="w-5 h-5 text-pink-600"></i>
+        <span>負責人案件數量分析</span>
+      </div>
+      <h3 class="text-base sm:text-lg font-semibold text-gray-700 mb-2 flex items-center gap-2">
+        <span class="inline-block w-1 h-6 bg-gradient-to-b from-amber-500 to-red-500 rounded-full"></span>
+        On Going → Pending → 超過 DueDate (件數)
+      </h3>
+      <p class="text-xs text-gray-500 mb-4 flex items-center gap-2">
+        <i data-lucide="mouse-pointer-click" class="w-3.5 h-3.5"></i>
+        <span>點擊柱狀圖查看詳細項次與距今天數</span>
+      </p>
+      <div class="relative">
+        <canvas id="chartOwner" class="w-full" style="max-height: 400px; cursor: pointer;"></canvas>
       </div>
     </section>
 
