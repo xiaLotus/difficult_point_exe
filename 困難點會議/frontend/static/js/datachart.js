@@ -131,79 +131,173 @@ const app = Vue.createApp({
       },
 
       /* 第三張圖：負責人案件件數（On Going & Pending & OverDue） */
-      computeOwnerDaysFromNow() {
-          const today = new Date();
-          today.setHours(0, 0, 0, 0);
+    //   computeOwnerDaysFromNow() {
+    //       const today = new Date();
+    //       today.setHours(0, 0, 0, 0);
 
-          const ownerData = {};
+    //       const ownerData = {};
 
-          this.records.forEach(r => {
-              const st = this.normStatus(r["Status"]);
+    //       this.records.forEach(r => {
+    //           const st = this.normStatus(r["Status"]);
               
-              // 只統計 On Going 和 Pending
-              if (st !== "On Going" && st !== "Pending") return;
+    //           // 只統計 On Going 和 Pending
+    //           if (st !== "On Going" && st !== "Pending") return;
 
-              // 獲取負責人
-              const owner = this.toStr(r["專案Owner"]);
+    //           // 獲取負責人
+    //           const owner = this.toStr(r["專案Owner"]);
               
-              // 過濾未指派的案件
-              if (!owner || owner === "未指派") return;
+    //           // 過濾未指派的案件
+    //           if (!owner || owner === "未指派") return;
 
-              const itemId = this.toStr(r["項次"]);
-              const proposeDate = this.toStr(r["提案日期"]);
+    //           const itemId = this.toStr(r["項次"]);
+    //           const proposeDate = this.toStr(r["提案日期"]);
 
-              // 初始化該負責人的數據
-              if (!ownerData[owner]) {
-                  ownerData[owner] = {
-                      "On Going": [],
-                      "Pending": [],
-                      "OverDue": []
-                  };
-              }
+    //           // 初始化該負責人的數據
+    //           if (!ownerData[owner]) {
+    //               ownerData[owner] = {
+    //                   "On Going": [],
+    //                   "Pending": [],
+    //                   "OverDue": []
+    //               };
+    //           }
 
-              // 記錄該項目的詳細資訊（項次和提案日期）
-              const itemInfo = { id: itemId, date: proposeDate };
-              ownerData[owner][st].push(itemInfo);
+    //           // 記錄該項目的詳細資訊（項次和提案日期）
+    //           const itemInfo = { id: itemId, date: proposeDate };
+    //           ownerData[owner][st].push(itemInfo);
 
-              // 檢查是否超過 Due Date
-              const dueDate = this.parseDueDate(r["項目DueDate"]);
-              if (dueDate && today > dueDate) {
-                  ownerData[owner]["OverDue"].push(itemInfo);
-              }
-          });
+    //           // 檢查是否超過 Due Date
+    //           const dueDate = this.parseDueDate(r["項目DueDate"]);
+    //           if (dueDate && today > dueDate) {
+    //               ownerData[owner]["OverDue"].push(itemInfo);
+    //           }
+    //       });
 
-          // 計算每個負責人的件數
-          const owners = Object.keys(ownerData).sort();
-          const result = {
-              owners: owners,
-              onGoing: [],
-              pending: [],
-              overDue: [],
-              // 保存詳細項次資訊供 tooltip 使用
-              details: {}
-          };
+    //       // 計算每個負責人的件數
+    //       const owners = Object.keys(ownerData).sort();
+    //       const result = {
+    //           owners: owners,
+    //           onGoing: [],
+    //           pending: [],
+    //           overDue: [],
+    //           // 保存詳細項次資訊供 tooltip 使用
+    //           details: {}
+    //       };
 
-          owners.forEach(owner => {
-              const onGoingItems = ownerData[owner]["On Going"];
-              const pendingItems = ownerData[owner]["Pending"];
-              const overDueItems = ownerData[owner]["OverDue"];
+    //       owners.forEach(owner => {
+    //           const onGoingItems = ownerData[owner]["On Going"];
+    //           const pendingItems = ownerData[owner]["Pending"];
+    //           const overDueItems = ownerData[owner]["OverDue"];
 
-              result.onGoing.push(onGoingItems.length);
-              result.pending.push(pendingItems.length);
-              result.overDue.push(overDueItems.length);
+    //           result.onGoing.push(onGoingItems.length);
+    //           result.pending.push(pendingItems.length);
+    //           result.overDue.push(overDueItems.length);
 
-              // 保存項次列表（按提案日期排序）
-              result.details[owner] = {
-                  "On Going": this.sortByDate(onGoingItems),
-                  "Pending": this.sortByDate(pendingItems),
-                  "OverDue": this.sortByDate(overDueItems)
-              };
-          });
+    //           // 保存項次列表（按提案日期排序）
+    //           result.details[owner] = {
+    //               "On Going": this.sortByDate(onGoingItems),
+    //               "Pending": this.sortByDate(pendingItems),
+    //               "OverDue": this.sortByDate(overDueItems)
+    //           };
+    //       });
 
-          return result;
-      },
+    //       return result;
+    //   },
 
       // 按提案日期排序項目
+      /* --------------------------------------------------
+ * 第三張圖用：依「專案Owner」統計
+ * - On Going / Pending / OverDue 件數
+ * - 每個 Owner 的「累計天數（從建立日到今天）」加總
+ * -------------------------------------------------- */
+computeOwnerDaysFromNow() {
+
+    // 取得今天（歸零時間，避免小數天）
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // 暫存每位 Owner 的原始資料
+    const ownerData = {};
+
+    this.records.forEach(r => {
+        // 正規化狀態
+        const st = this.normStatus(r["Status"]);
+
+        // 只統計 On Going / Pending（Closed 不算）
+        if (st !== "On Going" && st !== "Pending") return;
+
+        // 取得負責人
+        const owner = this.toStr(r["專案Owner"]);
+        if (!owner || owner === "未指派") return;
+
+        // 項次（yyyyMMddxxxx）
+        const itemId = this.toStr(r["項次"]);
+
+        // 用項次轉換為建立日期
+        const createDate = this.idToDate(itemId);
+        if (!createDate) return;
+
+        // 若此 Owner 尚未初始化，先建立結構
+        if (!ownerData[owner]) {
+            ownerData[owner] = {
+                "On Going": [],
+                "Pending": [],
+                "OverDue": [],
+                totalDays: 0        // 🔥 累計天數
+            };
+        }
+
+        // 計算「距今天數」
+        const diffDays = Math.floor((today - createDate) / 86400000);
+
+        // 記錄項次（供點擊 bar 時顯示）
+        ownerData[owner][st].push({
+            id: itemId,
+            date: this.toStr(r["提案日期"])
+        });
+
+        // 🔥 累加到 Owner 的總天數
+        ownerData[owner].totalDays += diffDays;
+
+        // 判斷是否 OverDue（獨立於狀態）
+        const dueDate = this.parseDueDate(r["項目DueDate"]);
+        if (dueDate && today > dueDate) {
+            ownerData[owner]["OverDue"].push({
+                id: itemId,
+                date: this.toStr(r["提案日期"])
+            });
+        }
+    });
+
+    // 依 Owner 名稱排序
+    const owners = Object.keys(ownerData).sort();
+
+    // 最終回傳給 Chart.js 的資料結構
+    const result = {
+        owners,        // x 軸
+        onGoing: [],   // 左 y 軸（件數）
+        pending: [],
+        overDue: [],
+        totalDays: [], // 👉 右 y 軸（天數）
+        details: {}    // 點擊 bar 用
+    };
+
+    owners.forEach(owner => {
+        result.onGoing.push(ownerData[owner]["On Going"].length);
+        result.pending.push(ownerData[owner]["Pending"].length);
+        result.overDue.push(ownerData[owner]["OverDue"].length);
+        result.totalDays.push(ownerData[owner].totalDays);
+
+        // 儲存排序後的項次清單
+        result.details[owner] = {
+            "On Going": this.sortByDate(ownerData[owner]["On Going"]),
+            "Pending": this.sortByDate(ownerData[owner]["Pending"]),
+            "OverDue": this.sortByDate(ownerData[owner]["OverDue"])
+        };
+    });
+
+    return result;
+},
+      
       sortByDate(items) {
           return items.sort((a, b) => {
               const dateA = a.date || '99999999';
@@ -374,19 +468,33 @@ const app = Vue.createApp({
                     label: "On Going",
                     data: O.onGoing,
                     backgroundColor: "#F59E0B",
-                    borderRadius: 6
+                    borderRadius: 8
                     },
                     {
                     label: "Pending",
                     data: O.pending,
-                    backgroundColor: "#F87171",
-                    borderRadius: 6
+                    backgroundColor: "#93d1e4ff",
+                    borderRadius: 8
                     },
                     {
                     label: "超過 DueDate",
                     data: O.overDue,
                     backgroundColor: "#EF4444",
-                    borderRadius: 6
+                    borderRadius: 8
+                    },
+                    {
+                        // 👉 右 y 軸：累計天數（折線）
+                        label: "累計天數",
+                        data: O.totalDays,
+                        type: "line",          // 使用折線，避免與 bar 混淆
+                        yAxisID: "yDays",      // 對應右側 y 軸
+                        borderColor: "#6366F1",
+                        backgroundColor: "rgba(99,102,241,0.15)",
+                        borderWidth: 3,
+                        tension: 0.35,         // 曲線平滑
+                        pointRadius: 6,
+                        pointBackgroundColor: "#6366F1",
+                        fill: false            // ✅ 移除淡紫色背景
                     }
                 ]
                 },
@@ -468,23 +576,56 @@ const app = Vue.createApp({
                     grid: { display: false }
                     },
                     y: {
-                    ticks: {
-                        color: "#1e293b",
-                        font: { weight: "bold" },
-                        callback: function(value) {
-                        return value + ' 件';
+                        beginAtZero: true,
+                        grace: '30%',   // 🔥 直接拉到 30%，這張圖需要
+
+                        ticks: {
+                            color: "#1e293b",
+                            font: { weight: "bold" },
+                            callback: function(value) {
+                            return value + ' 件';
+                            },
+                            stepSize: 1
                         },
-                        stepSize: 1
+                        grid: { color: "rgba(71, 85, 105, 0.15)" },
+                        beginAtZero: true,
+                        grace: '10%',
+                        title: {
+                            display: true,
+                            text: '案件數量',
+                            color: "#1e293b",
+                            font: { weight: "bold", size: 12 }
+                        }
                     },
-                    grid: { color: "rgba(71, 85, 105, 0.15)" },
-                    beginAtZero: true,
-                    grace: '10%',
-                    title: {
-                        display: true,
-                        text: '案件數量',
-                        color: "#1e293b",
-                        font: { weight: "bold", size: 12 }
-                    }
+                        /* ---------------- 右側 y 軸：累計天數 ---------------- */
+                    yDays: {
+                        position: "right",
+                        beginAtZero: true,
+                        grace: '15%',          // ✅ 增加頂部空間，讓數字不會碰頂
+
+                        grid: { 
+                            drawOnChartArea: false,
+                            drawBorder: false
+                        },
+
+                        // 🔥 關鍵：刻度文字後方的背景
+                        ticks: {
+                            color: "#6366F1",
+                            font: { weight: "bold" },
+                            padding: 8,
+                            backdropColor: 'transparent',   // ✅ 去除刻度底色
+                            callback: v => `${v} 天`
+                        },
+
+                        // 🔥 關鍵：title 文字後方的背景
+                        title: {
+                            display: true,
+                            text: '累計天數',
+                            color: "#6366F1",
+                            font: { weight: "bold", size: 12 },
+                            padding: { bottom: 4 },
+                            backdropColor: 'transparent'    // ✅ 去除標題底色
+                        }
                     }
                 }
                 },
@@ -492,19 +633,57 @@ const app = Vue.createApp({
                 afterDatasetsDraw: (chart) => {
                     const ctx = chart.ctx;
                     chart.data.datasets.forEach((dataset, i) => {
-                    const meta = chart.getDatasetMeta(i);
-                    meta.data.forEach((bar, index) => {
-                        const data = dataset.data[index];
-                        if (data > 0) {
-                        ctx.fillStyle = '#1e293b';
-                        ctx.font = 'bold 11px sans-serif';
-                        ctx.textAlign = 'center';
-                        ctx.textBaseline = 'bottom';
-                        // 调整数字位置，确保不会碰到顶部
-                        const yPos = bar.y - 8;
-                        ctx.fillText(data, bar.x, yPos);
-                        }
-                    });
+                        const meta = chart.getDatasetMeta(i);
+                        const isLineDataset = dataset.type === 'line'; // 判斷是否為折線圖
+                        
+                        meta.data.forEach((element, index) => {
+                            const data = dataset.data[index];
+                            if (data > 0) {
+                                ctx.save();
+                                
+                                if (isLineDataset) {
+                                    // ✅ 折線圖：數字顯示在點上方，增加更大間距避免重疊
+                                    const padding = 15; // 增加間距到 15px
+                                    const yPos = element.y - padding;
+                                    
+                                    // 設定文字樣式
+                                    ctx.font = 'bold 11px sans-serif';
+                                    ctx.textAlign = 'center';
+                                    ctx.textBaseline = 'bottom';
+                                    
+                                    // 測量文字寬度
+                                    const textMetrics = ctx.measureText(data);
+                                    const textWidth = textMetrics.width;
+                                    const textHeight = 14;
+                                    
+                                    // 繪製白色背景矩形
+                                    const bgPadding = 3;
+                                    ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                                    ctx.fillRect(
+                                        element.x - textWidth / 2 - bgPadding,
+                                        yPos - textHeight - bgPadding,
+                                        textWidth + bgPadding * 2,
+                                        textHeight + bgPadding * 2
+                                    );
+                                    
+                                    // 繪製數字（藍色）
+                                    ctx.fillStyle = '#6366F1';
+                                    ctx.fillText(data, element.x, yPos);
+                                } else {
+                                    // ✅ 柱狀圖：數字顯示在柱狀內部（中間偏上位置）
+                                    const barHeight = element.height;
+                                    const yPos = element.y + barHeight * 0.35; // 調整為 35% 位置
+                                    
+                                    ctx.fillStyle = '#1e293b';
+                                    ctx.font = 'bold 11px sans-serif';
+                                    ctx.textAlign = 'center';
+                                    ctx.textBaseline = 'middle';
+                                    ctx.fillText(data, element.x, yPos);
+                                }
+                                
+                                ctx.restore();
+                            }
+                        });
                     });
                 }
                 }]

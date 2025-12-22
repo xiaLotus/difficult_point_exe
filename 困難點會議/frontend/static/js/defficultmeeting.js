@@ -122,7 +122,15 @@ const app = Vue.createApp({
       // 圖片預覽相關
       showImagePreview: false,
       previewImageUrl: '',
-      previewImageName: ''
+      previewImageName: '',
+      
+      // Tooltip 相關
+      tooltip: {
+        visible: false,
+        content: '',
+        x: 0,
+        y: 0
+      }
     };
   },
 
@@ -2392,6 +2400,79 @@ const app = Vue.createApp({
       }
       
       return result.join('\n');
+    },
+
+    // 截斷文字顯示前N個字符
+    truncateText(text, maxLength = 15) {
+      if (text === null || text === undefined) return "";
+      
+      const textStr = typeof text === 'string' ? text : String(text);
+      
+      if (textStr.length <= maxLength) {
+        return textStr;
+      }
+      
+      return textStr.substring(0, maxLength) + '...';
+    },
+
+    // 顯示完整的問題描述
+    showFullDescription(description) {
+      if (!description || description.trim() === '') {
+        Swal.fire({
+          icon: 'info',
+          title: '問題描述',
+          text: '無內容',
+          confirmButtonText: '關閉'
+        });
+        return;
+      }
+
+      Swal.fire({
+        title: '<span style="color: #1e293b;">問題描述</span>',
+        html: `<div style="text-align: left; white-space: pre-wrap; word-wrap: break-word; color: #1e293b; max-height: 400px; overflow-y: auto; padding: 10px;">${description}</div>`,
+        confirmButtonText: '關閉',
+        confirmButtonColor: '#6366f1',
+        width: '600px'
+      });
+    },
+
+    // 顯示 Tooltip
+    showTooltip(event, content) {
+      if (!content || content.trim() === '') {
+        return;
+      }
+
+      // 計算 tooltip 位置（滑鼠右下方）
+      const offsetX = 15;
+      const offsetY = 10;
+      
+      let x = event.clientX + offsetX;
+      let y = event.clientY + offsetY;
+      
+      // 預估 tooltip 寬度（max-w-md = 28rem = 448px）
+      const tooltipWidth = 448;
+      const tooltipHeight = 100; // 預估高度
+      
+      // 檢查右邊界
+      if (x + tooltipWidth > window.innerWidth) {
+        x = event.clientX - tooltipWidth - 10; // 顯示在滑鼠左側
+      }
+      
+      // 檢查下邊界
+      if (y + tooltipHeight > window.innerHeight) {
+        y = event.clientY - tooltipHeight - 10; // 顯示在滑鼠上方
+      }
+      
+      this.tooltip.content = content;
+      this.tooltip.x = Math.max(10, x); // 至少離左邊 10px
+      this.tooltip.y = Math.max(10, y); // 至少離上邊 10px
+      this.tooltip.visible = true;
+    },
+
+    // 隱藏 Tooltip
+    hideTooltip() {
+      this.tooltip.visible = false;
+      this.tooltip.content = '';
     },
 
     // 修正 formatRecordText 函數 - 按實際字符寬度計算
