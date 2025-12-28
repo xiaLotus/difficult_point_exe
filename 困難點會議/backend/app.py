@@ -12,6 +12,7 @@ from routes.meeting_routes import meeting_bp
 from routes import comment_routes  # ← 1️⃣ 添加這行
 from utils.config import config  # ✅ 匯入配置
 from waitress import serve
+from routes.proposer_read_routes import proposer_read_bp
 
 def create_app():
     app = Flask(__name__)
@@ -51,6 +52,8 @@ def create_app():
     app.register_blueprint(auth_bp, url_prefix="/api")
     app.register_blueprint(meeting_bp, url_prefix="/api")
     app.register_blueprint(comment_routes.bp)  # ← 2️⃣ 添加這行
+    # ===== 註冊未讀通知 Blueprint =====
+    app.register_blueprint(proposer_read_bp)
 
     return app
 

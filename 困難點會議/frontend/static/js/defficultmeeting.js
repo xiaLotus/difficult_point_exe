@@ -25,7 +25,7 @@ const app = Vue.createApp({
       showCategoryDropdown: false,
       categories: ["專案", "工作"], // 類別
 
-      caseCategories: ["ALL", "軟體", "硬體"], // 新增：案件分類選項
+      caseCategories: ["ALL", "軟體", "硬體", "日常"], // 新增：案件分類選項
       showCaseCategoryDropdown: false, // 新增：案件分類下拉狀態
       
       // 🆕 新增滾動 Toast 相關屬性
@@ -88,9 +88,9 @@ const app = Vue.createApp({
       // 🆕 新增欄位顯示/隱藏功能
       showColumnSettings: false,
       columnVisibility: {
-        '項次': true,
+        '項次': false,
         '提案日期': true,
-        '距今': true,
+        '距今': false,
         '棟別': true,
         '樓層': true,
         '站點': true,
@@ -100,7 +100,7 @@ const app = Vue.createApp({
         '問題描述': true,
         'PDCA': false,  // 預設隱藏
         '截止日期': false,  // 預設隱藏
-        '專案Owner': false,  // 預設隱藏
+        '專案Owner': true,  
         '項目DueDate': false,  // 預設隱藏
         '進度紀錄': true,
         '留言討論': true,
@@ -130,7 +130,13 @@ const app = Vue.createApp({
         content: '',
         x: 0,
         y: 0
-      }
+      },
+
+      // ===== 未讀通知相關（新增） =====
+      unreadCount: 0,              // 未讀總數
+      unreadItems: [],          // 未讀提案列表
+      showUnreadPanel: false,      // 是否顯示未讀面板
+   
     };
   },
 
@@ -1357,9 +1363,9 @@ const app = Vue.createApp({
     // 🆕 重設欄位顯示設定（恢復預設值）
     resetColumnVisibility() {
       this.columnVisibility = {
-        '項次': true,
+        '項次': false,
         '提案日期': true,
-        '距今': true,
+        '距今': false,
         '棟別': true,
         '樓層': true,
         '站點': true,
@@ -1369,7 +1375,7 @@ const app = Vue.createApp({
         '問題描述': true,
         'PDCA': false,          // 預設隱藏
         '截止日期': false,      // 預設隱藏
-        '專案Owner': false,     // 預設隱藏
+        '專案Owner': true,     // 預設隱藏
         '項目DueDate': false,   // 預設隱藏
         '進度紀錄': true,
         'Status': true,
@@ -2559,135 +2565,6 @@ const app = Vue.createApp({
       }
     },
 
-    // 新增紀錄
-    // async addRecord() {
-    //   // 驗證必填欄位
-    //   const requiredFields = [
-    //     { field: '棟別', value: this.newRecord.棟別, label: '棟別' },
-    //     { field: '樓層', value: this.newRecord.樓層, label: '樓層' },
-    //     { field: '站點', value: this.newRecord.站點, label: '站點' },
-    //     { field: '提案人', value: this.infoname, label: '提案人' },
-    //     { field: '問題描述', value: this.newRecord.問題描述, label: '問題描述' },
-    //     { field: 'PDCA', value: this.newRecord.PDCA, label: 'PDCA' },
-    //     { field: 'Status', value: this.newRecord.Status, label: 'Status' }
-    //   ];
-
-    //   const missingFields = [];
-
-    //   // 檢查每個必填欄位
-    //   requiredFields.forEach(item => {
-    //     if (item.field === '棟別' || item.field === '樓層') {
-    //       // 陣列類型的欄位檢查
-    //       if (!item.value || (Array.isArray(item.value) && item.value.length === 0)) {
-    //         missingFields.push(item.label);
-    //       }
-    //     } else {
-    //       // 一般字串欄位檢查
-    //       if (!item.value || item.value.trim() === '') {
-    //         missingFields.push(item.label);
-    //       }
-    //     }
-    //   });
-
-    //   // 如果有缺少的欄位，顯示提醒
-    //   if (missingFields.length > 0) {
-    //     await Swal.fire({
-    //       icon: 'warning',
-    //       title: '請填寫必填欄位',
-    //       html: `
-    //         <div class="text-left">
-    //           <p class="mb-3 text-gray-600">以下欄位為必填，請完成填寫：</p>
-    //           <ul class="list-disc list-inside space-y-1">
-    //             ${missingFields.map(field => `<li class="text-red-600 font-medium">${field}</li>`).join('')}
-    //           </ul>
-    //         </div>
-    //       `,
-    //       confirmButtonText: '確認',
-    //       confirmButtonColor: '#3b82f6',
-    //       customClass: {
-    //         popup: 'text-sm'
-    //       }
-    //     });
-    //     return; // 停止提交
-    //   }
-
-    //   // 清理專案Owner字串：
-    //   // 1. 去除頭尾空格
-    //   // 2. 將多個逗號或空格換成單一逗號+空格
-    //   // 3. 移除結尾可能多餘的逗號
-    //   const cleanedOwners = this.newRecord.專案Owner
-    //     .trim()
-    //     .replace(/[\s,]+/g, ', ') // 將連續的空格或逗號標準化
-    //     .replace(/,$/, '');      // 移除結尾的逗號
-
-
-    //   // 修改棟別和樓層的處理邏輯，統一轉換為字串格式
-    //   const payload = {
-    //     ...this.newRecord,
-    //     // 棟別處理：如果選的是全棟別，直接存"全棟別"，否則用逗號連接
-    //     棟別: this.newRecord.棟別.includes('全棟別') ? '全棟別' : this.newRecord.棟別.join(', '),
-    //     // 樓層處理：如果選的是全樓層，直接存"全樓層"，否則用逗號連接
-    //     樓層: this.newRecord.樓層.includes('全樓層') ? '全樓層' : this.newRecord.樓層.join(', '),
-    //     // 站點已經是字串格式，直接使用
-    //     站點: this.newRecord.站點.trim(),
-    //     提案人: this.infoname,   // ✅ 加這裡
-    //     專案Owner: cleanedOwners,  // ✅ 陣列轉字串
-    //     進度紀錄: this.newRecord.進度紀錄 || ''
-    //   };
-
-    //   try {
-    //     const res = await fetch(`http://127.0.0.1:5000/api/add_record?username=${encodeURIComponent(this.username)}`, {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json"
-    //       },
-    //       body: JSON.stringify(payload)
-    //     });
-
-    //       // ✅ 檢查 HTTP 狀態碼
-    //     if (!res.ok) {
-    //       throw new Error(`HTTP error! status: ${res.status}`);
-    //     }
-
-    //     const data = await res.json();
-
-    //     if (data.status === "success") {
-    //       // 顯示成功訊息
-    //       await Swal.fire({
-    //         icon: 'success',
-    //         title: '新增成功！',
-    //         text: '資料已成功儲存',
-    //         confirmButtonText: '確認',
-    //         confirmButtonColor: '#10b981',
-    //         timer: 2000,
-    //         timerProgressBar: true
-    //       });
-
-    //       // 重新載入資料
-    //       this.loadMeetingRecords();
-    //       this.newRecord = this.getNewRecordTemplate();
-    //       this.showAddModal = false;
-    //       console.log("✅ 新增成功");
-    //     } else {
-    //       await Swal.fire({
-    //         icon: 'error',
-    //         title: '新增失敗',
-    //         text: data.message || "未知錯誤",
-    //         confirmButtonText: '確認',
-    //         confirmButtonColor: '#ef4444'
-    //       });
-    //     }
-    //   } catch (error) {
-    //     console.error("❌ 發送新增資料失敗：", error);
-    //     await Swal.fire({
-    //       icon: 'error',
-    //       title: '系統錯誤',
-    //       text: '後端錯誤，請稍後再試',
-    //       confirmButtonText: '確認',
-    //       confirmButtonColor: '#ef4444'
-    //     });
-    //   }
-    // },
 
     // ============================================================
 // 📌 替換 addRecord 方法
@@ -2854,32 +2731,63 @@ const app = Vue.createApp({
       }
     },
 
-    // 編輯記錄 - 跳轉到編輯頁面
-    editRecord(record) {
-      // 記錄當前滾動位置
-      const currentScrollPosition = this.$refs.tableContainer ? this.$refs.tableContainer.scrollTop : 0;
-      localStorage.setItem(`scrollPosition_${record.項次}`, currentScrollPosition);
+    // // 編輯記錄 - 跳轉到編輯頁面
+    // editRecord(record) {
+    //   // 記錄當前滾動位置
+    //   const currentScrollPosition = this.$refs.tableContainer ? this.$refs.tableContainer.scrollTop : 0;
+    //   localStorage.setItem(`scrollPosition_${record.項次}`, currentScrollPosition);
 
-      this.selectRow(record.id);
-      // 🆕 記憶選中的項目
-      try {
-        localStorage.setItem("selectedRowId", record.id);
-      } catch (e) {
-        console.error("儲存 selectedRowId 發生錯誤:", e);
-      }
+    //   this.selectRow(record.id);
+    //   // 🆕 記憶選中的項目
+    //   try {
+    //     localStorage.setItem("selectedRowId", record.id);
+    //   } catch (e) {
+    //     console.error("儲存 selectedRowId 發生錯誤:", e);
+    //   }
 
 
 
-      console.log("📌 編輯記錄:", {
-        項次: record.項次,
-        滾動位置: currentScrollPosition
-      });
+    //   console.log("📌 編輯記錄:", {
+    //     項次: record.項次,
+    //     滾動位置: currentScrollPosition
+    //   });
       
-      // 跳轉到編輯頁面（使用固定檔名 + URL參數）
-      const editUrl = `editing_meeting.html?username=${encodeURIComponent(this.username)}&recordId=${record.項次}&scrollPos=${currentScrollPosition}`;
-      window.location.href = editUrl;
-    },
+    //   // 跳轉到編輯頁面（使用固定檔名 + URL參數）
+    //   const editUrl = `editing_meeting.html?username=${encodeURIComponent(this.username)}&recordId=${record.項次}&scrollPos=${currentScrollPosition}`;
+    //   window.location.href = editUrl;
+    // },
 
+
+    // 編輯記錄 - 跳轉到編輯頁面
+      editRecord(record) {
+          // 記錄當前滾動位置
+          const currentScrollPosition = this.$refs.tableContainer ? this.$refs.tableContainer.scrollTop : 0;
+          localStorage.setItem(`scrollPosition_${record.項次}`, currentScrollPosition);
+
+          this.selectRow(record.id);
+          // 🆕 記憶選中的項目
+          try {
+              localStorage.setItem("selectedRowId", record.id);
+          } catch (e) {
+              console.error("儲存 selectedRowId 發生錯誤:", e);
+          }
+
+          // ⭐ 新增：如果是提案人查看自己的提案，延遲標記已讀
+          if (record.提案人 === this.infoname && record.提案序號) {
+              setTimeout(() => {
+                  this.markMeetingAsRead(record.提案序號);
+              }, 2000);
+          }
+
+          console.log("📌 編輯記錄:", {
+              項次: record.項次,
+              滾動位置: currentScrollPosition
+          });
+          
+          // 跳轉到編輯頁面（使用固定檔名 + URL參數）
+          const editUrl = `editing_meeting.html?username=${encodeURIComponent(this.username)}&recordId=${record.項次}&scrollPos=${currentScrollPosition}`;
+          window.location.href = editUrl;
+      },
     // 🔧 修改後的 loadMeetingRecords 方法 - 添加滾動恢復
     async loadMeetingRecords() {
       console.log("📌 開始載入會議記錄...");
@@ -3423,6 +3331,381 @@ const app = Vue.createApp({
             };
         }
     },
+    /**
+     * 載入未讀摘要
+     * 從後端 API 獲取當前用戶的未讀訊息
+     */
+    async loadUnreadSummary() {
+        // ⭐ 檢查是否有 infoname
+        if (!this.infoname) {
+            console.warn('⚠️ infoname 為空，無法載入未讀摘要');
+            return;
+        }
+        
+        try {
+            // ⭐ 重要：傳遞 username 參數
+            const url = `http://127.0.0.1:5000/api/proposer-read/my-summary?username=${encodeURIComponent(this.infoname)}`;
+            console.log('📡 API 請求:', url);
+            
+            const response = await fetch(url);
+            const result = await response.json();
+            
+            if (result.status === 'success') {
+                this.unreadCount = result.data.total_unread;
+                this.unreadItems = result.data.unread_items || [];  // ⭐ 改成 unread_items
+                
+                console.log('✅ 未讀摘要已更新:', {
+                    提案人: result.data.proposer_name,
+                    未讀數量: this.unreadCount,
+                    未讀項目: this.unreadItems
+                });
+                
+                // ⭐ 數據載入後立即初始化圖標
+                this.$nextTick(() => {
+                    if (typeof lucide !== 'undefined') {
+                        lucide.createIcons();
+                        console.log('✅ [數據載入後] Lucide 圖標已初始化');
+                    }
+                });
+            } else if (result.status === 'error') {
+                this.unreadCount = 0;
+                this.unreadItems = [];
+                
+                if (!result.message.includes('未登入')) {
+                    console.warn('⚠️ 載入未讀摘要失敗:', result.message);
+                }
+            }
+        } catch (error) {
+            console.error('❌ 載入未讀摘要發生錯誤:', error);
+            this.unreadCount = 0;
+            this.unreadItems = [];
+        }
+    },
+        
+    /**
+     * 切換未讀面板顯示/隱藏
+     */
+    toggleUnreadPanel() {
+        this.showUnreadPanel = !this.showUnreadPanel;
+        
+        // 顯示面板時重新載入 Lucide 圖標
+        if (this.showUnreadPanel) {
+            this.$nextTick(() => {
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            });
+        }
+    },
+    
+    /**
+     * 跳轉到提案詳情並關閉未讀面板
+     * @param {string} meetingId - 提案序號
+     */
+    goToMeeting(meetingId) {
+        console.log('📍 跳轉到提案:', meetingId);
+        this.showUnreadPanel = false;
+        
+        // 找到該筆記錄
+        const meeting = this.records.find(r => r.提案序號 === meetingId);
+        
+        if (meeting) {
+            // ⭐ 使用你現有的 editRecord 方法
+            this.editRecord(meeting);
+            
+            // ⭐ 標記為已讀（延遲 2 秒後執行）
+            setTimeout(() => {
+                this.markMeetingAsRead(meetingId);
+            }, 2000);
+        } else {
+            console.warn(`⚠️ 找不到提案: ${meetingId}`);
+            
+            // 重新載入記錄後再試
+            this.loadMeetingRecords().then(() => {
+                const retryMeeting = this.records.find(r => r.提案序號 === meetingId);
+                if (retryMeeting) {
+                    this.editRecord(retryMeeting);
+                    setTimeout(() => {
+                        this.markMeetingAsRead(meetingId);
+                    }, 2000);
+                }
+            });
+        }
+    },
+    
+    /**
+     * 標記提案為已讀
+     * 當用戶查看提案詳情時調用
+     * @param {string} meetingId - 提案序號（record_id）
+     * @param {boolean} skipReload - 是否跳過重新載入未讀摘要
+     */
+    async markMeetingAsRead(meetingId, skipReload = false) {
+        try {
+            const response = await fetch(`http://127.0.0.1:5000/api/proposer-read/mark/${meetingId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            const result = await response.json();
+            
+            if (result.status === 'success') {
+                console.log(`✅ 提案 ${meetingId} 已標記為已讀`);
+                
+                // ⭐ 如果不跳過重新載入，才調用 loadUnreadSummary
+                if (!skipReload) {
+                    // 重新載入未讀摘要
+                    await this.loadUnreadSummary();
+                    
+                    // 如果有批量檢查，也重新檢查
+                    if (typeof this.batchCheckUnread === 'function') {
+                        await this.batchCheckUnread();
+                    }
+                }
+            } else {
+                console.warn('標記已讀失敗:', result.message);
+            }
+        } catch (error) {
+            console.error('❌ 標記已讀發生錯誤:', error);
+        }
+    },
+    
+    /**
+     * 全部標記已讀
+     */
+    async markAllAsRead() {
+        if (!this.infoname) {
+            console.warn('⚠️ infoname 為空，無法標記已讀');
+            return;
+        }
+        
+        try {
+            // 確認對話框
+            const result = await Swal.fire({
+                title: '確認標記全部已讀？',
+                text: `將標記您所有的 ${this.unreadCount} 個未讀提案為已讀`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3b82f6',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: '確認',
+                cancelButtonText: '取消'
+            });
+            
+            if (!result.isConfirmed) {
+                return;
+            }
+            
+            // 調用 API
+            const response = await fetch('http://127.0.0.1:5000/api/proposer-read/mark-all', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: this.infoname
+                })
+            });
+            
+            const apiResult = await response.json();
+            
+            if (apiResult.status === 'success') {
+                console.log(`✅ 已標記 ${apiResult.marked_count} 個提案為已讀`);
+                
+                // 顯示成功訊息
+                Swal.fire({
+                    title: '標記成功！',
+                    text: `已標記 ${apiResult.marked_count} 個提案為已讀`,
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                
+                // 關閉未讀面板
+                this.showUnreadPanel = false;
+                
+                // 重新載入未讀摘要（應該變成 0）
+                await this.loadUnreadSummary();
+                
+            } else {
+                Swal.fire({
+                    title: '標記失敗',
+                    text: apiResult.message,
+                    icon: 'error'
+                });
+            }
+        } catch (error) {
+            console.error('❌ 全部標記已讀發生錯誤:', error);
+            Swal.fire({
+                title: '發生錯誤',
+                text: '標記已讀時發生錯誤，請稍後再試',
+                icon: 'error'
+            });
+        }
+    },
+    
+    /**
+     * ESC 鍵事件處理
+     * @param {KeyboardEvent} e 
+     */
+    handleEscapeKey(e) {
+        if (e.key === 'Escape' && this.showUnreadPanel) {
+            this.showUnreadPanel = false;
+        }
+    },
+    
+    /**
+     * 批量檢查未讀狀態（可選功能）
+     * 用於在列表中顯示未讀標記
+     */
+    async batchCheckUnread() {
+        if (!this.filteredRecords || this.filteredRecords.length === 0) {
+            return;
+        }
+        
+        try {
+            const meetingIds = this.filteredRecords.map(r => r.提案序號);
+            
+            const response = await fetch('http://127.0.0.1:5000/api/proposer-read/batch-check', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ meeting_ids: meetingIds })
+            });
+            
+            const result = await response.json();
+            
+            if (result.status === 'success') {
+                // 將未讀狀態添加到每筆記錄
+                this.filteredRecords.forEach(record => {
+                    record.has_unread = result.data[record.提案序號] || false;
+                });
+                
+                console.log('✅ 批量檢查未讀狀態完成');
+            }
+        } catch (error) {
+            console.error('❌ 批量檢查未讀狀態失敗:', error);
+        }
+    },
+
+        /**
+     * 根據 recordId 跳轉到提案詳情
+     */
+    /**
+     * 根據 recordId 跳轉到提案並標記已讀
+     * @param {string} recordId - CSV 的 id 欄位
+     */
+    async goToMeetingByRecordId(recordId) {
+        console.log('📍 跳轉到提案 (recordId):', recordId);
+        
+        // ⭐ 立即標記該 record_id 為已讀（跳過重新載入，手動更新）
+        await this.markMeetingAsRead(recordId, true);
+        
+        // ⭐ 從未讀列表中移除該 record_id 的所有項目
+        const beforeCount = this.unreadItems.length;
+        this.unreadItems = this.unreadItems.filter(item => item.record_id !== recordId);
+        const afterCount = this.unreadItems.length;
+        const removedCount = beforeCount - afterCount;
+        
+        console.log(`✅ 已從未讀列表移除 ${removedCount} 個項目（record_id: ${recordId}）`);
+        
+        // ⭐ 更新未讀數量
+        this.unreadCount = this.unreadItems.length;
+        
+        // ⭐ 如果沒有未讀項目了，關閉面板
+        if (this.unreadCount === 0) {
+            this.showUnreadPanel = false;
+            console.log('✅ 所有項目已讀，關閉未讀面板');
+        }
+        
+        // 跳轉到提案
+        const meeting = this.records.find(r => r.id === recordId);
+        
+        if (meeting) {
+            this.editRecord(meeting);
+        } else {
+            console.warn(`⚠️ 找不到 recordId: ${recordId}`);
+            // 嘗試重新載入記錄
+            await this.loadMeetingRecords();
+            const retryMeeting = this.records.find(r => r.id === recordId);
+            if (retryMeeting) {
+                this.editRecord(retryMeeting);
+            }
+        }
+    },
+
+    /**
+     * 格式化時間顯示
+     */
+    formatUnreadTime(isoTime) {
+        try {
+            const date = new Date(isoTime);
+            const now = new Date();
+            const diff = Math.floor((now - date) / 1000);
+            
+            if (diff < 60) return '剛剛';
+            if (diff < 3600) return `${Math.floor(diff / 60)} 分鐘前`;
+            if (diff < 86400) return `${Math.floor(diff / 3600)} 小時前`;
+            
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            
+            return `${month}/${day} ${hours}:${minutes}`;
+        } catch (e) {
+            return isoTime;
+        }
+    },
+
+    /**
+     * 截斷內容顯示
+     */
+    truncateContent(content, maxLength = 50) {
+        if (!content) return '';
+        if (content.length <= maxLength) return content;
+        return content.substring(0, maxLength) + '...';
+    },
+  //   async loadUnreadSummary() {
+  //     // 臨時假數據，測試 UI
+  //     this.unreadCount = 3;
+  //     this.unreadItems = [
+  //         {
+  //             meeting_id: 'M001',
+  //             title: '冷氣故障需要維修',
+  //             new_comments: 3,
+  //             new_progress: 1,
+  //             category: '維修',
+  //             building: 'A棟',
+  //             floor: '3F',
+  //             station: 'K18251'
+  //         },
+  //         {
+  //             meeting_id: 'M002',
+  //             title: '電梯異常',
+  //             new_comments: 2,
+  //             new_progress: 0,
+  //             category: '維修',
+  //             building: 'B棟',
+  //             floor: '5F',
+  //             station: 'K18252'
+  //         },
+  //         {
+  //             meeting_id: 'M003',
+  //             title: '漏水問題',
+  //             new_comments: 0,
+  //             new_progress: 2,
+  //             category: '維修',
+  //             building: 'C棟',
+  //             floor: '2F',
+  //             station: 'K18253'
+  //         }
+  //     ];
+      
+  //     console.log('✅ [測試模式] 使用假數據');
+  // }
         
   },
   
@@ -3555,8 +3838,25 @@ const app = Vue.createApp({
     } catch (e) {
       console.error("localStorage getItem 發生錯誤:", e);
     }
+        // ===== 載入未讀摘要（新增） =====
+    this.loadUnreadSummary();
+    
+    // 每 5 分鐘自動更新一次未讀狀態
+    this.unreadCheckInterval = setInterval(() => {
+        this.loadUnreadSummary();
+    }, 300000); // 300000ms = 5分鐘
+    // ESC 鍵關閉未讀面板
+    document.addEventListener('keydown', this.handleEscapeKey);
 
     document.addEventListener('click', this.handleClickOutside);
+    
+    // ⭐ Vue 掛載後初始化 Lucide 圖標
+    this.$nextTick(() => {
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+        console.log('✅ [Vue mounted] Lucide 圖標已初始化');
+      }
+    });
   },
 
   beforeUnmount() {
@@ -3564,7 +3864,14 @@ const app = Vue.createApp({
     if (this.scrollToastTimer) {
       clearTimeout(this.scrollToastTimer);
     }
+
+        // 清除定時器
+    if (this.unreadCheckInterval) {
+        clearInterval(this.unreadCheckInterval);
+    }
     document.removeEventListener('click', this.handleClickOutside);
+     // 移除事件監聽
+    document.removeEventListener('keydown', this.handleEscapeKey);
   }
 
 });

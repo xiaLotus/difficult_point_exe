@@ -6,17 +6,16 @@
     "checkedFloors": [],
     "checkedStations": [],
     "checkedCategories": [],
-    "checkedProposers": [],
+    "checkedProposers": [
+      "詹睿穎"
+    ],
     "checkedDescriptions": [],
     "checkedCaseCategories": [],
-    "checkedStatus": [
-      "Reject",
-      "New"
-    ],
+    "checkedStatus": [],
     "checkedPDCA": [],
     "checkedProjectOwners": [],
     "checkedDueDates": [],
     "checkedItemDueDates": []
   },
-  "last_updated": "2025-11-14T09:20:03.408987"
+  "last_updated": "2025-12-28T19:36:50.390207"
 }
