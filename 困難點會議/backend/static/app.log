@@ -28,3 +28,662 @@
 2025-12-28 20:47:14 [INFO] werkzeug: 127.0.0.1 - - [28/Dec/2025 20:47:14] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
 2025-12-28 20:51:52 [INFO] werkzeug: 127.0.0.1 - - [28/Dec/2025 20:51:52] "GET /api/proposer-read/my-summary?username=蔡宗佑 HTTP/1.1" 200 -
 2025-12-28 20:52:14 [INFO] werkzeug: 127.0.0.1 - - [28/Dec/2025 20:52:14] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-01-04 18:37:02 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-01-04 18:37:02 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-01-04 18:37:03 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '預覽人'}
+2026-01-04 18:37:03 [INFO] routes.auth: 確認 K18251 具備 預覽人 的權限
+2026-01-04 18:37:03 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 18:37:03] "GET /api/check_Permission?filename=K18251&role=預覽人 HTTP/1.1" 200 -
+2026-01-04 18:37:03 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 18:37:03] "OPTIONS /api/login HTTP/1.1" 200 -
+2026-01-04 18:37:03 [INFO] routes.auth: 收到用戶名為 K18251 的登錄請求
+2026-01-04 18:37:03 [INFO] utils.auth: K18251 成功登入
+2026-01-04 18:37:03 [INFO] routes.auth: 用戶名為 K18251 的登錄成功
+2026-01-04 18:37:03 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 18:37:03] "POST /api/login HTTP/1.1" 200 -
+2026-01-04 18:37:04 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-01-04 18:37:04 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-01-04 18:37:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 18:37:04] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2026-01-04 18:37:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 18:37:04] "GET /api/load_filter_state?username=K18251 HTTP/1.1" 200 -
+2026-01-04 18:37:04 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-01-04 18:37:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 18:37:04] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2026-01-04 18:37:04 [INFO] root: 處理完成，共 62 筆記錄
+2026-01-04 18:37:04 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-01-04 18:37:05 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 18:37:05] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2026-01-04 18:37:05 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 18:37:05] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-01-04 18:37:05 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 18:37:05] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-01-04 18:37:06 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 18:37:06] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-01-04 18:42:06 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 18:42:06] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-01-04 18:47:06 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 18:47:06] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-01-04 18:52:07 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 18:52:07] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-01-04 18:57:07 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 18:57:07] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-01-04 19:02:07 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:02:07] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-01-04 19:08:26 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-01-04 19:08:26 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-01-04 19:08:29 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-01-04 19:08:29 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-01-04 19:08:29 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:08:29] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2026-01-04 19:08:30 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:08:30] "GET /api/load_filter_state?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:08:30 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-01-04 19:08:30 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:08:30] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:08:30 [INFO] root: 處理完成，共 62 筆記錄
+2026-01-04 19:08:30 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-01-04 19:08:30 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:08:30] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:08:30 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:08:30] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-01-04 19:08:30 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:08:30] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-01-04 19:08:32 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:08:32] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-01-04 19:09:35 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:09:35] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-01-04 19:09:35 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:09:35] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-01-04 19:09:37 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:09:37] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-01-04 19:09:38 [INFO] root: 處理完成，共 62 筆記錄
+2026-01-04 19:09:38 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-01-04 19:09:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:09:38] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:09:40 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:09:40] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-01-04 19:09:40 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:09:40] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-01-04 19:09:42 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:09:42] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:09:46 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:09:46] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 19:09:46 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:09:46] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:09:50 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:09:50] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:09:53 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:09:53] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 19:09:53 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:09:53] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:09:55 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:09:55] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:09:57 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:09:57] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:10:24 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:10:24] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 19:10:24 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:10:24] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:10:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:10:27] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:10:57 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:10:57] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:11:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:11:27] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:11:38 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-01-04 19:11:38 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-01-04 19:11:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:11:38] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2026-01-04 19:11:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:11:38] "GET /api/load_filter_state?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:11:38 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-01-04 19:11:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:11:38] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:11:38 [INFO] root: 處理完成，共 62 筆記錄
+2026-01-04 19:11:38 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-01-04 19:11:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:11:38] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:11:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:11:38] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-01-04 19:11:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:11:38] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-01-04 19:11:41 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:11:41] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-01-04 19:16:28 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-01-04 19:16:28 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-01-04 19:16:28 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:16:28] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2026-01-04 19:16:28 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:16:28] "GET /api/load_filter_state?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:16:28 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-01-04 19:16:28 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:16:28] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:16:28 [INFO] root: 處理完成，共 62 筆記錄
+2026-01-04 19:16:28 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-01-04 19:16:28 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:16:28] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:16:29 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:16:29] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-01-04 19:16:29 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:16:29] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-01-04 19:16:29 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:16:29] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:16:34 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:16:34] "OPTIONS /api/bulletin/messages/1767525024727 HTTP/1.1" 200 -
+2026-01-04 19:16:34 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:16:34] "DELETE /api/bulletin/messages/1767525024727 HTTP/1.1" 200 -
+2026-01-04 19:16:34 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:16:34] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:16:35 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:16:35] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:16:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:16:58] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:16:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:16:58] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:16:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:16:58] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:17:28 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:17:28] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:17:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:17:58] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:18:28 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:18:28] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:18:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:18:58] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:19:28 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:19:28] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:19:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:19:58] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:20:28 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:20:28] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:20:52 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:20:52] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:20:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:20:58] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:20:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:20:58] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:20:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:20:58] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:21:05 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:21:05] "[31m[1mPOST /api/bulletin/post HTTP/1.1[0m" 400 -
+2026-01-04 19:21:07 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:21:07] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:21:10 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:21:10] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:21:40 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:21:40] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:22:10 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:22:10] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:22:40 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:22:40] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:23:10 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:23:10] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:23:40 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:23:40] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:24:05 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-01-04 19:24:05 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-01-04 19:24:05 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:24:05] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:24:11 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:24:11] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 19:24:11 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:24:11] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:24:13 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:24:13] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:24:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:24:43] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:25:13 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:25:13] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:25:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:25:43] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:26:13 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:26:13] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:26:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:26:43] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:27:13 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:27:13] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:27:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:27:43] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:28:44 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:28:44] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:29:45 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:29:45] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:30:46 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:30:46] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:31:47 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:31:47] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:32:48 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:32:48] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:33:49 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:33:49] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:34:41 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:34:41] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:35:13 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:35:13] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:35:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:35:43] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:36:13 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:36:13] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:37:01 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:37:01] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:38:01 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:38:01] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:39:01 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:39:01] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:40:01 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:40:01] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:40:09 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-01-04 19:40:09 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-01-04 19:40:12 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:40:12] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:40:18 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:40:18] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 19:40:18 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:40:18] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:40:20 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:40:20] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:40:50 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:40:50] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:41:20 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:41:20] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:41:50 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:41:50] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:42:20 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:42:20] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:42:50 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:42:50] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:43:16 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-01-04 19:43:16 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-01-04 19:43:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:16] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2026-01-04 19:43:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:16] "GET /api/load_filter_state?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:43:16 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-01-04 19:43:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:16] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:43:16 [INFO] root: 處理完成，共 62 筆記錄
+2026-01-04 19:43:16 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-01-04 19:43:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:16] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:43:17 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:17] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-01-04 19:43:17 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:17] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-01-04 19:43:18 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:18] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-01-04 19:43:21 [INFO] root: D:\網頁\困難點會議\backend\static\emoinfo.json 資訊已上拋
+2026-01-04 19:43:21 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:21] "GET /api/get_all_owners HTTP/1.1" 200 -
+2026-01-04 19:43:21 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-01-04 19:43:21 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:21] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:43:21 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-01-04 19:43:21 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-01-04 19:43:21 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:21] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2026-01-04 19:43:21 [INFO] root: 處理完成，共 62 筆記錄
+2026-01-04 19:43:21 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-01-04 19:43:21 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:21] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:43:21 [INFO] utils.progress_manager: 載入記錄 20251014160845 的進度歷史，共 2 筆
+2026-01-04 19:43:21 [INFO] routes.meeting_routes: K18251 取得記錄 20251014160845 的進度歷史
+2026-01-04 19:43:21 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:21] "GET /api/get_progress_history/20251014160845?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:43:21 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:21] "GET /api/get_meeting_images/29f91c03-cba9-48e6-b2a5-81f18eafe200?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:43:21 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:21] "GET /api/get_comments/29f91c03-cba9-48e6-b2a5-81f18eafe200?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:43:26 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:26] "OPTIONS /api/add_comment?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:43:26 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:26] "POST /api/add_comment?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:43:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:27] "POST /api/upload_comment_images?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:43:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:27] "GET /api/get_comments/29f91c03-cba9-48e6-b2a5-81f18eafe200?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:43:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:43:27] "GET /api/get_comment_image/29f91c03-cba9-48e6-b2a5-81f18eafe200/1767527006935_img1.jpg?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:45:03 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-01-04 19:45:03 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-01-04 19:45:03 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:45:03] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2026-01-04 19:45:03 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:45:03] "GET /api/load_filter_state?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:45:03 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-01-04 19:45:03 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:45:03] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:45:03 [INFO] root: 處理完成，共 62 筆記錄
+2026-01-04 19:45:03 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-01-04 19:45:03 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:45:03] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2026-01-04 19:45:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:45:04] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-01-04 19:45:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:45:04] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-01-04 19:45:05 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:45:05] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-01-04 19:45:06 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:45:06] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:45:08 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:45:08] "OPTIONS /api/bulletin/messages/1767526818311 HTTP/1.1" 200 -
+2026-01-04 19:45:08 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:45:08] "DELETE /api/bulletin/messages/1767526818311 HTTP/1.1" 200 -
+2026-01-04 19:45:08 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:45:08] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:45:10 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:45:10] "OPTIONS /api/bulletin/messages/1767525851441 HTTP/1.1" 200 -
+2026-01-04 19:45:10 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:45:10] "DELETE /api/bulletin/messages/1767525851441 HTTP/1.1" 200 -
+2026-01-04 19:45:10 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:45:10] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:45:13 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:45:13] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:45:44 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:45:44] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:46:14 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:46:14] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:46:44 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:46:44] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:47:14 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:47:14] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:47:44 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:47:44] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:48:14 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:48:14] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:48:44 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:48:44] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:49:45 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:49:45] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:50:14 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:50:14] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:50:15 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:50:15] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:50:23 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:50:23] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 19:50:23 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:50:23] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:50:25 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:50:25] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:50:55 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:50:55] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:51:26 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-01-04 19:51:26 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-01-04 19:51:26 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:51:26] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:51:29 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:51:29] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:51:34 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:51:34] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 19:51:34 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:51:34] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:51:36 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:51:36] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:52:06 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:52:06] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:52:36 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:52:36] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:53:06 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:53:06] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:53:36 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:53:36] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:54:06 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:54:06] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:54:36 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:54:36] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:55:07 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:55:07] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:55:37 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:55:37] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:56:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:56:38] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:57:39 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:57:39] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:58:40 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:58:40] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 19:59:41 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 19:59:41] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:00:42 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:00:42] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:01:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:01:43] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:02:44 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:02:44] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:03:37 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-01-04 20:03:37 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-01-04 20:03:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:03:38] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:03:39 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:03:39] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:03:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:03:43] "OPTIONS /api/bulletin/messages/1767527494433 HTTP/1.1" 200 -
+2026-01-04 20:03:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:03:43] "DELETE /api/bulletin/messages/1767527494433 HTTP/1.1" 200 -
+2026-01-04 20:03:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:03:43] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:03:44 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:03:44] "OPTIONS /api/bulletin/messages/1767527423162 HTTP/1.1" 200 -
+2026-01-04 20:03:44 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:03:44] "DELETE /api/bulletin/messages/1767527423162 HTTP/1.1" 200 -
+2026-01-04 20:03:44 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:03:44] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:03:46 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:03:46] "OPTIONS /api/bulletin/messages/1767524993040 HTTP/1.1" 200 -
+2026-01-04 20:03:46 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:03:46] "DELETE /api/bulletin/messages/1767524993040 HTTP/1.1" 200 -
+2026-01-04 20:03:46 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:03:46] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:03:47 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:03:47] "OPTIONS /api/bulletin/messages/1767524986111 HTTP/1.1" 200 -
+2026-01-04 20:03:47 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:03:47] "DELETE /api/bulletin/messages/1767524986111 HTTP/1.1" 200 -
+2026-01-04 20:03:47 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:03:47] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:03:52 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:03:52] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 20:03:52 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:03:52] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:03:54 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:03:54] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:04:24 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:04:24] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:04:54 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:04:54] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:05:25 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:05:25] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:05:55 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:05:55] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:06:25 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:06:25] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:06:55 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:06:55] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:07:25 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:07:25] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:08:01 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:08:01] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:09:01 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:09:01] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:10:01 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:10:01] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:10:39 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:10:39] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:10:40 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:10:40] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:10:40 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:10:40] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:10:46 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:10:46] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 20:10:46 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:10:46] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:10:49 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:10:49] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:11:19 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:11:19] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:11:49 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:11:49] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:12:19 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:12:19] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:12:49 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:12:49] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:13:06 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:13:06] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:13:37 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:13:37] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:14:07 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:14:07] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:14:37 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:14:37] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:15:07 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:15:07] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:15:37 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:15:37] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:16:07 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:16:07] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:16:37 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:16:37] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:17:06 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:17:06] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:17:37 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:17:37] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:18:07 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:18:07] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:19:01 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:19:01] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:19:07 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:19:07] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:19:37 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:19:37] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:20:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:20:38] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:21:39 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:21:39] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:22:40 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:22:40] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:23:28 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:28] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:23:29 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:29] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:23:29 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:29] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:23:33 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:33] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 20:23:33 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:33] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:23:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:43] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:23:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:43] "GET /api/bulletin/image/0c0057ba-3d33-46df-9040-940435fc90b3.jpg HTTP/1.1" 200 -
+2026-01-04 20:23:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:43] "GET /api/bulletin/image/9c1a0c38-5c73-4113-b33a-cca06db9ba50.jpg HTTP/1.1" 200 -
+2026-01-04 20:23:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:43] "GET /api/bulletin/image/212ec423-b0fe-4ebe-9514-7eb60b3d164e.png HTTP/1.1" 200 -
+2026-01-04 20:23:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:43] "GET /api/bulletin/image/94828055-544d-4eed-9283-557de53928b5.png HTTP/1.1" 200 -
+2026-01-04 20:23:52 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:52] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 20:23:53 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:53] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:23:57 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:57] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:23:57 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:57] "[36mGET /api/bulletin/image/9c1a0c38-5c73-4113-b33a-cca06db9ba50.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:23:57 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:57] "[36mGET /api/bulletin/image/0c0057ba-3d33-46df-9040-940435fc90b3.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:23:57 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:57] "[36mGET /api/bulletin/image/94828055-544d-4eed-9283-557de53928b5.png HTTP/1.1[0m" 304 -
+2026-01-04 20:23:57 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:57] "[36mGET /api/bulletin/image/212ec423-b0fe-4ebe-9514-7eb60b3d164e.png HTTP/1.1[0m" 304 -
+2026-01-04 20:23:57 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:57] "GET /api/bulletin/image/212534e2-1338-4639-9ea0-7a78d61a3c81.jpg HTTP/1.1" 200 -
+2026-01-04 20:23:57 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:23:57] "GET /api/bulletin/image/ba50218b-6594-450c-9e1d-9d2a4cc4ff5e.jpg HTTP/1.1" 200 -
+2026-01-04 20:24:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:24:27] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:24:57 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:24:57] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:25:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:25:27] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:25:57 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:25:57] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:26:18 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:18] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:26:18 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:18] "[36mGET /api/bulletin/image/ba50218b-6594-450c-9e1d-9d2a4cc4ff5e.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:26:18 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:18] "[36mGET /api/bulletin/image/212534e2-1338-4639-9ea0-7a78d61a3c81.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:26:18 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:18] "[36mGET /api/bulletin/image/9c1a0c38-5c73-4113-b33a-cca06db9ba50.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:26:18 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:18] "[36mGET /api/bulletin/image/0c0057ba-3d33-46df-9040-940435fc90b3.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:26:18 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:18] "[36mGET /api/bulletin/image/212ec423-b0fe-4ebe-9514-7eb60b3d164e.png HTTP/1.1[0m" 304 -
+2026-01-04 20:26:18 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:18] "[36mGET /api/bulletin/image/94828055-544d-4eed-9283-557de53928b5.png HTTP/1.1[0m" 304 -
+2026-01-04 20:26:18 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:18] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:26:18 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:18] "GET /api/bulletin/image/ba50218b-6594-450c-9e1d-9d2a4cc4ff5e.jpg HTTP/1.1" 200 -
+2026-01-04 20:26:19 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:19] "GET /api/bulletin/image/212534e2-1338-4639-9ea0-7a78d61a3c81.jpg HTTP/1.1" 200 -
+2026-01-04 20:26:19 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:19] "GET /api/bulletin/image/9c1a0c38-5c73-4113-b33a-cca06db9ba50.jpg HTTP/1.1" 200 -
+2026-01-04 20:26:19 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:19] "GET /api/bulletin/image/0c0057ba-3d33-46df-9040-940435fc90b3.jpg HTTP/1.1" 200 -
+2026-01-04 20:26:19 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:19] "GET /api/bulletin/image/212ec423-b0fe-4ebe-9514-7eb60b3d164e.png HTTP/1.1" 200 -
+2026-01-04 20:26:19 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:19] "GET /api/bulletin/image/94828055-544d-4eed-9283-557de53928b5.png HTTP/1.1" 200 -
+2026-01-04 20:26:19 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:19] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:26:19 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:19] "[36mGET /api/bulletin/image/9c1a0c38-5c73-4113-b33a-cca06db9ba50.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:26:19 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:19] "[36mGET /api/bulletin/image/0c0057ba-3d33-46df-9040-940435fc90b3.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:26:19 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:19] "[35m[1mGET /api/bulletin/image/ba50218b-6594-450c-9e1d-9d2a4cc4ff5e.jpg HTTP/1.1[0m" 206 -
+2026-01-04 20:26:19 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:19] "[35m[1mGET /api/bulletin/image/212534e2-1338-4639-9ea0-7a78d61a3c81.jpg HTTP/1.1[0m" 206 -
+2026-01-04 20:26:19 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:19] "[35m[1mGET /api/bulletin/image/212ec423-b0fe-4ebe-9514-7eb60b3d164e.png HTTP/1.1[0m" 206 -
+2026-01-04 20:26:19 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:19] "[35m[1mGET /api/bulletin/image/94828055-544d-4eed-9283-557de53928b5.png HTTP/1.1[0m" 206 -
+2026-01-04 20:26:19 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:19] "[35m[1mGET /api/bulletin/image/ba50218b-6594-450c-9e1d-9d2a4cc4ff5e.jpg HTTP/1.1[0m" 206 -
+2026-01-04 20:26:19 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:19] "[35m[1mGET /api/bulletin/image/212ec423-b0fe-4ebe-9514-7eb60b3d164e.png HTTP/1.1[0m" 206 -
+2026-01-04 20:26:19 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:19] "[35m[1mGET /api/bulletin/image/94828055-544d-4eed-9283-557de53928b5.png HTTP/1.1[0m" 206 -
+2026-01-04 20:26:19 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:19] "[35m[1mGET /api/bulletin/image/212534e2-1338-4639-9ea0-7a78d61a3c81.jpg HTTP/1.1[0m" 206 -
+2026-01-04 20:26:23 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:23] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 20:26:23 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:23] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:26:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:27] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:26:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:27] "[36mGET /api/bulletin/image/ba50218b-6594-450c-9e1d-9d2a4cc4ff5e.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:26:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:27] "[36mGET /api/bulletin/image/212534e2-1338-4639-9ea0-7a78d61a3c81.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:26:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:27] "[36mGET /api/bulletin/image/9c1a0c38-5c73-4113-b33a-cca06db9ba50.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:26:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:27] "[36mGET /api/bulletin/image/0c0057ba-3d33-46df-9040-940435fc90b3.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:26:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:27] "[36mGET /api/bulletin/image/212ec423-b0fe-4ebe-9514-7eb60b3d164e.png HTTP/1.1[0m" 304 -
+2026-01-04 20:26:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:27] "[36mGET /api/bulletin/image/94828055-544d-4eed-9283-557de53928b5.png HTTP/1.1[0m" 304 -
+2026-01-04 20:26:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:27] "GET /api/bulletin/image/a4cb7113-072f-4029-aaed-f03d1fb39241.jpg HTTP/1.1" 200 -
+2026-01-04 20:26:57 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:26:57] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:27:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:27:27] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:27:57 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:27:57] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:28:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:28:27] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:28:57 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:28:57] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:29:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:29:27] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:29:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:29:43] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:29:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:29:43] "[36mGET /api/bulletin/image/a4cb7113-072f-4029-aaed-f03d1fb39241.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:29:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:29:43] "[36mGET /api/bulletin/image/ba50218b-6594-450c-9e1d-9d2a4cc4ff5e.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:29:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:29:43] "[36mGET /api/bulletin/image/212534e2-1338-4639-9ea0-7a78d61a3c81.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:29:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:29:43] "[36mGET /api/bulletin/image/9c1a0c38-5c73-4113-b33a-cca06db9ba50.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:29:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:29:43] "[36mGET /api/bulletin/image/0c0057ba-3d33-46df-9040-940435fc90b3.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:29:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:29:43] "[36mGET /api/bulletin/image/212ec423-b0fe-4ebe-9514-7eb60b3d164e.png HTTP/1.1[0m" 304 -
+2026-01-04 20:29:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:29:43] "[36mGET /api/bulletin/image/94828055-544d-4eed-9283-557de53928b5.png HTTP/1.1[0m" 304 -
+2026-01-04 20:29:50 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:29:50] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 20:29:51 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:29:51] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:30:13 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:30:13] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:30:44 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:30:44] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:31:14 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:31:14] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:31:44 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:31:44] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:32:14 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:32:14] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:32:44 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:32:44] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:33:13 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:13] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:33:20 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:20] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 20:33:21 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:21] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "[36mGET /api/bulletin/image/a4cb7113-072f-4029-aaed-f03d1fb39241.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "[36mGET /api/bulletin/image/ba50218b-6594-450c-9e1d-9d2a4cc4ff5e.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "[36mGET /api/bulletin/image/212534e2-1338-4639-9ea0-7a78d61a3c81.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "[36mGET /api/bulletin/image/9c1a0c38-5c73-4113-b33a-cca06db9ba50.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "[36mGET /api/bulletin/image/212ec423-b0fe-4ebe-9514-7eb60b3d164e.png HTTP/1.1[0m" 304 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "[36mGET /api/bulletin/image/0c0057ba-3d33-46df-9040-940435fc90b3.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "GET /api/bulletin/image/6e78eac2-5c86-4171-bdfb-e9534dc65b97.png HTTP/1.1" 200 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "GET /api/bulletin/image/0d475e27-fea0-4951-b976-797f94747bea.png HTTP/1.1" 200 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "GET /api/bulletin/image/42095ebf-f65d-487b-8e33-b8f6cf142684.jpg HTTP/1.1" 200 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "GET /api/bulletin/image/f1406384-be0f-4ecf-b142-2a3c603eff97.jpg HTTP/1.1" 200 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "GET /api/bulletin/image/f2655f60-dda5-4bab-9e0a-7e21541096d2.jpg HTTP/1.1" 200 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "GET /api/bulletin/image/11b8f6c9-7676-4aae-9af5-b9e0061a205d.jpg HTTP/1.1" 200 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "[36mGET /api/bulletin/image/94828055-544d-4eed-9283-557de53928b5.png HTTP/1.1[0m" 304 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "GET /api/bulletin/image/64ca4360-ae70-4c38-b8be-0b57b379b051.jpg HTTP/1.1" 200 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "GET /api/bulletin/image/8c1a085f-df31-4654-a1af-a8dd57c5903e.jpg HTTP/1.1" 200 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "GET /api/bulletin/image/89bcd73f-bffc-4632-a5ba-86bdd3fc978a.jpg HTTP/1.1" 200 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "GET /api/bulletin/image/1b5818db-8b0d-4e1d-b4b3-a272add31cd5.jpg HTTP/1.1" 200 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "GET /api/bulletin/image/536641d0-bfd7-4962-8730-54391670f9b2.png HTTP/1.1" 200 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "GET /api/bulletin/image/e9dbd1a2-427e-4c71-b930-5ae81a064bf1.png HTTP/1.1" 200 -
+2026-01-04 20:33:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:27] "GET /api/bulletin/image/ce866d0e-4f05-4649-afaa-6dd0fc0a58eb.jpg HTTP/1.1" 200 -
+2026-01-04 20:33:31 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:31] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 20:33:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:33:58] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:34:28 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:34:28] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:34:57 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:34:57] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:35:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:35:27] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:35:57 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:35:57] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/11b8f6c9-7676-4aae-9af5-b9e0061a205d.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/f2655f60-dda5-4bab-9e0a-7e21541096d2.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/f1406384-be0f-4ecf-b142-2a3c603eff97.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/42095ebf-f65d-487b-8e33-b8f6cf142684.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/0d475e27-fea0-4951-b976-797f94747bea.png HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/6e78eac2-5c86-4171-bdfb-e9534dc65b97.png HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "GET /api/bulletin/image/693f33c7-457b-4bd6-b062-742c4bacf1e5.jpg HTTP/1.1" 200 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "GET /api/bulletin/image/4ce47c2f-3057-460c-b8c6-7c9248d5e798.png HTTP/1.1" 200 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "GET /api/bulletin/image/56ef30d8-b5f4-430d-88d6-9f497621362a.png HTTP/1.1" 200 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "GET /api/bulletin/image/76eeebbe-5800-47d8-aad2-994702633239.jpg HTTP/1.1" 200 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/64ca4360-ae70-4c38-b8be-0b57b379b051.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/8c1a085f-df31-4654-a1af-a8dd57c5903e.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/89bcd73f-bffc-4632-a5ba-86bdd3fc978a.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/1b5818db-8b0d-4e1d-b4b3-a272add31cd5.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/ce866d0e-4f05-4649-afaa-6dd0fc0a58eb.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/e9dbd1a2-427e-4c71-b930-5ae81a064bf1.png HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/536641d0-bfd7-4962-8730-54391670f9b2.png HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/a4cb7113-072f-4029-aaed-f03d1fb39241.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/ba50218b-6594-450c-9e1d-9d2a4cc4ff5e.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/212534e2-1338-4639-9ea0-7a78d61a3c81.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/9c1a0c38-5c73-4113-b33a-cca06db9ba50.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/0c0057ba-3d33-46df-9040-940435fc90b3.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/212ec423-b0fe-4ebe-9514-7eb60b3d164e.png HTTP/1.1[0m" 304 -
+2026-01-04 20:36:04 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:04] "[36mGET /api/bulletin/image/94828055-544d-4eed-9283-557de53928b5.png HTTP/1.1[0m" 304 -
+2026-01-04 20:36:09 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:09] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 20:36:15 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:15] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/693f33c7-457b-4bd6-b062-742c4bacf1e5.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/76eeebbe-5800-47d8-aad2-994702633239.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/4ce47c2f-3057-460c-b8c6-7c9248d5e798.png HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/56ef30d8-b5f4-430d-88d6-9f497621362a.png HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/11b8f6c9-7676-4aae-9af5-b9e0061a205d.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/f2655f60-dda5-4bab-9e0a-7e21541096d2.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "GET /api/bulletin/image/c50eba15-30fd-4e88-bcd1-b6a684023a3f.jpg HTTP/1.1" 200 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "GET /api/bulletin/image/14c28eb4-9448-46ab-b6c7-285b2dd30a5f.jpg HTTP/1.1" 200 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/0d475e27-fea0-4951-b976-797f94747bea.png HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/f1406384-be0f-4ecf-b142-2a3c603eff97.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/42095ebf-f65d-487b-8e33-b8f6cf142684.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/6e78eac2-5c86-4171-bdfb-e9534dc65b97.png HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/64ca4360-ae70-4c38-b8be-0b57b379b051.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/8c1a085f-df31-4654-a1af-a8dd57c5903e.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/1b5818db-8b0d-4e1d-b4b3-a272add31cd5.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/89bcd73f-bffc-4632-a5ba-86bdd3fc978a.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/ce866d0e-4f05-4649-afaa-6dd0fc0a58eb.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/536641d0-bfd7-4962-8730-54391670f9b2.png HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/e9dbd1a2-427e-4c71-b930-5ae81a064bf1.png HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/a4cb7113-072f-4029-aaed-f03d1fb39241.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/ba50218b-6594-450c-9e1d-9d2a4cc4ff5e.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/212534e2-1338-4639-9ea0-7a78d61a3c81.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/9c1a0c38-5c73-4113-b33a-cca06db9ba50.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/0c0057ba-3d33-46df-9040-940435fc90b3.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/212ec423-b0fe-4ebe-9514-7eb60b3d164e.png HTTP/1.1[0m" 304 -
+2026-01-04 20:36:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:16] "[36mGET /api/bulletin/image/94828055-544d-4eed-9283-557de53928b5.png HTTP/1.1[0m" 304 -
+2026-01-04 20:36:20 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:20] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 20:36:46 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:36:46] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:37:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:37:16] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:37:46 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:37:46] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:38:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:38:16] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:38:46 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:38:46] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:39:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:16] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/c50eba15-30fd-4e88-bcd1-b6a684023a3f.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/14c28eb4-9448-46ab-b6c7-285b2dd30a5f.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/693f33c7-457b-4bd6-b062-742c4bacf1e5.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/76eeebbe-5800-47d8-aad2-994702633239.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/4ce47c2f-3057-460c-b8c6-7c9248d5e798.png HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/56ef30d8-b5f4-430d-88d6-9f497621362a.png HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "GET /api/bulletin/image/58116a5a-394c-4548-b83c-5c2d5feb4431.png HTTP/1.1" 200 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/11b8f6c9-7676-4aae-9af5-b9e0061a205d.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/f2655f60-dda5-4bab-9e0a-7e21541096d2.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/f1406384-be0f-4ecf-b142-2a3c603eff97.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/42095ebf-f65d-487b-8e33-b8f6cf142684.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/0d475e27-fea0-4951-b976-797f94747bea.png HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/6e78eac2-5c86-4171-bdfb-e9534dc65b97.png HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/64ca4360-ae70-4c38-b8be-0b57b379b051.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/89bcd73f-bffc-4632-a5ba-86bdd3fc978a.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/1b5818db-8b0d-4e1d-b4b3-a272add31cd5.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/8c1a085f-df31-4654-a1af-a8dd57c5903e.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/ce866d0e-4f05-4649-afaa-6dd0fc0a58eb.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/e9dbd1a2-427e-4c71-b930-5ae81a064bf1.png HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/a4cb7113-072f-4029-aaed-f03d1fb39241.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/ba50218b-6594-450c-9e1d-9d2a4cc4ff5e.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/536641d0-bfd7-4962-8730-54391670f9b2.png HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/212534e2-1338-4639-9ea0-7a78d61a3c81.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/9c1a0c38-5c73-4113-b33a-cca06db9ba50.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/0c0057ba-3d33-46df-9040-940435fc90b3.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/212ec423-b0fe-4ebe-9514-7eb60b3d164e.png HTTP/1.1[0m" 304 -
+2026-01-04 20:39:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:38] "[36mGET /api/bulletin/image/94828055-544d-4eed-9283-557de53928b5.png HTTP/1.1[0m" 304 -
+2026-01-04 20:39:40 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:40] "OPTIONS /api/bulletin/messages/1767530180269 HTTP/1.1" 200 -
+2026-01-04 20:39:40 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:40] "DELETE /api/bulletin/messages/1767530180269 HTTP/1.1" 200 -
+2026-01-04 20:39:40 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:40] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:39:41 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:41] "OPTIONS /api/bulletin/messages/1767530169478 HTTP/1.1" 200 -
+2026-01-04 20:39:41 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:41] "DELETE /api/bulletin/messages/1767530169478 HTTP/1.1" 200 -
+2026-01-04 20:39:42 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:42] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:39:44 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:44] "OPTIONS /api/bulletin/messages/1767530011572 HTTP/1.1" 200 -
+2026-01-04 20:39:44 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:44] "DELETE /api/bulletin/messages/1767530011572 HTTP/1.1" 200 -
+2026-01-04 20:39:44 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:44] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:39:45 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:45] "OPTIONS /api/bulletin/messages/1767530000969 HTTP/1.1" 200 -
+2026-01-04 20:39:45 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:45] "DELETE /api/bulletin/messages/1767530000969 HTTP/1.1" 200 -
+2026-01-04 20:39:45 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:45] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:39:47 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:47] "OPTIONS /api/bulletin/messages/1767529790970 HTTP/1.1" 200 -
+2026-01-04 20:39:47 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:47] "DELETE /api/bulletin/messages/1767529790970 HTTP/1.1" 200 -
+2026-01-04 20:39:47 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:47] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:39:49 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:49] "OPTIONS /api/bulletin/messages/1767529583500 HTTP/1.1" 200 -
+2026-01-04 20:39:49 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:49] "DELETE /api/bulletin/messages/1767529583500 HTTP/1.1" 200 -
+2026-01-04 20:39:49 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:49] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:39:52 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:52] "OPTIONS /api/bulletin/messages/1767529432508 HTTP/1.1" 200 -
+2026-01-04 20:39:52 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:52] "DELETE /api/bulletin/messages/1767529432508 HTTP/1.1" 200 -
+2026-01-04 20:39:52 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:52] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:39:54 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:54] "OPTIONS /api/bulletin/messages/1767529413131 HTTP/1.1" 200 -
+2026-01-04 20:39:54 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:54] "DELETE /api/bulletin/messages/1767529413131 HTTP/1.1" 200 -
+2026-01-04 20:39:54 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:39:54] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:40:08 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:40:08] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:40:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:40:38] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:41:08 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:41:08] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:41:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:41:38] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:42:08 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:42:08] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:42:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:42:38] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:43:08 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:43:08] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:43:23 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:43:23] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:43:23 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:43:23] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:43:23 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:43:23] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:43:27 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:43:27] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 20:43:54 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:43:54] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:44:23 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:44:23] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:44:53 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:44:53] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:45:23 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:45:23] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:45:53 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:45:53] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:46:23 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:46:23] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:46:45 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:46:45] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:46:45 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:46:45] "GET /api/bulletin/image/6adb5eea-fc5d-4a24-bfa2-6f2f4572f96b.jpg HTTP/1.1" 200 -
+2026-01-04 20:46:46 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:46:46] "GET /api/bulletin/image/b15de46e-62de-4f57-af97-7492fc729737.jpg HTTP/1.1" 200 -
+2026-01-04 20:46:46 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:46:46] "GET /api/bulletin/image/f9c4e66d-81fc-4bcf-b34e-013eeec4fe43.png HTTP/1.1" 200 -
+2026-01-04 20:46:46 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:46:46] "GET /api/bulletin/image/b2da15b0-b12d-4148-8f0e-6a616c2161d0.png HTTP/1.1" 200 -
+2026-01-04 20:46:47 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:46:47] "OPTIONS /api/bulletin/messages/1767530607653 HTTP/1.1" 200 -
+2026-01-04 20:46:47 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:46:47] "DELETE /api/bulletin/messages/1767530607653 HTTP/1.1" 200 -
+2026-01-04 20:46:47 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:46:47] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:47:16 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:47:16] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:47:39 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:47:39] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:47:48 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:47:48] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:47:54 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-01-04 20:47:54 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-01-04 20:48:18 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:48:18] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:48:48 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:48:48] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:49:18 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:49:18] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:49:48 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:49:48] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:50:18 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:50:18] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:50:48 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:50:48] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:51:18 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:51:18] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:52:01 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:52:01] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:52:45 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:52:45] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:52:46 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:52:46] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:52:50 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:52:50] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 20:52:50 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:52:50] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:52:59 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:52:59] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:53:00 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:53:00] "GET /api/bulletin/image/89ae6c3e-0b79-4e82-8ba0-8f43791aabca.jpg HTTP/1.1" 200 -
+2026-01-04 20:53:00 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:53:00] "GET /api/bulletin/image/fcc2a4f5-5daf-43be-9d75-9435ee1c9ed4.png HTTP/1.1" 200 -
+2026-01-04 20:53:00 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:53:00] "GET /api/bulletin/image/c5a452ad-6b2a-4622-8c7c-3843b3a8f62c.jpg HTTP/1.1" 200 -
+2026-01-04 20:53:00 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:53:00] "GET /api/bulletin/image/761e8b58-1f41-490f-9019-69c5ed814598.png HTTP/1.1" 200 -
+2026-01-04 20:53:30 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:53:30] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:54:00 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:54:00] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:54:30 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:54:30] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:55:00 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:55:00] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:55:30 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:55:30] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:55:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:55:58] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:55:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:55:58] "[36mGET /api/bulletin/image/89ae6c3e-0b79-4e82-8ba0-8f43791aabca.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:55:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:55:58] "[36mGET /api/bulletin/image/c5a452ad-6b2a-4622-8c7c-3843b3a8f62c.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:55:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:55:58] "[36mGET /api/bulletin/image/fcc2a4f5-5daf-43be-9d75-9435ee1c9ed4.png HTTP/1.1[0m" 304 -
+2026-01-04 20:55:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:55:58] "[36mGET /api/bulletin/image/761e8b58-1f41-490f-9019-69c5ed814598.png HTTP/1.1[0m" 304 -
+2026-01-04 20:55:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:55:58] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:55:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:55:58] "[36mGET /api/bulletin/image/89ae6c3e-0b79-4e82-8ba0-8f43791aabca.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:55:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:55:58] "[36mGET /api/bulletin/image/c5a452ad-6b2a-4622-8c7c-3843b3a8f62c.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:55:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:55:58] "[36mGET /api/bulletin/image/fcc2a4f5-5daf-43be-9d75-9435ee1c9ed4.png HTTP/1.1[0m" 304 -
+2026-01-04 20:55:58 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:55:58] "[36mGET /api/bulletin/image/761e8b58-1f41-490f-9019-69c5ed814598.png HTTP/1.1[0m" 304 -
+2026-01-04 20:56:29 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:56:29] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:56:59 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:56:59] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:57:29 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:57:29] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:57:59 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:57:59] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:58:29 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:58:29] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:58:37 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:58:37] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:58:37 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:58:37] "[36mGET /api/bulletin/image/89ae6c3e-0b79-4e82-8ba0-8f43791aabca.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:58:37 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:58:37] "[36mGET /api/bulletin/image/c5a452ad-6b2a-4622-8c7c-3843b3a8f62c.jpg HTTP/1.1[0m" 304 -
+2026-01-04 20:58:37 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:58:37] "[36mGET /api/bulletin/image/fcc2a4f5-5daf-43be-9d75-9435ee1c9ed4.png HTTP/1.1[0m" 304 -
+2026-01-04 20:58:37 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:58:37] "[36mGET /api/bulletin/image/761e8b58-1f41-490f-9019-69c5ed814598.png HTTP/1.1[0m" 304 -
+2026-01-04 20:58:39 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:58:39] "OPTIONS /api/bulletin/messages/1767531170542 HTTP/1.1" 200 -
+2026-01-04 20:58:39 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:58:39] "DELETE /api/bulletin/messages/1767531170542 HTTP/1.1" 200 -
+2026-01-04 20:58:39 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:58:39] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:58:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:58:43] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 20:58:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:58:43] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:58:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:58:43] "GET /api/bulletin/image/28fba293-432b-4b30-bdfb-34e1c183150c.jpg HTTP/1.1" 200 -
+2026-01-04 20:58:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:58:43] "GET /api/bulletin/image/3116d33d-a90c-4cfe-8dcd-3e1bc917ee45.png HTTP/1.1" 200 -
+2026-01-04 20:58:49 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:58:49] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 20:58:49 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:58:49] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:58:49 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:58:49] "GET /api/bulletin/image/bf83051e-c115-4072-a214-928bdf0f00b7.jpg HTTP/1.1" 200 -
+2026-01-04 20:58:49 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:58:49] "GET /api/bulletin/image/f286ce23-cd4c-441f-ae49-b5f6078afbb9.jpg HTTP/1.1" 200 -
+2026-01-04 20:59:07 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:59:07] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 20:59:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 20:59:38] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:00:08 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:00:08] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:00:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:00:38] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:01:08 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:01:08] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:01:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:01:38] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:02:08 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:02:08] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:03:01 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:03:01] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:04:01 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:04:01] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:04:07 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:04:07] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:04:38 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:04:38] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:05:08 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:05:08] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:06:01 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:06:01] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:06:40 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:06:40] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:06:41 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:06:41] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:06:41 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:06:41] "[36mGET /api/bulletin/image/bf83051e-c115-4072-a214-928bdf0f00b7.jpg HTTP/1.1[0m" 304 -
+2026-01-04 21:06:41 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:06:41] "[36mGET /api/bulletin/image/f286ce23-cd4c-441f-ae49-b5f6078afbb9.jpg HTTP/1.1[0m" 304 -
+2026-01-04 21:06:41 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:06:41] "[36mGET /api/bulletin/image/28fba293-432b-4b30-bdfb-34e1c183150c.jpg HTTP/1.1[0m" 304 -
+2026-01-04 21:06:41 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:06:41] "[36mGET /api/bulletin/image/3116d33d-a90c-4cfe-8dcd-3e1bc917ee45.png HTTP/1.1[0m" 304 -
+2026-01-04 21:07:12 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:07:12] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:07:42 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:07:42] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:08:12 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:08:12] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:08:42 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:08:42] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:09:12 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:09:12] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:09:42 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:09:42] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:10:12 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:12] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:10:31 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:31] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:10:31 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:31] "[36mGET /api/bulletin/image/bf83051e-c115-4072-a214-928bdf0f00b7.jpg HTTP/1.1[0m" 304 -
+2026-01-04 21:10:31 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:31] "[36mGET /api/bulletin/image/f286ce23-cd4c-441f-ae49-b5f6078afbb9.jpg HTTP/1.1[0m" 304 -
+2026-01-04 21:10:31 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:31] "[36mGET /api/bulletin/image/28fba293-432b-4b30-bdfb-34e1c183150c.jpg HTTP/1.1[0m" 304 -
+2026-01-04 21:10:31 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:31] "[36mGET /api/bulletin/image/3116d33d-a90c-4cfe-8dcd-3e1bc917ee45.png HTTP/1.1[0m" 304 -
+2026-01-04 21:10:35 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:35] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 21:10:35 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:35] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:10:39 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:39] "POST /api/bulletin/post HTTP/1.1" 200 -
+2026-01-04 21:10:39 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:39] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:10:39 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:39] "GET /api/bulletin/image/1a1e5543-da93-43c6-aace-9a363629334e.jpg HTTP/1.1" 200 -
+2026-01-04 21:10:39 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:39] "GET /api/bulletin/image/e28efa4d-ad8d-4899-80b2-f8283a8ac7d5.png HTTP/1.1" 200 -
+2026-01-04 21:10:39 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:39] "GET /api/bulletin/image/315ccd83-2c0f-4d7f-98eb-d705d0bd3688.png HTTP/1.1" 200 -
+2026-01-04 21:10:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:43] "OPTIONS /api/bulletin/messages/1767532239785 HTTP/1.1" 200 -
+2026-01-04 21:10:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:43] "DELETE /api/bulletin/messages/1767532239785 HTTP/1.1" 200 -
+2026-01-04 21:10:43 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:43] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:10:47 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:47] "OPTIONS /api/bulletin/messages/1767532235215 HTTP/1.1" 200 -
+2026-01-04 21:10:47 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:47] "DELETE /api/bulletin/messages/1767532235215 HTTP/1.1" 200 -
+2026-01-04 21:10:48 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:48] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:10:49 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:49] "OPTIONS /api/bulletin/messages/1767531529862 HTTP/1.1" 200 -
+2026-01-04 21:10:50 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:50] "DELETE /api/bulletin/messages/1767531529862 HTTP/1.1" 200 -
+2026-01-04 21:10:50 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:50] "GET /api/bulletin/messages HTTP/1.1" 200 -
+2026-01-04 21:10:51 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:51] "OPTIONS /api/bulletin/messages/1767531523508 HTTP/1.1" 200 -
+2026-01-04 21:10:51 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:51] "DELETE /api/bulletin/messages/1767531523508 HTTP/1.1" 200 -
+2026-01-04 21:10:51 [INFO] werkzeug: 127.0.0.1 - - [04/Jan/2026 21:10:51] "GET /api/bulletin/messages HTTP/1.1" 200 -

@@ -3207,6 +3207,12 @@ const app = Vue.createApp({
         const username = localStorage.getItem('username') || '';
         window.location.href = `datachart.html?username=${encodeURIComponent(username)}`;
     },
+    
+    // 跳轉到留言板
+    goBulletinBoard() {
+        const username = this.username || localStorage.getItem('username') || '';
+        window.location.href = `bulletin-board.html?username=${encodeURIComponent(username)}`;
+    },
 
     // 上傳圖片（含驗證）
     handleImageUpload(event) {

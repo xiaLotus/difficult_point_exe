@@ -13,6 +13,7 @@ from routes import comment_routes  # ← 1️⃣ 添加這行
 from utils.config import config  # ✅ 匯入配置
 from waitress import serve
 from routes.proposer_read_routes import proposer_read_bp
+from routes.bulletin_board import bulletin_bp  # ← 留言板 Blueprint
 
 def create_app():
     app = Flask(__name__)
@@ -48,12 +49,22 @@ def create_app():
     meeting_images_path = config.get_path('Paths', 'meeting_images')
     os.makedirs(meeting_images_path, exist_ok=True)
 
+    # ✅ 確保留言板目錄存在
+    bulletin_data_dir = os.path.dirname(config.get_path('Paths', 'bulletin_data_file'))
+    bulletin_images_dir = config.get_path('Paths', 'bulletin_images_dir')
+    if bulletin_data_dir:
+        os.makedirs(bulletin_data_dir, exist_ok=True)
+    os.makedirs(bulletin_images_dir, exist_ok=True)
+
+
     # === 註冊藍圖 ===
     app.register_blueprint(auth_bp, url_prefix="/api")
     app.register_blueprint(meeting_bp, url_prefix="/api")
     app.register_blueprint(comment_routes.bp)  # ← 2️⃣ 添加這行
+    app.register_blueprint(bulletin_bp)  # ← 留言板 Blueprint
     # ===== 註冊未讀通知 Blueprint =====
     app.register_blueprint(proposer_read_bp)
+    
 
     return app
 
