@@ -9,6 +9,7 @@ const app = Vue.createApp({
         isUpdating: false,
         showSpinner: false,
         isloading: false,
+        resizeTimeout: null,  // 用於防抖的計時器
       };
     },
     methods: {
@@ -242,7 +243,7 @@ computeOwnerDaysFromNow() {
                 "On Going": [],
                 "Pending": [],
                 "OverDue": [],
-                totalDays: 0        // 🔥 累計天數
+                maxDays: 0        // 🔥 最高天數（改為記錄最大值）
             };
         }
 
@@ -255,8 +256,8 @@ computeOwnerDaysFromNow() {
             date: this.toStr(r["提案日期"])
         });
 
-        // 🔥 累加到 Owner 的總天數
-        ownerData[owner].totalDays += diffDays;
+        // 🔥 更新最高天數（只保留最大值）
+        ownerData[owner].maxDays = Math.max(ownerData[owner].maxDays, diffDays);
 
         // 判斷是否 OverDue（獨立於狀態）
         const dueDate = this.parseDueDate(r["項目DueDate"]);
@@ -277,7 +278,7 @@ computeOwnerDaysFromNow() {
         onGoing: [],   // 左 y 軸（件數）
         pending: [],
         overDue: [],
-        totalDays: [], // 👉 右 y 軸（天數）
+        maxDays: [],   // 👉 右 y 軸（最高天數）
         details: {}    // 點擊 bar 用
     };
 
@@ -285,7 +286,7 @@ computeOwnerDaysFromNow() {
         result.onGoing.push(ownerData[owner]["On Going"].length);
         result.pending.push(ownerData[owner]["Pending"].length);
         result.overDue.push(ownerData[owner]["OverDue"].length);
-        result.totalDays.push(ownerData[owner].totalDays);
+        result.maxDays.push(ownerData[owner].maxDays);
 
         // 儲存排序後的項次清單
         result.details[owner] = {
@@ -334,6 +335,7 @@ computeOwnerDaysFromNow() {
                 },
                 options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                     labels: {
@@ -404,6 +406,7 @@ computeOwnerDaysFromNow() {
                 },
                 options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                     labels: {
@@ -483,9 +486,9 @@ computeOwnerDaysFromNow() {
                     borderRadius: 8
                     },
                     {
-                        // 👉 右 y 軸：累計天數（折線）
-                        label: "累計天數",
-                        data: O.totalDays,
+                        // 👉 右 y 軸:最高天數(折線)
+                        label: "最高天數",
+                        data: O.maxDays,
                         type: "line",          // 使用折線，避免與 bar 混淆
                         yAxisID: "yDays",      // 對應右側 y 軸
                         borderColor: "#6366F1",
@@ -500,6 +503,7 @@ computeOwnerDaysFromNow() {
                 },
                 options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 onClick: (event, activeElements) => {
                     if (activeElements.length > 0) {
                     const datasetIndex = activeElements[0].datasetIndex;
@@ -620,7 +624,7 @@ computeOwnerDaysFromNow() {
                         // 🔥 關鍵：title 文字後方的背景
                         title: {
                             display: true,
-                            text: '累計天數',
+                            text: '最高天數',
                             color: "#6366F1",
                             font: { weight: "bold", size: 12 },
                             padding: { bottom: 4 },
@@ -642,7 +646,7 @@ computeOwnerDaysFromNow() {
                                 ctx.save();
                                 
                                 if (isLineDataset) {
-                                    // ✅ 折線圖：數字顯示在點上方，增加更大間距避免重疊
+                                    // ✅ 折線圖：每個點都顯示數字
                                     const padding = 15; // 增加間距到 15px
                                     const yPos = element.y - padding;
                                     
@@ -738,13 +742,41 @@ computeOwnerDaysFromNow() {
       goMeetingPage() {
         localStorage.setItem('username', this.username);
         window.location.href = `defficultmeeting.html?username=${encodeURIComponent(this.username)}`;
+      },
+      
+      /* 處理螢幕大小變化 */
+      handleResize() {
+        // 延遲執行以避免頻繁觸發
+        clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = setTimeout(() => {
+          // 手動觸發圖表重繪
+          if (this.chartStatus) {
+            this.chartStatus.resize();
+          }
+          if (this.chartWorkload) {
+            this.chartWorkload.resize();
+          }
+          if (this.chartOwner) {
+            this.chartOwner.resize();
+          }
+        }, 250); // 250ms 延遲
       }
     },
     mounted() { 
       const urlParams = new URLSearchParams(window.location.search);
       this.username = urlParams.get("username");
       console.log(this.username)
-      this.loadMeetingRecords(); 
+      this.loadMeetingRecords();
+      
+      // 監聽螢幕大小變化
+      window.addEventListener('resize', this.handleResize);
+    },
+    beforeUnmount() {
+      // 清除監聽器
+      window.removeEventListener('resize', this.handleResize);
+      if (this.resizeTimeout) {
+        clearTimeout(this.resizeTimeout);
+      }
     }
   });
   app.mount("#app");

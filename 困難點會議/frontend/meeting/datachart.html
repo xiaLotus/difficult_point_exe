@@ -193,6 +193,38 @@
       border-radius: 16px;
     }
 
+    /* 響應式圖表容器高度 */
+    .chart-canvas-wrapper {
+      position: relative;
+      height: 400px;
+      min-height: 300px;
+    }
+
+    /* 根據螢幕大小調整圖表高度 */
+    @media (min-width: 1024px) {
+      .chart-canvas-wrapper {
+        height: 450px;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .chart-canvas-wrapper {
+        height: 500px;
+      }
+    }
+
+    @media (min-width: 1536px) {
+      .chart-canvas-wrapper {
+        height: 550px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .chart-canvas-wrapper {
+        height: 350px;
+      }
+    }
+
     /* 按鈕增強效果 */
     .btn-primary {
       position: relative;
@@ -237,6 +269,18 @@
     }
 
     /* 響應式設計 */
+    @media (min-width: 1400px) {
+      canvas {
+        height: 500px !important;
+      }
+    }
+
+    @media (min-width: 1800px) {
+      canvas {
+        height: 600px !important;
+      }
+    }
+
     @media (max-width: 768px) {
       #app {
         border-radius: 20px;
@@ -245,6 +289,10 @@
 
       .chart-container {
         padding: 1.25rem;
+      }
+
+      canvas {
+        height: 300px !important;
       }
 
       h2 {
@@ -408,8 +456,8 @@
         <span class="inline-block w-1 h-6 bg-gradient-to-b from-blue-500 to-green-500 rounded-full"></span>
         New → On Going → Pending → Closed
       </h3>
-      <div class="relative">
-        <canvas id="chartStatus" class="w-full" style="max-height: 400px;"></canvas>
+      <div class="relative chart-canvas-wrapper">
+        <canvas id="chartStatus" class="w-full"></canvas>
       </div>
     </section>
 
@@ -423,8 +471,8 @@
         <span class="inline-block w-1 h-6 bg-gradient-to-b from-blue-600 to-red-500 rounded-full"></span>
         On Going → Closed → OverDue
       </h3>
-      <div class="relative">
-        <canvas id="chartWorkload" class="w-full" style="max-height: 400px;"></canvas>
+      <div class="relative chart-canvas-wrapper">
+        <canvas id="chartWorkload" class="w-full"></canvas>
       </div>
     </section>
 
@@ -436,14 +484,14 @@
       </div>
       <h3 class="text-base sm:text-lg font-semibold text-gray-700 mb-2 flex items-center gap-2">
         <span class="inline-block w-1 h-6 bg-gradient-to-b from-amber-500 to-red-500 rounded-full"></span>
-        On Going → Pending → 超過 DueDate (件數)
+        On Going → Pending → 超過 DueDate (件數) + 最高天數
       </h3>
       <p class="text-xs text-gray-500 mb-4 flex items-center gap-2">
         <i data-lucide="mouse-pointer-click" class="w-3.5 h-3.5"></i>
-        <span>點擊柱狀圖查看詳細項次與距今天數</span>
+        <span>點擊柱狀圖查看詳細項次與距今天數 | 藍色曲線顯示該負責人案件中的最高天數</span>
       </p>
-      <div class="relative">
-        <canvas id="chartOwner" class="w-full" style="max-height: 400px; cursor: pointer;"></canvas>
+      <div class="relative chart-canvas-wrapper">
+        <canvas id="chartOwner" class="w-full" style="cursor: pointer;"></canvas>
       </div>
     </section>
 

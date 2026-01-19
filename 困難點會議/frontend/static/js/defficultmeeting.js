@@ -3211,6 +3211,10 @@ const app = Vue.createApp({
     // 跳轉到留言板
     goBulletinBoard() {
         const username = this.username || localStorage.getItem('username') || '';
+        const infoname = this.infoname || localStorage.getItem('infoname') || '';
+        const role = this.userRole || localStorage.getItem('userRole') || '';
+        localStorage.setItem('infoname', infoname);
+        localStorage.setItem('role', role);
         window.location.href = `bulletin-board.html?username=${encodeURIComponent(username)}`;
     },
 

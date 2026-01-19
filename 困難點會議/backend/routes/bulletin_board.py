@@ -2,11 +2,13 @@
 留言板 API 路由
 放置在 routes/bulletin_board.py
 """
-
 from flask import Blueprint, request, send_file
 from utils.bulletin_utils import BulletinManager
 import os
+import logging
+from utils.config import config  # ✅ 匯入配置
 
+logger = logging.getLogger(__name__)
 # 創建 Blueprint
 bulletin_bp = Blueprint('bulletin', __name__, url_prefix='/api/bulletin')
 
@@ -45,12 +47,12 @@ def get_bulletin_image(filename):
         
         # 檢查文件是否存在
         if not os.path.exists(image_path):
-            print(f"❌ 圖片不存在: {image_path}")
+            logger.info(f"❌ 圖片不存在: {image_path}")
             return {'status': 'error', 'message': '圖片不存在'}, 404
         
         # 返回圖片文件
         return send_file(image_path)
         
     except Exception as e:
-        print(f"❌ 提供圖片時發生錯誤: {e}")
+        logger.info(f"❌ 提供圖片時發生錯誤: {e}")
         return {'status': 'error', 'message': str(e)}, 500

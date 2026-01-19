@@ -1,0 +1,21 @@
+﻿{
+  "username": "K12895",
+  "filter_state": {
+    "checkedDates": [],
+    "checkedBuildings": [],
+    "checkedFloors": [],
+    "checkedStations": [],
+    "checkedCategories": [],
+    "checkedProposers": [],
+    "checkedDescriptions": [],
+    "checkedCaseCategories": [],
+    "checkedStatus": [],
+    "checkedPDCA": [],
+    "checkedProjectOwners": [
+      "游偉易"
+    ],
+    "checkedDueDates": [],
+    "checkedItemDueDates": []
+  },
+  "last_updated": "2026-01-02T09:30:09.691411"
+}

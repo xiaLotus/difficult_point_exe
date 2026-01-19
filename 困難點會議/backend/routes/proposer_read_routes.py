@@ -7,6 +7,8 @@ from utils.proposer_read_tracker import ProposerReadTracker
 import pandas as pd
 import os
 import configparser
+import logging
+logger = logging.getLogger(__name__)
 
 proposer_read_bp = Blueprint('proposer_read', __name__)
 tracker = ProposerReadTracker()
@@ -26,7 +28,7 @@ for config_path in possible_paths:
             config.read(config_path, encoding='utf-8')
             if 'Paths' in config or 'paths' in config:
                 config_loaded = True
-                print(f"✅ [Routes] 成功讀取 config.ini: {os.path.abspath(config_path)}")
+                logger.info(f"✅ [Routes] 成功讀取 config.ini: {os.path.abspath(config_path)}")
                 break
         except:
             pass
@@ -40,14 +42,14 @@ def get_all_meetings():
         csv_path = 'static\\MeetingRecording.csv'
     
     if not os.path.exists(csv_path):
-        print(f"⚠️ CSV 檔案不存在: {csv_path}")
+        logger.info(f"⚠️ CSV 檔案不存在: {csv_path}")
         return []
     
     try:
         df = pd.read_csv(csv_path, encoding='utf-8-sig')
         return df.to_dict('records')
     except Exception as e:
-        print(f"❌ 讀取 CSV 失敗: {e}")
+        logger.info(f"❌ 讀取 CSV 失敗: {e}")
         return []
 
 

@@ -6,9 +6,7 @@
     "checkedFloors": [],
     "checkedStations": [],
     "checkedCategories": [],
-    "checkedProposers": [
-      "詹睿穎"
-    ],
+    "checkedProposers": [],
     "checkedDescriptions": [],
     "checkedCaseCategories": [],
     "checkedStatus": [],
@@ -17,5 +15,5 @@
     "checkedDueDates": [],
     "checkedItemDueDates": []
   },
-  "last_updated": "2026-01-04T19:45:04.293884"
+  "last_updated": "2026-01-19T19:20:30.606154"
 }

@@ -6,12 +6,15 @@ import os
 import json
 from datetime import datetime
 import configparser
+import logging
+logger = logging.getLogger(__name__)
 
 class ProposerReadTracker:
     def __init__(self):
         # 讀取設定檔
         config = configparser.ConfigParser()
         
+        # 路徑尋找
         possible_paths = [
             'config.ini',
             os.path.join(os.path.dirname(__file__), '..', 'config.ini'),
@@ -25,10 +28,10 @@ class ProposerReadTracker:
                     config.read(config_path, encoding='utf-8')
                     if 'Paths' in config or 'paths' in config:
                         config_loaded = True
-                        print(f"✅ 成功讀取 config.ini: {os.path.abspath(config_path)}")
+                        logger.info(f"✅ 成功讀取 config.ini: {os.path.abspath(config_path)}")
                         break
                 except Exception as e:
-                    print(f"⚠️ 讀取 {config_path} 失敗: {e}")
+                    logger.info(f"⚠️ 讀取 {config_path} 失敗: {e}")
         
         if config_loaded:
             paths_section = 'Paths' if 'Paths' in config else 'paths'
@@ -36,15 +39,19 @@ class ProposerReadTracker:
             self.comments_dir = config[paths_section].get('comments_dir', 'static\\meeting_comments')
             self.progress_dir = config[paths_section].get('progress_dir', 'static\\progress_records')
             
-            print(f"📁 留言目錄: {self.comments_dir}")
-            print(f"📁 進度目錄: {self.progress_dir}")
+            logger.info(f"📁 留言目錄: {self.comments_dir}")
+            logger.info(f"📁 進度目錄: {self.progress_dir}")
         else:
-            print("⚠️ 未找到 config.ini，使用預設路徑")
+            logger.info("⚠️ 未找到 config.ini，使用預設路徑")
             self.data_dir = 'static'
             self.comments_dir = 'static\\meeting_comments'
             self.progress_dir = 'static\\progress_records'
-        
-        self.read_records_file = os.path.join(self.data_dir, 'proposer_read_records.json')
+            
+        # self.read_records_file = os.path.join(self.data_dir, 'proposer_read_records.json')
+        self.read_records_file = config[paths_section].get(
+            'proposer_read_records',
+            os.path.join(self.data_dir, 'proposer_read_records.json')
+        )
         self._ensure_file_exists()
     
     def _ensure_file_exists(self):
@@ -53,7 +60,7 @@ class ProposerReadTracker:
             os.makedirs(os.path.dirname(self.read_records_file), exist_ok=True)
             with open(self.read_records_file, 'w', encoding='utf-8') as f:
                 json.dump({}, f)
-            print(f"✅ 已創建閱讀記錄檔案: {self.read_records_file}")
+            logger.info(f"✅ 已創建閱讀記錄檔案: {self.read_records_file}")
     
     def mark_as_read(self, record_id):
         """標記提案人已讀"""
@@ -138,7 +145,7 @@ class ProposerReadTracker:
                 
                 # ⭐ 過濾提案人自己的留言
                 if proposer_name and author.strip() == proposer_name.strip():
-                    print(f"⏭️ 跳過提案人自己的留言: {author}")
+                    logger.info(f"⏭️ 跳過提案人自己的留言: {author}")
                     continue
                 
                 # 提取留言資訊
@@ -156,7 +163,7 @@ class ProposerReadTracker:
             return unread_comments
             
         except Exception as e:
-            print(f"⚠️ 讀取留言檔案失敗 {comment_file}: {e}")
+            logger.info(f"⚠️ 讀取留言檔案失敗 {comment_file}: {e}")
             return []
     
     def get_unread_progress(self, item_number, last_read_time=None):
@@ -178,18 +185,18 @@ class ProposerReadTracker:
         # ⭐ 使用「項次」作為進度檔案名
         progress_file = os.path.join(self.progress_dir, f'{item_number}.json')
         
-        print(f"🔍 檢查進度檔案: {progress_file}")
-        print(f"🔍 最後閱讀時間: {last_read_time}")
+        logger.info(f"🔍 檢查進度檔案: {progress_file}")
+        logger.info(f"🔍 最後閱讀時間: {last_read_time}")
         
         if not os.path.exists(progress_file):
-            print(f"⚠️ 進度檔案不存在: {progress_file}")
+            logger.info(f"⚠️ 進度檔案不存在: {progress_file}")
             return []
         
         try:
             with open(progress_file, 'r', encoding='utf-8') as f:
                 progress_records = json.load(f)
             
-            print(f"📋 進度記錄數量: {len(progress_records) if progress_records else 0}")
+            logger.info(f"📋 進度記錄數量: {len(progress_records) if progress_records else 0}")
             
             if not progress_records or not isinstance(progress_records, dict):
                 return []
@@ -199,17 +206,17 @@ class ProposerReadTracker:
             for time_str, content in progress_records.items():
                 try:
                     progress_time = datetime.fromisoformat(time_str)
-                    print(f"  📅 進度時間: {progress_time} | 內容: {content[:30]}...")
+                    logger.info(f" 📅 進度時間: {progress_time} | 內容: {content[:30]}...")
                 except Exception as e:
-                    print(f"  ❌ 時間解析失敗: {time_str} - {e}")
+                    logger.info(f"  ❌ 時間解析失敗: {time_str} - {e}")
                     continue
                 
                 # 如果有最後閱讀時間，只返回比它新的進度
                 if last_read_time and progress_time <= last_read_time:
-                    print(f"  ⏭️ 跳過舊進度: {progress_time} <= {last_read_time}")
+                    logger.info(f" ⏭️ 跳過舊進度: {progress_time} <= {last_read_time}")
                     continue
                 
-                print(f"  ✅ 新進度: {progress_time}")
+                logger.info(f"  ✅ 新進度: {progress_time}")
                 unread_progress.append({
                     'time': time_str,
                     'content': content
@@ -218,11 +225,11 @@ class ProposerReadTracker:
             # 按時間排序（最新的在前）
             unread_progress.sort(key=lambda x: x['time'], reverse=True)
             
-            print(f"✅ 未讀進度總數: {len(unread_progress)}")
+            logger.info(f"✅ 未讀進度總數: {len(unread_progress)}")
             return unread_progress
             
         except Exception as e:
-            print(f"❌ 讀取進度檔案失敗 {progress_file}: {e}")
+            logger.info(f"❌ 讀取進度檔案失敗 {progress_file}: {e}")
             import traceback
             traceback.print_exc()
             return []
@@ -298,7 +305,7 @@ class ProposerReadTracker:
                 title = problem_desc
             
             if not record_id or not item_number:
-                print(f"⚠️ 跳過：record_id={record_id}, item_number={item_number}")
+                logger.info(f"⚠️ 跳過：record_id={record_id}, item_number={item_number}")
                 continue
             
             # ⭐ 獲取詳細的未讀資訊
@@ -378,6 +385,6 @@ class ProposerReadTracker:
         with open(self.read_records_file, 'w', encoding='utf-8') as f:
             json.dump(records, f, ensure_ascii=False, indent=2)
         
-        print(f"✅ 已標記 {marked_count} 個提案為已讀（提案人：{proposer_name}）")
+        logger.info(f"✅ 已標記 {marked_count} 個提案為已讀（提案人：{proposer_name}）")
         
         return marked_count

@@ -2,6 +2,8 @@ const app = Vue.createApp({
     data() {
         return {
             username: null,
+            infoname: null,
+            role: '',
             messages: [],
             newMessage: {
                 content: '',
@@ -27,7 +29,11 @@ const app = Vue.createApp({
         initUsername() {
             const urlParams = new URLSearchParams(window.location.search);
             this.username = urlParams.get('username') || 'Unknown';
+            this.infoname = localStorage.getItem('infoname') || '';
+            this.role = localStorage.getItem('role') || '';
             console.log('📝 初始化用戶名:', this.username);
+            console.log('📝 初始化用戶名:', this.infoname);
+            console.log('📝 初始化規則:', this.role);
         },
         
         // ===== 圖片 URL 處理 =====
@@ -206,7 +212,7 @@ const app = Vue.createApp({
             try {
                 // 準備表單數據
                 const formData = new FormData();
-                formData.append('author', this.username);
+                formData.append('author', this.infoname);
                 formData.append('content', this.newMessage.content || '');
                 
                 // 添加圖片

@@ -1,11 +1,53 @@
 {
-  "1766468399728": {
-    "username": "K18251",
-    "display_name": "詹睿穎",
-    "role": "管理員",
-    "content": "888",
+  "1765932866120": {
+    "username": "K16639",
+    "display_name": "施文旌",
+    "role": "提案人",
+    "content": "基本上每天都會發生",
     "images": [],
-    "created_at": "2025-12-23T13:39:59.732940",
+    "created_at": "2025-12-17T08:54:24.465680",
+    "edited_at": null
+  },
+  "1765933153530": {
+    "username": "K03987",
+    "display_name": "蔡宗佑",
+    "role": "管理員",
+    "content": "有特定機台嗎 舊線、新線 都會發生?",
+    "images": [],
+    "created_at": "2025-12-17T08:59:13.181234",
+    "edited_at": null
+  },
+  "1765938905950": {
+    "username": "K16639",
+    "display_name": "施文旌",
+    "role": "提案人",
+    "content": "只有新線",
+    "images": [],
+    "created_at": "2025-12-17T10:35:04.229509",
+    "edited_at": null
+  },
+  "1766369598430": {
+    "username": "K03987",
+    "display_name": "蔡宗佑",
+    "role": "管理員",
+    "content": "",
+    "images": [
+      {
+        "filename": "1766369598430_img1.jpg",
+        "original_name": "K21_8F_3390.jpg",
+        "size": 77577
+      }
+    ],
+    "created_at": "2025-12-22T10:13:18.168654",
+    "edited_at": null
+  },
+  "1767085557349": {
+    "username": "K03987",
+    "display_name": "蔡宗佑",
+    "role": "管理員",
+    "content": "無異常回報，先結案，若還有發生請再回覆。",
+    "images": [],
+    "created_at": "2025-12-30T17:05:56.989449",
     "edited_at": null
   }
 }
