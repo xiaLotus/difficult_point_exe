@@ -2125,7 +2125,7 @@
                                 placeholder="輸入提案人" />
                         </div>
 
-                        <!-- 第三行 -->
+                        <!-- 第三行：案件分類 + 公式輸入 -->
                         <div class="group relative" ref="caseCategoryDropdown">
                             <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
                                 <i data-lucide="folder" class="w-4 h-4 text-gray-400"></i>
@@ -2149,6 +2149,84 @@
                             </div>
                         </div>
 
+                        <!-- 處理時間(H) -->
+                        <div class="group">
+                            <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                                <i data-lucide="users" class="w-4 h-4 text-gray-400"></i>
+                                工程師人數
+                            </label>
+                            <input v-model="newRecord.工程師人數"
+                                type="number" min="1" step="1"
+                                class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all input-focus"
+                                placeholder="輸入人數" />
+                        </div>
+
+                        <div class="group">
+                            <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                                <i data-lucide="clock" class="w-4 h-4 text-gray-400"></i>
+                                處理時間 (H)
+                            </label>
+                            <input v-model="newRecord.處理時間H"
+                                type="number" min="0" step="0.5"
+                                class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all input-focus"
+                                placeholder="輸入小時數" />
+                        </div>
+
+                        <!-- 產品顆數 / 影響產能（依案件分類顯示） -->
+                        <div class="group">
+                            <template v-if="newRecord.案件分類 === '品質(死貨)'">
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                                    <i data-lucide="package" class="w-4 h-4 text-gray-400"></i>
+                                    產品顆數
+                                </label>
+                                <input v-model="newRecord.產品顆數"
+                                    type="number" min="0"
+                                    class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all input-focus"
+                                    placeholder="輸入產品顆數" />
+                            </template>
+                            <template v-else-if="newRecord.案件分類 === '效率(產能)'">
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                                    <i data-lucide="zap" class="w-4 h-4 text-gray-400"></i>
+                                    影響產能
+                                </label>
+                                <input v-model="newRecord.影響產能"
+                                    type="number" min="0"
+                                    class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all input-focus"
+                                    placeholder="輸入影響產能數量" />
+                            </template>
+                            <template v-else>
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-500 mb-2">
+                                    <i data-lucide="minus-circle" class="w-4 h-4 text-gray-300"></i>
+                                    附加數量
+                                </label>
+                                <div class="w-full px-4 py-2.5 bg-gray-50 border border-dashed border-gray-200 rounded-lg text-sm text-gray-400 text-center">
+                                    {{ newRecord.案件分類 ? '此分類無需填寫' : '請先選擇案件分類' }}
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- 換算金額（自動計算） -->
+                        <div class="group">
+                            <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                                <i data-lucide="dollar-sign" class="w-4 h-4 text-orange-500"></i>
+                                換算金額 (NTD)
+                            </label>
+                            <div class="w-full px-4 py-2.5 rounded-lg text-sm border transition-all"
+                                :class="newRecord.換算金額 > 0
+                                    ? 'bg-orange-50 border-orange-200 text-orange-700 font-semibold'
+                                    : 'bg-gray-50 border-gray-200 text-gray-400'">
+                                <span>{{ newRecord.換算金額 > 0 ? 'NT$' + newRecord.換算金額.toLocaleString() : '—' }}</span>
+                            </div>
+                            <div v-if="newRecord.案件分類 && newRecord.換算金額 > 0" class="mt-1.5 text-xs text-gray-400 leading-snug">
+                                <template v-if="newRecord.案件分類 === '品質(死貨)'">( 人×H×610 + 顆×30 ) × 比重2</template>
+                                <template v-else-if="newRecord.案件分類 === '效率(產能)'">( 人×H×610 + 產能×30 ) × 比重3</template>
+                                <template v-else-if="newRecord.案件分類 === '公安'">人×H×610 × 比重1</template>
+                                <template v-else-if="newRecord.案件分類 === '資安'">人×H×610 × 比重4</template>
+                                <template v-else-if="newRecord.案件分類 === '日常'">人×H×610 × 比重5</template>
+                            </div>
+                        </div>
+
+                        <!-- 第四行：PDCA + 截止日期 + 專案Owner -->
                         <div class="group">
                             <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
                                 <i data-lucide="repeat" class="w-4 h-4 text-gray-400"></i>
@@ -2178,7 +2256,6 @@
                                 <i data-lucide="user-check" class="w-4 h-4 text-gray-400"></i>
                                 專案Owner
                             </label>
-                            <!-- 直接綁定到 newRecord.專案Owner 字串 -->
                             <input
                                 v-model="newRecord.專案Owner"
                                 @keydown.enter="handleOwnerKeydown"

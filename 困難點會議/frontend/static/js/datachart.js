@@ -336,6 +336,11 @@ computeOwnerDaysFromNow() {
                 options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        bottom: 40   // ⬅ 強制預留 x 軸空間
+                    }
+                },
                 plugins: {
                     legend: {
                     labels: {
@@ -407,6 +412,11 @@ computeOwnerDaysFromNow() {
                 options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        bottom: 40   // ⬅ 強制預留 x 軸空間
+                    }
+                },
                 plugins: {
                     legend: {
                     labels: {
@@ -504,6 +514,11 @@ computeOwnerDaysFromNow() {
                 options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        bottom: 40   // ⬅ 強制預留 x 軸空間
+                    }
+                },
                 onClick: (event, activeElements) => {
                     if (activeElements.length > 0) {
                     const datasetIndex = activeElements[0].datasetIndex;

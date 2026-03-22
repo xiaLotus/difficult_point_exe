@@ -43,5 +43,44 @@
     "images": [],
     "created_at": "2025-12-31T13:39:42.811403",
     "edited_at": null
+  },
+  "1768547477093": {
+    "username": "K16639",
+    "display_name": "施文旌",
+    "role": "提案人",
+    "content": "K11-5F兩套都更新完成並正常作業中，請知悉\nK22-8F呢?要另外再提還是?\n",
+    "images": [
+      {
+        "filename": "1768547477093_img1.png",
+        "original_name": "K22-8F-3380.png",
+        "size": 315255
+      }
+    ],
+    "created_at": "2026-01-16T15:11:16.890820",
+    "edited_at": null
+  },
+  "1768548016475": {
+    "username": "K16639",
+    "display_name": "施文旌",
+    "role": "提案人",
+    "content": "還有K21-8F",
+    "images": [
+      {
+        "filename": "1768548016475_img1.png",
+        "original_name": "K21-8F-3380.png",
+        "size": 358446
+      }
+    ],
+    "created_at": "2026-01-16T15:20:16.260362",
+    "edited_at": null
+  },
+  "1768784072974": {
+    "username": "K03987",
+    "display_name": "蔡宗佑",
+    "role": "管理員",
+    "content": "好的，這部分我這邊安排看看，感恩。",
+    "images": [],
+    "created_at": "2026-01-19T08:54:32.198324",
+    "edited_at": null
   }
 }

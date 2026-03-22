@@ -354,6 +354,11 @@ const app = Vue.createApp({
           類別: this.originalData.類別,
           提案人: this.originalData.提案人,
           案件分類: this.originalData.案件分類,
+          工程師人數: this.originalData.工程師人數 || "",
+          處理時間H: this.originalData.處理時間H || "",
+          產品顆數: this.originalData.產品顆數 || "",
+          影響產能: this.originalData.影響產能 || "",
+          換算金額: this.originalData.換算金額 || 0,
           問題描述: this.originalData.問題描述,
           PDCA: this.originalData.PDCA,
           截止日期: this.originalData.截止日期,
@@ -385,6 +390,11 @@ const app = Vue.createApp({
         類別: this.recordData.類別,
         提案人: this.recordData.提案人,
         案件分類: this.recordData.案件分類,
+        工程師人數: this.recordData.工程師人數 || "",
+        處理時間H: this.recordData.處理時間H || "",
+        產品顆數: this.recordData.產品顆數 || "",
+        影響產能: this.recordData.影響產能 || "",
+        換算金額: this.recordData.換算金額 || 0,
         問題描述: this.recordData.問題描述,
         PDCA: this.recordData.PDCA,
         截止日期: this.recordData.截止日期,
@@ -529,6 +539,11 @@ parseUrlParams() {
               類別: this.recordData.類別,
               提案人: this.recordData.提案人,
               案件分類: this.recordData.案件分類,
+              工程師人數: this.recordData.工程師人數 || "",
+              處理時間H: this.recordData.處理時間H || "",
+              產品顆數: this.recordData.產品顆數 || "",
+              影響產能: this.recordData.影響產能 || "",
+              換算金額: this.recordData.換算金額 || 0,
               問題描述: this.recordData.問題描述,
               PDCA: this.recordData.PDCA,
               截止日期: this.recordData.截止日期,
@@ -641,6 +656,33 @@ parseUrlParams() {
       const str = val.toString().trim();
       if (str.length !== 8 || !/^\d{8}$/.test(str)) return "";
       return `${str.slice(0, 4)}-${str.slice(4, 6)}-${str.slice(6, 8)}`;
+    },
+
+    // === 公式換算金額計算 ===
+    onCaseCategoryChange() {
+      this.recordData.產品顆數 = "";
+      this.recordData.影響產能 = "";
+      this.calculateFormulaAmount();
+    },
+
+    calculateFormulaAmount() {
+      const H = parseFloat(this.recordData.處理時間H) || 0;
+      const engineers = parseFloat(this.recordData.工程師人數) || 0;
+      const 顆數 = parseFloat(this.recordData.產品顆數) || 0;
+      const 產能 = parseFloat(this.recordData.影響產能) || 0;
+      const cat = this.recordData.案件分類;
+      const weightMap = {
+        '公安':      1,
+        '品質(死貨)': 2,
+        '效率(產能)': 3,
+        '資安':      4,
+        '日常':      5,
+      };
+      const weight = weightMap[cat] || 1;
+      let base = engineers * H * 610;
+      if (cat === '品質(死貨)') base += 顆數 * 1 * 30;
+      else if (cat === '效率(產能)') base += 產能 * 1 * 30;
+      this.recordData.換算金額 = base * weight;
     },
 
     // === 編輯操作方法（帶權限檢查） ===
@@ -1053,6 +1095,11 @@ parseUrlParams() {
             類別: this.recordData.類別,
             提案人: this.recordData.提案人,
             案件分類: this.recordData.案件分類,
+            工程師人數: this.recordData.工程師人數 || "",
+            處理時間H: this.recordData.處理時間H || "",
+            產品顆數: this.recordData.產品顆數 || "",
+            影響產能: this.recordData.影響產能 || "",
+            換算金額: this.recordData.換算金額 || 0,
             問題描述: this.recordData.問題描述,
             PDCA: this.recordData.PDCA,
             截止日期: this.recordData.截止日期,
@@ -2031,13 +2078,17 @@ async deleteComment(timestamp) {
   watch: {
     recordData: {
       handler() {
-        // 只有在非唯讀模式下才追蹤變更
         if (!this.isReadOnly) {
           this.hasUnsavedChanges = this.checkForChanges();
         }
       },
       deep: true
-    }
+    },
+    'recordData.案件分類'() { this.calculateFormulaAmount(); },
+    'recordData.工程師人數'() { this.calculateFormulaAmount(); },
+    'recordData.處理時間H'() { this.calculateFormulaAmount(); },
+    'recordData.產品顆數'() { this.calculateFormulaAmount(); },
+    'recordData.影響產能'() { this.calculateFormulaAmount(); },
   },
 
   async mounted() {

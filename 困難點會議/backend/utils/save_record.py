@@ -17,6 +17,7 @@ def save_new_record(username, newrecords):
     
     fieldnames = [
         "id", "項次", "提案日期", "棟別", "樓層", "站點", "類別", "提案人", "案件分類",
+        "工程師人數", "處理時間H", "產品顆數", "影響產能", "換算金額",
         "問題描述", "PDCA", "截止日期", "專案Owner", "項目DueDate", "進度紀錄", "Status"
     ]
     
@@ -52,6 +53,7 @@ def update_existing_record(username, record_id, updated_data):
     
     fieldnames = [
         "id", "項次", "提案日期", "棟別", "樓層", "站點", "類別", "提案人", "案件分類",
+        "工程師人數", "處理時間H", "產品顆數", "影響產能", "換算金額",
         "問題描述", "PDCA", "截止日期", "專案Owner", "項目DueDate", "進度紀錄", "Status"
     ]
     

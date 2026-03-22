@@ -25,7 +25,7 @@ const app = Vue.createApp({
       showCategoryDropdown: false,
       categories: ["專案", "工作"], // 類別
 
-      caseCategories: ["ALL", "軟體", "硬體", "日常"], // 新增：案件分類選項
+      caseCategories: ["公安", "品質(死貨)", "效率(產能)", "資安", "日常"], // 新增：案件分類選項
       showCaseCategoryDropdown: false, // 新增：案件分類下拉狀態
       
       // 🆕 新增滾動 Toast 相關屬性
@@ -2122,7 +2122,33 @@ const app = Vue.createApp({
       // 新增：案件分類選擇方法
     selectCaseCategory(category) {
       this.newRecord.案件分類 = category;
+      this.newRecord.產品顆數 = "";
+      this.newRecord.影響產能 = "";
+      this.calculateFormulaAmount();
       this.showCaseCategoryDropdown = false;
+    },
+
+    // 公式換算金額計算（單位：NTD，依比重加乘）
+    calculateFormulaAmount() {
+      const H = parseFloat(this.newRecord.處理時間H) || 0;
+      const engineers = parseFloat(this.newRecord.工程師人數) || 0;
+      const 顆數 = parseFloat(this.newRecord.產品顆數) || 0;
+      const 產能 = parseFloat(this.newRecord.影響產能) || 0;
+      const cat = this.newRecord.案件分類;
+      const weightMap = {
+        '公安':     1,
+        '品質(死貨)': 2,
+        '效率(產能)': 3,
+        '資安':     4,
+        '日常':     5,
+      };
+      const weight = weightMap[cat] || 1;
+      // 工程師費用（NTD）= 人數 × 時間H × 610
+      let base = engineers * H * 610;
+      // 附加費用：美金單價×30換NTD
+      if (cat === '品質(死貨)') base += 顆數 * 1 * 30;
+      else if (cat === '效率(產能)') base += 產能 * 1 * 30;
+      this.newRecord.換算金額 = base * weight;
     },
 
 
@@ -2365,6 +2391,11 @@ const app = Vue.createApp({
         類別: "",
         提案人: this.username || "",
         案件分類: "",
+        工程師人數: "",
+        處理時間H: "",
+        產品顆數: "",
+        影響產能: "",
+        換算金額: 0,
         問題描述: "",
         PDCA: "P",
         截止日期: "TBD",
@@ -3747,6 +3778,10 @@ const app = Vue.createApp({
       deep: true
     },
     checkedDates: { handler() { this.onFilterChange(); }, deep: true },
+    'newRecord.處理時間H': { handler() { this.calculateFormulaAmount(); } },
+    'newRecord.工程師人數': { handler() { this.calculateFormulaAmount(); } },
+    'newRecord.產品顆數': { handler() { this.calculateFormulaAmount(); } },
+    'newRecord.影響產能': { handler() { this.calculateFormulaAmount(); } },
     checkedBuildings: { handler() { this.onFilterChange(); }, deep: true },
     checkedFloors: { handler() { this.onFilterChange(); }, deep: true },
     checkedStations: { handler() { this.onFilterChange(); }, deep: true },
