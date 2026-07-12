@@ -1,0 +1,878 @@
+﻿[
+  {
+    "工號": "C2935",
+    "姓名": "王俊懿",
+    "Email": "Junyi_Wang@aseglobal.com",
+    "Leader": "羅光揚"
+  },
+  {
+    "工號": "36136",
+    "姓名": "洪忠全",
+    "Email": "James_Hung@aseglobal.com",
+    "Leader": "王俊懿"
+  },
+  {
+    "工號": "B8748",
+    "姓名": "余啟睿",
+    "Email": "JasonCR_Yu@aseglobal.com",
+    "Leader": "王俊懿"
+  },
+  {
+    "工號": "K02824",
+    "姓名": "徐敏偉",
+    "Email": "DavidMW_Hsu@aseglobal.com",
+    "Leader": "王俊懿"
+  },
+  {
+    "工號": "K11341",
+    "姓名": "鄭元淮",
+    "Email": "YH_Cheng@aseglobal.com",
+    "Leader": "王俊懿"
+  },
+  {
+    "工號": "K12895",
+    "姓名": "游偉易",
+    "Email": "WeiYi_Yu@aseglobal.com",
+    "Leader": "王俊懿"
+  },
+  {
+    "工號": "K19059",
+    "姓名": "曾哲瑋",
+    "Email": "JheWei_Tseng@aseglobal.com",
+    "Leader": "王俊懿"
+  },
+  {
+    "工號": "K21283",
+    "姓名": "呂浩睿",
+    "Email": "RayHR_Lu@aseglobal.com",
+    "Leader": "王俊懿"
+  },
+  {
+    "工號": "K21399",
+    "姓名": "許家浩",
+    "Email": "HowardJH_Hsu@aseglobal.com",
+    "Leader": "王俊懿"
+  },
+  {
+    "工號": "K21766",
+    "姓名": "蘇冠禎",
+    "Email": "BensonKC_Su@aseglobal.com",
+    "Leader": "王俊懿"
+  },
+  {
+    "工號": "K21839",
+    "姓名": "林肇威",
+    "Email": "JhaoWei_Lin@aseglobal.com",
+    "Leader": "王俊懿"
+  },
+  {
+    "工號": "K22629",
+    "姓名": "張立承",
+    "Email": "LC_Chang@aseglobal.com",
+    "Leader": "王俊懿"
+  },
+  {
+    "工號": "K26492",
+    "姓名": "蘇亭溥",
+    "Email": "TingPu_Su@aseglobal.com",
+    "Leader": "王俊懿"
+  },
+  {
+    "工號": "K19149",
+    "姓名": "劉永晟",
+    "Email": "YangCheng_Liu@aseglobal.com",
+    "Leader": "王俊懿"
+  },
+  {
+    "工號": "K25337",
+    "姓名": "蔣有容",
+    "Email": "YR_Chiang@aseglobal.com",
+    "Leader": "王俊懿"
+  },
+  {
+    "工號": "G9745",
+    "姓名": "王利哲",
+    "Email": "LC_Wang@aseglobal.com",
+    "Leader": "羅光揚"
+  },
+  {
+    "工號": "D1442",
+    "姓名": "趙祥富",
+    "Email": "Zilong_Chao@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "F3262",
+    "姓名": "黃翊帨",
+    "Email": "Ishui_Huang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "F9150",
+    "姓名": "林建良",
+    "Email": "TimCL_Lin@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "F9358",
+    "姓名": "邱柏瑜",
+    "Email": "Boyu_Chiu@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K05725",
+    "姓名": "林明佑",
+    "Email": "AlexMY_Lin@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K16845",
+    "姓名": "黃郁文",
+    "Email": "AlanYW_Huang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K16943",
+    "姓名": "許銘傑",
+    "Email": "Jay_Hsu@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "F1908",
+    "姓名": "黃正吉",
+    "Email": "Jheng_Huang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "F9893",
+    "姓名": "周彥良",
+    "Email": "YenLiang_Chou@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "G9493",
+    "姓名": "劉振甫",
+    "Email": "LouisJD_Liu@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K02474",
+    "姓名": "成銘",
+    "Email": "JamesCM_Cheng@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K03987",
+    "姓名": "蔡宗佑",
+    "Email": "ZongYu_Tsai@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K07541",
+    "姓名": "李若鵬",
+    "Email": "Dovi_Lee@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K18251",
+    "姓名": "詹睿穎",
+    "Email": "RuiYing_Chan@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K19041",
+    "姓名": "繆中明",
+    "Email": "ChungMing_Miao@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K22920",
+    "姓名": "蔣杰軒",
+    "Email": "JieSyuan_Chiang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K25579",
+    "姓名": "張丞剴",
+    "Email": "CK_Chang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K19150",
+    "姓名": "楊承冀",
+    "Email": "",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K25089",
+    "姓名": "鄭志庸",
+    "Email": "Alan_Cheng@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K25090",
+    "姓名": "陳萓菲",
+    "Email": "Cathyf_Chen@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K25091",
+    "姓名": "李建勳",
+    "Email": "Charlee_Lee@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K25092",
+    "姓名": "鍾宛芩",
+    "Email": "SiaoCin_Chung@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K25130",
+    "姓名": "黃育暉",
+    "Email": "MichaelYH_Huang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K25131",
+    "姓名": "張宸旋",
+    "Email": "ChiChi_Chang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K25132",
+    "姓名": "王靖嘉",
+    "Email": "TimChia_Wang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K25386",
+    "姓名": "邱泓叡",
+    "Email": "Bill_Chiu@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "C9228",
+    "姓名": "王柏翰",
+    "Email": "Otis_Wang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "F2568",
+    "姓名": "林治辰",
+    "Email": "ChiChen_Lin@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "29711",
+    "姓名": "陳源德",
+    "Email": "Boss_Chen@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "C2879",
+    "姓名": "王喬瑋",
+    "Email": "Chiao_Wang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "C6708",
+    "姓名": "楊萬豐",
+    "Email": "JoeWF_Yang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "C8849",
+    "姓名": "林郁祥",
+    "Email": "Xing_Lin@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "D1409",
+    "姓名": "盧昱仁",
+    "Email": "RainYJ_Lu@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "D2657",
+    "姓名": "張明詩",
+    "Email": "MS_Chang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "D8977",
+    "姓名": "陳彥名",
+    "Email": "Black_Chen@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "F1350",
+    "姓名": "黃慕生",
+    "Email": "Andreas_Huang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "F2567",
+    "姓名": "陳榮富",
+    "Email": "Rich_Chen@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "F6354",
+    "姓名": "陳俊彥",
+    "Email": "ChunYen_Chen@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "F8129",
+    "姓名": "許育誌",
+    "Email": "Aaron_Hsu@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "F8942",
+    "姓名": "黃建倫",
+    "Email": "Arlen_Huang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "F8950",
+    "姓名": "黃偉利",
+    "Email": "WL_Huang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "F9144",
+    "姓名": "張誌中",
+    "Email": "Rober_Chang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "F9473",
+    "姓名": "江政樺",
+    "Email": "Hua_Chiang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "G0181",
+    "姓名": "吳培銘",
+    "Email": "Darou_Wu@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "G1530",
+    "姓名": "韓俊傑",
+    "Email": "Jamison_Han@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "G2705",
+    "姓名": "廖格徹",
+    "Email": "Getcher_Liao@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "G4535",
+    "姓名": "陳思維",
+    "Email": "Bill_Chen@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "G6777",
+    "姓名": "高敬評",
+    "Email": "Dean_Kao@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "G7083",
+    "姓名": "吳和諺",
+    "Email": "Tino_Wu@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K03007",
+    "姓名": "洪秦閔",
+    "Email": "ChiMi_Hung@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K12601",
+    "姓名": "潘御齊",
+    "Email": "YuChi_Pan@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K12889",
+    "姓名": "蔡博旭",
+    "Email": "BoXu_Tsai@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K12896",
+    "姓名": "許國鵬",
+    "Email": "KuoPeng_Hsu@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K12931",
+    "姓名": "伊鴻傑",
+    "Email": "Eason_Yi@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K13985",
+    "姓名": "黃弘儒",
+    "Email": "Ruru_Huang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K14001",
+    "姓名": "巫宇穎",
+    "Email": "YuYing_Wu@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K14093",
+    "姓名": "崔淵翔",
+    "Email": "Leo_Tsui@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K15682",
+    "姓名": "郭育維",
+    "Email": "YuWei_Kuo@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K16514",
+    "姓名": "翁碩成",
+    "Email": "KimSC_Weng@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K16639",
+    "姓名": "施文旌",
+    "Email": "WenJing_Shih@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K22214",
+    "姓名": "王健羽",
+    "Email": "ChienYu_Wang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K25715",
+    "姓名": "洪偉展",
+    "Email": "Derrick_Hung@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K25992",
+    "姓名": "賴劭恆",
+    "Email": "SamSH_Lai@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K26490",
+    "姓名": "賴俞達",
+    "Email": "LeoYD_Lai@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K26647",
+    "姓名": "張雍康",
+    "Email": "",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K18736",
+    "姓名": "張彥夫",
+    "Email": "JerryZH_Chang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K18750",
+    "姓名": "黃義善",
+    "Email": "YiShan_Huang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K18791",
+    "姓名": "許鈺瑋",
+    "Email": "JasonYW_Hsu@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K19035",
+    "姓名": "徐維佑",
+    "Email": "WeiYu_Hsu@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K19148",
+    "姓名": "洪柏安",
+    "Email": "PoAn_Hung@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K21240",
+    "姓名": "成必展",
+    "Email": "BiZhan_Cheng@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K21295",
+    "姓名": "陳瑞寶",
+    "Email": "RayBao_Chen@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K21311",
+    "姓名": "鄭元益",
+    "Email": "YuanYi_Cheng@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K21388",
+    "姓名": "丁聖旻",
+    "Email": "ShengMin_Ting@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K21423",
+    "姓名": "周韋丞",
+    "Email": "WeiCheng_Chou@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K21738",
+    "姓名": "蘇柏源",
+    "Email": "BoYuan_Su@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K22427",
+    "姓名": "蕭仁豪",
+    "Email": "Noah_Hsiao@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K22505",
+    "姓名": "潘彥彤",
+    "Email": "YanTong_Pan@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K25578",
+    "姓名": "梁凱葳",
+    "Email": "KaiWei_Liang@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K26285",
+    "姓名": "邱立承",
+    "Email": "LC_Chiu@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K26287",
+    "姓名": "吳俊耀",
+    "Email": "ArvinJY_Wu@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K26288",
+    "姓名": "林冠何",
+    "Email": "CharlesGH_Lin@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K26491",
+    "姓名": "林軒羽",
+    "Email": "Curry_Lin@aseglobal.com",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "K26641",
+    "姓名": "高偉豪",
+    "Email": "",
+    "Leader": "王利哲"
+  },
+  {
+    "工號": "C8540",
+    "姓名": "李世王",
+    "Email": "SW_Lee@aseglobal.com",
+    "Leader": "楊仲琦"
+  },
+  {
+    "工號": "G0373",
+    "姓名": "吳婉慈",
+    "Email": "FionaWT_Wu@aseglobal.com",
+    "Leader": "李世王"
+  },
+  {
+    "工號": "K02459",
+    "姓名": "蔡聿威",
+    "Email": "YW_Tsai@aseglobal.com",
+    "Leader": "李世王"
+  },
+  {
+    "工號": "D2712",
+    "姓名": "孫彩恩",
+    "Email": "Aileen_Sun@aseglobal.com",
+    "Leader": "蔡聿威"
+  },
+  {
+    "工號": "F2868",
+    "姓名": "陳詣濤",
+    "Email": "Todd_Chen@aseglobal.com",
+    "Leader": "蔡聿威"
+  },
+  {
+    "工號": "G1117",
+    "姓名": "余瑞峰",
+    "Email": "Ruifeng_Yu@aseglobal.com",
+    "Leader": "蔡聿威"
+  },
+  {
+    "工號": "G1964",
+    "姓名": "蔣長信",
+    "Email": "CH_Chiang@aseglobal.com",
+    "Leader": "蔡聿威"
+  },
+  {
+    "工號": "G2943",
+    "姓名": "楊子萱",
+    "Email": "Abby_Yang@aseglobal.com",
+    "Leader": "蔡聿威"
+  },
+  {
+    "工號": "K06910",
+    "姓名": "劉承恩",
+    "Email": "Luke_Liu@aseglobal.com",
+    "Leader": "蔡聿威"
+  },
+  {
+    "工號": "K06813",
+    "姓名": "謝長佑",
+    "Email": "LeoCY_Hsieh@aseglobal.com",
+    "Leader": "蔡聿威"
+  },
+  {
+    "工號": "K18250",
+    "姓名": "陳妤萱",
+    "Email": "YuShuan_Chen@aseglobal.com",
+    "Leader": "蔡聿威"
+  },
+  {
+    "工號": "K20471",
+    "姓名": "汪文義",
+    "Email": "EricWI_Wang@aseglobal.com",
+    "Leader": "蔡聿威"
+  },
+  {
+    "工號": "K20523",
+    "姓名": "黃心雨",
+    "Email": "ShinYu_Huang@aseglobal.com",
+    "Leader": "蔡聿威"
+  },
+  {
+    "工號": "B7731",
+    "姓名": "連穎國",
+    "Email": "Raingo_Lien@aseglobal.com",
+    "Leader": "李世王"
+  },
+  {
+    "工號": "F5500",
+    "姓名": "蔡怡峰",
+    "Email": "Gallant_Tsai@aseglobal.com",
+    "Leader": "連穎國"
+  },
+  {
+    "工號": "F7057",
+    "姓名": "林明俊",
+    "Email": "MJ_Lin@aseglobal.com",
+    "Leader": "連穎國"
+  },
+  {
+    "工號": "G7925",
+    "姓名": "凌順生",
+    "Email": "Tony_Ling@aseglobal.com",
+    "Leader": "連穎國"
+  },
+  {
+    "工號": "G8751",
+    "姓名": "董承堯",
+    "Email": "Yao_Tung@aseglobal.com",
+    "Leader": "連穎國"
+  },
+  {
+    "工號": "42725",
+    "姓名": "莊定遠",
+    "Email": "Dean_Chuang@aseglobal.com",
+    "Leader": "連穎國"
+  },
+  {
+    "工號": "F1351",
+    "姓名": "陳冠廷",
+    "Email": "Kuanting_Chen@aseglobal.com",
+    "Leader": "連穎國"
+  },
+  {
+    "工號": "G2084",
+    "姓名": "曾慶華",
+    "Email": "CH_Tseng@aseglobal.com",
+    "Leader": "連穎國"
+  },
+  {
+    "工號": "G2304",
+    "姓名": "林健偉",
+    "Email": "Nabar_Lin@aseglobal.com",
+    "Leader": "連穎國"
+  },
+  {
+    "工號": "G9722",
+    "姓名": "王浩勛",
+    "Email": "HaoSyun_Wang@aseglobal.com",
+    "Leader": "連穎國"
+  },
+  {
+    "工號": "K02654",
+    "姓名": "許家銓",
+    "Email": "Chia_Hsu@aseglobal.com",
+    "Leader": "連穎國"
+  },
+  {
+    "工號": "K05432",
+    "姓名": "林伯儒",
+    "Email": "AllenBR_Lin@aseglobal.com",
+    "Leader": "連穎國"
+  },
+  {
+    "工號": "K12908",
+    "姓名": "李文源",
+    "Email": "TomYG_Lee@aseglobal.com",
+    "Leader": "連穎國"
+  },
+  {
+    "工號": "K13206",
+    "姓名": "林佳鉉",
+    "Email": "Nielson_Lin@aseglobal.com",
+    "Leader": "連穎國"
+  },
+  {
+    "工號": "K21421",
+    "姓名": "楊展瑗",
+    "Email": "Philzy_Yang@aseglobal.com",
+    "Leader": "連穎國"
+  },
+  {
+    "工號": "K25993",
+    "姓名": "張文隆",
+    "Email": "WayneWL_Chang@aseglobal.com",
+    "Leader": "連穎國"
+  },
+  {
+    "工號": "K18247",
+    "姓名": "高毓妤",
+    "Email": "Yuyu_Kao@aseglobal.com",
+    "Leader": "連穎國"
+  },
+  {
+    "工號": "K22282",
+    "姓名": "曾佳萱",
+    "Email": "ZoeCH_Tseng@aseglobal.com",
+    "Leader": "連穎國"
+  },
+  {
+    "工號": "K25336",
+    "姓名": "蔡煜暘",
+    "Email": "YuYang_Tsai@aseglobal.com",
+    "Leader": "連穎國"
+  },
+  {
+    "工號": "G3718",
+    "姓名": "張家豪",
+    "Email": "Larry_Chang@aseglobal.com",
+    "Leader": "李世王"
+  },
+  {
+    "工號": "K05425",
+    "姓名": "程明陽",
+    "Email": "Boris_Cheng@aseglobal.com",
+    "Leader": "張家豪"
+  },
+  {
+    "工號": "23688",
+    "姓名": "林景陽",
+    "Email": "CY_Lin@aseglobal.com",
+    "Leader": "張家豪"
+  },
+  {
+    "工號": "K11629",
+    "姓名": "王威傑",
+    "Email": "JasonWJ_Wang@aseglobal.com",
+    "Leader": "張家豪"
+  },
+  {
+    "工號": "K16882",
+    "姓名": "蘇旭東",
+    "Email": "Mashican_Su@aseglobal.com",
+    "Leader": "張家豪"
+  },
+  {
+    "工號": "K16883",
+    "姓名": "王俊閔",
+    "Email": "JimmyJM_Wang@aseglobal.com",
+    "Leader": "張家豪"
+  },
+  {
+    "工號": "K13229",
+    "姓名": "許俊義",
+    "Email": "JerryCY_Hsu@aseglobal.com",
+    "Leader": "張家豪"
+  },
+  {
+    "工號": "K20722",
+    "姓名": "黃竟維",
+    "Email": "Tony_Huang@aseglobal.com",
+    "Leader": "張家豪"
+  },
+  {
+    "工號": "K20952",
+    "姓名": "何仲喬",
+    "Email": "William_Ho@aseglobal.com",
+    "Leader": "張家豪"
+  },
+  {
+    "工號": "K21110",
+    "姓名": "張智尊",
+    "Email": "JhihZun_Chang@aseglobal.com",
+    "Leader": "張家豪"
+  },
+  {
+    "工號": "K25063",
+    "姓名": "辛唯銘",
+    "Email": "Castor_Hsin@aseglobal.com",
+    "Leader": "張家豪"
+  },
+  {
+    "工號": "K25475",
+    "姓名": "蔡東廷",
+    "Email": "Tim_Tsai@aseglobal.com",
+    "Leader": "張家豪"
+  },
+  {
+    "工號": "K26518",
+    "姓名": "毛冠傑",
+    "Email": "KuanChieh_Mao@aseglobal.com",
+    "Leader": "張家豪"
+  },
+  {
+    "工號": "K26617",
+    "姓名": "張翊宣",
+    "Email": "",
+    "Leader": "張家豪"
+  }
+]

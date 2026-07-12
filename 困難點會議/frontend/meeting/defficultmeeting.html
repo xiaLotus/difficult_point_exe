@@ -9,7 +9,15 @@
     <script src="../static/js/package/axios.min.js"></script>
     <script src="../static/js/package/lucide.js"></script>
     <script src="../static/js/package/sweetalert2@11.js"></script>
-    <script src="../static/js/package/xlsx.full.min.js"></script>
+    <!-- ⚠️ 匯出 Excel 顏色需使用 xlsx-js-style（原 xlsx.full.min.js 不支援儲存格樣式） -->
+    <!-- 請下載 https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js 放到 ../static/js/package/ -->
+    <script src="../static/js/package/xlsx.bundle.js"></script>
+    <script>
+        // 本地檔案不存在時改用 CDN 載入 xlsx-js-style
+        if (typeof XLSX === 'undefined') {
+            document.write('<script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"><\/script>');
+        }
+    </script>
 
 
     <style>
@@ -571,7 +579,7 @@
                             
                             <!-- 欄位列表 -->
                             <div class="max-h-80 overflow-y-auto space-y-2">
-                                <label v-for="(visible, columnName) in columnVisibility" 
+                                <label v-for="(visible, columnName) in columnSettingsList" 
                                     :key="columnName"
                                     class="flex items-center gap-3 cursor-pointer hover:bg-gray-50 px-2 py-1.5 rounded transition">
                                     <input type="checkbox" 
@@ -585,7 +593,7 @@
                             
                             <!-- 統計資訊 -->
                             <div class="text-xs text-gray-500 text-center pt-2 border-t border-gray-200">
-                                顯示 {{ visibleColumns.length }} / {{ Object.keys(columnVisibility).length }} 個欄位
+                                顯示 {{ visibleColumns.length }} / {{ Object.keys(columnSettingsList).length }} 個欄位
                             </div>
                         </div>
                     </transition>
@@ -816,7 +824,7 @@
                 <!-- 欄位列表區 -->
                 <div class="flex-1 overflow-y-auto px-6 py-4 custom-scrollbar">
                     <div class="space-y-3">
-                        <div v-for="(visible, columnName) in columnVisibility" 
+                        <div v-for="(visible, columnName) in columnSettingsList" 
                             :key="columnName"
                             class="group flex items-center gap-4 hover:bg-gray-50 px-3 py-3 rounded-xl transition-all duration-200 border border-transparent hover:border-gray-200 hover:shadow-sm">
                             
@@ -850,7 +858,7 @@
                     <div class="flex justify-between items-center">
                         <div class="text-sm text-gray-600">
                             顯示 <span class="font-bold text-blue-600">{{ visibleColumns.length }}</span> / 
-                            <span class="font-bold text-gray-800">{{ Object.keys(columnVisibility).length }}</span> 個欄位
+                            <span class="font-bold text-gray-800">{{ Object.keys(columnSettingsList).length }}</span> 個欄位
                         </div>
                         <button @click="showMobileColumnSettings = false" 
                             class="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition-all shadow-sm hover:shadow-md">
@@ -1581,6 +1589,12 @@
                         </th>
 
 
+                        <!-- 換算金額（僅管理員可見，統一以月呈現） -->
+                        <th v-if="isColumnVisible('換算金額')" 
+                            class="py-3 px-2 text-sm font-semibold text-gray-700 text-center whitespace-nowrap border-b border-gray-200">
+                            換算金額(月)
+                        </th>
+                        
                         <!-- 項目DueDate -->
                         <th v-if="isColumnVisible('項目DueDate')" 
                             class="relative py-3 px-2 text-sm font-semibold text-gray-700 text-center whitespace-nowrap border-b border-gray-200"
@@ -1839,6 +1853,16 @@
                                     {{ owner }}
                                 </span>
                             </div>
+                        </td>
+                        
+                        <!-- 換算金額（僅管理員可見，年頻率÷12統一以月呈現） -->
+                        <td v-if="isColumnVisible('換算金額')" 
+                            class="py-2 px-4 text-sm text-center whitespace-nowrap">
+                            <span :class="getMonthlyAmount(record) > 0 ? 'text-orange-600 font-semibold' : 'text-gray-400'">
+                                {{ getMonthlyAmount(record) > 0 ? 'NT$' + getMonthlyAmount(record).toLocaleString() : '—' }}
+                            </span>
+                            <div v-if="record.頻率年月 === '年' && getMonthlyAmount(record) > 0" 
+                                class="text-[10px] text-gray-400 leading-none mt-0.5">年÷12</div>
                         </td>
                         
                         <!-- 項目DueDate -->
@@ -2205,6 +2229,25 @@
                             </template>
                         </div>
 
+                        <!-- 頻率（月/年） -->
+                        <div class="group">
+                            <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                                <i data-lucide="repeat-2" class="w-4 h-4 text-gray-400"></i>
+                                頻率
+                            </label>
+                            <div class="flex gap-2">
+                                <input v-model="newRecord.頻率"
+                                    type="number" min="0" step="1"
+                                    class="flex-1 min-w-0 px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all input-focus"
+                                    placeholder="輸入次數" />
+                                <select v-model="newRecord.頻率年月"
+                                    class="w-20 px-2 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all input-focus">
+                                    <option value="月">月</option>
+                                    <option value="年">年</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <!-- 換算金額（自動計算） -->
                         <div class="group">
                             <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
@@ -2218,11 +2261,11 @@
                                 <span>{{ newRecord.換算金額 > 0 ? 'NT$' + newRecord.換算金額.toLocaleString() : '—' }}</span>
                             </div>
                             <div v-if="newRecord.案件分類 && newRecord.換算金額 > 0" class="mt-1.5 text-xs text-gray-400 leading-snug">
-                                <template v-if="newRecord.案件分類 === '品質(死貨)'">( 人×H×610 + 顆×30 ) × 比重2</template>
-                                <template v-else-if="newRecord.案件分類 === '效率(產能)'">( 人×H×610 + 產能×30 ) × 比重3</template>
-                                <template v-else-if="newRecord.案件分類 === '公安'">人×H×610 × 比重1</template>
-                                <template v-else-if="newRecord.案件分類 === '資安'">人×H×610 × 比重4</template>
-                                <template v-else-if="newRecord.案件分類 === '日常'">人×H×610 × 比重5</template>
+                                <template v-if="newRecord.案件分類 === '品質(死貨)'">( 人×H×610 + 顆×30 ) × 比重4 × 頻率{{ newRecord.頻率年月 === '年' ? ' ×12(年)' : '' }}</template>
+                                <template v-else-if="newRecord.案件分類 === '效率(產能)'">( 人×H×610 + 產能×30 ) × 比重3 × 頻率{{ newRecord.頻率年月 === '年' ? ' ×12(年)' : '' }}</template>
+                                <template v-else-if="newRecord.案件分類 === '公安'">人×H×610 × 比重5 × 頻率{{ newRecord.頻率年月 === '年' ? ' ×12(年)' : '' }}</template>
+                                <template v-else-if="newRecord.案件分類 === '資安'">人×H×610 × 比重2 × 頻率{{ newRecord.頻率年月 === '年' ? ' ×12(年)' : '' }}</template>
+                                <template v-else-if="newRecord.案件分類 === '日常'">人×H×610 × 比重1 × 頻率{{ newRecord.頻率年月 === '年' ? ' ×12(年)' : '' }}</template>
                             </div>
                         </div>
 

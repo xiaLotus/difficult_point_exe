@@ -796,6 +796,60 @@ def load_filter_state():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
+
+# 2026/04/09 修改 圖表第一章的 route
+@meeting_bp.route("/first_status_chart", methods=["GET"])
+def first_status_chart():
+    try:
+        file_path = config.get_path('Paths', 'first_status_chart_route')
+
+        if not file_path:
+            logger.error("❌ first_status_chart_route 沒設定")
+            return jsonify({"weeks": [], "counts": {}})
+
+        if not os.path.exists(file_path):
+            logger.error(f"❌ 找不到檔案: {file_path}")
+            return jsonify({"weeks": [], "counts": {}})
+
+        with open(file_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+
+        weeks = data.get("weeks", [])
+        counts = data.get("counts", {})
+
+        # 🔥 關鍵：先排序（年 + 週）
+        def week_key(w):
+            try:
+                year, week = w.split("-W")
+                return (int(year), int(week))
+            except:
+                return (0, 0)
+
+        weeks_sorted = sorted(weeks, key=week_key)
+
+        # 🔥 取最後8週
+        last_8_weeks = weeks_sorted[-8:]
+
+        result_counts = {
+            w: counts.get(w, {
+                "New": 0,
+                "On Going": 0,
+                "Pending": 0,
+                "Closed": 0
+            })
+            for w in last_8_weeks
+        }
+
+        return jsonify({
+            "weeks": last_8_weeks,
+            "counts": result_counts
+        })
+
+    except Exception:
+        logger.exception("❌ first_status_chart failed")
+        return jsonify({"weeks": [], "counts": {}})
+    
+
 @meeting_bp.route('/get_all_owners', methods=['GET'])
 def get_all_owners():
     owners_data = get_all_owner()
@@ -807,3 +861,4 @@ def get_all_owners():
         "status": "success",
         "data": owners_data
     })
+

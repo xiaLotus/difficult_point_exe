@@ -47,7 +47,7 @@ def create_app():
     
     # ✅ 確保會議圖片目錄存在（由 config 統一管理）
     meeting_images_path = config.get_path('Paths', 'meeting_images')
-    os.makedirs(meeting_images_path, exist_ok=True)
+    os.makedirs(meeting_images_path, exist_ok=True) # type: ignore
 
     # === 註冊藍圖 ===
     app.register_blueprint(auth_bp, url_prefix="/api")

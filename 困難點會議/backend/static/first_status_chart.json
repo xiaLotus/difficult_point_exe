@@ -1,0 +1,55 @@
+{
+  "weeks": [
+    "2026-W07",
+    "2026-W08",
+    "2026-W09",
+    "2026-W10",
+    "2026-W12",
+    "2026-W13",
+    "2026-W14"
+  ],
+  "counts": {
+    "2026-W07": {
+      "New": 4,
+      "On Going": 22,
+      "Pending": 23,
+      "Closed": 0
+    },
+    "2026-W08": {
+      "New": 0,
+      "On Going": 23,
+      "Pending": 23,
+      "Closed": 0
+    },
+    "2026-W09": {
+      "New": 0,
+      "On Going": 23,
+      "Pending": 23,
+      "Closed": 1
+    },
+    "2026-W10": {
+      "New": 0,
+      "On Going": 23,
+      "Pending": 23,
+      "Closed": 1
+    },
+    "2026-W12": {
+      "New": 2,
+      "On Going": 23,
+      "Pending": 23,
+      "Closed": 1
+    },
+    "2026-W13": {
+      "New": 0,
+      "On Going": 24,
+      "Pending": 24,
+      "Closed": 0
+    },
+    "2026-W14": {
+      "New": 1,
+      "On Going": 25,
+      "Pending": 24,
+      "Closed": 0
+    }
+  }
+}

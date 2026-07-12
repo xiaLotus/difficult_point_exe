@@ -24,6 +24,8 @@ const app = Vue.createApp({
         類別: '',
         提案人: '',
         案件分類: '',
+        頻率: '',
+        頻率年月: '月',
         問題描述: '',
         PDCA: 'P',
         截止日期: 'TBD',
@@ -358,6 +360,8 @@ const app = Vue.createApp({
           處理時間H: this.originalData.處理時間H || "",
           產品顆數: this.originalData.產品顆數 || "",
           影響產能: this.originalData.影響產能 || "",
+          頻率: this.originalData.頻率 || "",
+          頻率年月: this.originalData.頻率年月 || "月",
           換算金額: this.originalData.換算金額 || 0,
           問題描述: this.originalData.問題描述,
           PDCA: this.originalData.PDCA,
@@ -394,6 +398,8 @@ const app = Vue.createApp({
         處理時間H: this.recordData.處理時間H || "",
         產品顆數: this.recordData.產品顆數 || "",
         影響產能: this.recordData.影響產能 || "",
+        頻率: this.recordData.頻率 || "",
+        頻率年月: this.recordData.頻率年月 || "月",
         換算金額: this.recordData.換算金額 || 0,
         問題描述: this.recordData.問題描述,
         PDCA: this.recordData.PDCA,
@@ -529,6 +535,10 @@ parseUrlParams() {
             this.recordData.棟別Array = this.stringToArray(this.recordData.棟別);
             this.recordData.樓層Array = this.stringToArray(this.recordData.樓層);
             
+            // 頻率欄位：舊資料可能沒有，補上預設值（內定月頻率）
+            this.recordData.頻率 = this.recordData.頻率 || "";
+            this.recordData.頻率年月 = this.recordData.頻率年月 || "月";
+            
             // 保存原始資料用於變更檢測和復原
             this.originalData = {
               項次: this.recordData.項次,
@@ -543,6 +553,8 @@ parseUrlParams() {
               處理時間H: this.recordData.處理時間H || "",
               產品顆數: this.recordData.產品顆數 || "",
               影響產能: this.recordData.影響產能 || "",
+              頻率: this.recordData.頻率 || "",
+              頻率年月: this.recordData.頻率年月 || "月",
               換算金額: this.recordData.換算金額 || 0,
               問題描述: this.recordData.問題描述,
               PDCA: this.recordData.PDCA,
@@ -672,17 +684,21 @@ parseUrlParams() {
       const 產能 = parseFloat(this.recordData.影響產能) || 0;
       const cat = this.recordData.案件分類;
       const weightMap = {
-        '公安':      1,
-        '品質(死貨)': 2,
+        '公安':      5,   // 工安
+        '品質(死貨)': 4,
         '效率(產能)': 3,
-        '資安':      4,
-        '日常':      5,
+        '資安':      2,
+        '日常':      1,
       };
       const weight = weightMap[cat] || 1;
       let base = engineers * H * 610;
       if (cat === '品質(死貨)') base += 顆數 * 1 * 30;
       else if (cat === '效率(產能)') base += 產能 * 1 * 30;
-      this.recordData.換算金額 = base * weight;
+      // 頻率：未填寫時視為 1（不影響金額）
+      // 選「月」→ 金額維持月頻率計算；選「年」→ 月頻率 ×12 換算成年
+      const freq = parseFloat(this.recordData.頻率) || 1;
+      const freqMultiplier = this.recordData.頻率年月 === '年' ? 12 : 1;
+      this.recordData.換算金額 = base * weight * freq * freqMultiplier;
     },
 
     // === 編輯操作方法（帶權限檢查） ===
@@ -1059,7 +1075,10 @@ parseUrlParams() {
           // ✅ 加上專案Owner的清理
           專案Owner: typeof this.recordData.專案Owner === 'string'
             ? this.recordData.專案Owner.trim().replace(/,\s*$/, '') // 移除結尾的逗號
-            : ''
+            : '',
+          // 頻率欄位正規化
+          頻率: String(this.recordData.頻率 || ''),
+          頻率年月: this.recordData.頻率年月 || '月'
         };
         
         delete payload.棟別Array;
@@ -1099,6 +1118,8 @@ parseUrlParams() {
             處理時間H: this.recordData.處理時間H || "",
             產品顆數: this.recordData.產品顆數 || "",
             影響產能: this.recordData.影響產能 || "",
+            頻率: this.recordData.頻率 || "",
+            頻率年月: this.recordData.頻率年月 || "月",
             換算金額: this.recordData.換算金額 || 0,
             問題描述: this.recordData.問題描述,
             PDCA: this.recordData.PDCA,
@@ -2089,6 +2110,8 @@ async deleteComment(timestamp) {
     'recordData.處理時間H'() { this.calculateFormulaAmount(); },
     'recordData.產品顆數'() { this.calculateFormulaAmount(); },
     'recordData.影響產能'() { this.calculateFormulaAmount(); },
+    'recordData.頻率'() { this.calculateFormulaAmount(); },
+    'recordData.頻率年月'() { this.calculateFormulaAmount(); },
   },
 
   async mounted() {

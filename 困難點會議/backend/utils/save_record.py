@@ -17,7 +17,7 @@ def save_new_record(username, newrecords):
     
     fieldnames = [
         "id", "項次", "提案日期", "棟別", "樓層", "站點", "類別", "提案人", "案件分類",
-        "工程師人數", "處理時間H", "產品顆數", "影響產能", "換算金額",
+        "工程師人數", "處理時間H", "產品顆數", "影響產能", "頻率年月", "頻率", "換算金額",
         "問題描述", "PDCA", "截止日期", "專案Owner", "項目DueDate", "進度紀錄", "Status"
     ]
     
@@ -25,7 +25,7 @@ def save_new_record(username, newrecords):
         if isinstance(newrecords.get("進度紀錄"), list):
             newrecords["進度紀錄"] = "\n".join(newrecords["進度紀錄"])
 
-        if Path(path).exists():
+        if Path(path).exists(): # type: ignore
             df = pd.read_csv(path, dtype=str, encoding='utf-8-sig').fillna("")
         else:
             df = pd.DataFrame(columns=fieldnames)
@@ -53,12 +53,12 @@ def update_existing_record(username, record_id, updated_data):
     
     fieldnames = [
         "id", "項次", "提案日期", "棟別", "樓層", "站點", "類別", "提案人", "案件分類",
-        "工程師人數", "處理時間H", "產品顆數", "影響產能", "換算金額",
+        "工程師人數", "處理時間H", "產品顆數", "影響產能", "頻率年月", "頻率", "換算金額",
         "問題描述", "PDCA", "截止日期", "專案Owner", "項目DueDate", "進度紀錄", "Status"
     ]
     
     try:
-        if not Path(path).exists():
+        if not Path(path).exists():  # type: ignore
             logger.error(f"CSV 檔案不存在：{path}")
             return False
             
@@ -159,7 +159,7 @@ def delete_record(username, record_id):
     logger.warning(f"{username} 準備刪除記錄 ID/項次：{record_id}")
     
     try:
-        if not Path(path).exists():
+        if not Path(path).exists():  # type: ignore
             logger.error(f"CSV 檔案不存在：{path}")
             return False
             

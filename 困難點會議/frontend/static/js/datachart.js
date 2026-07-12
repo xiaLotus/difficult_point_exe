@@ -313,81 +313,159 @@ computeOwnerDaysFromNow() {
         this.showSpinner = true;
 
         try {
-            /* ---------------------- 第一張圖：案件狀態累積 ---------------------- */
-            const S = this.computeCumulativeStatus();
-            const sKeys = ["New", "On Going", "Pending", "Closed"];
-            const sColors = ["#60A5FA", "#F59E0B", "#F87171", "#10B981"];
+            // /* ---------------------- 第一張圖：案件狀態累積 ---------------------- */
+            // const S = this.computeCumulativeStatus();
+            // console.log("📊 第一張圖資料", S);
+            // const sKeys = ["New", "On Going", "Pending", "Closed"];
+            // const sColors = ["#60A5FA", "#F59E0B", "#F87171", "#10B981"];
 
-            if (this.chartStatus) this.chartStatus.destroy();
+            // if (this.chartStatus) this.chartStatus.destroy();
 
-            this.chartStatus = new Chart(
+            // this.chartStatus = new Chart(
+            // document.getElementById("chartStatus").getContext("2d"),
+            // {
+            //     type: "bar",
+            //     data: {
+            //     labels: S.weeks,
+            //     datasets: sKeys.map((k, i) => ({
+            //         label: k,
+            //         data: S.weeks.map(w => S.counts[w][k]),
+            //         backgroundColor: sColors[i],
+            //         borderRadius: 6
+            //     }))
+            //     },
+            //     options: {
+            //     responsive: true,
+            //     maintainAspectRatio: false,
+            //     layout: {
+            //         padding: {
+            //             bottom: 40   // ⬅ 強制預留 x 軸空間
+            //         }
+            //     },
+            //     plugins: {
+            //         legend: {
+            //         labels: {
+            //             color: "#1e293b",
+            //             font: { weight: "bold" }
+            //         }
+            //         }
+            //     },
+            //     scales: {
+            //         x: {
+            //         ticks: {
+            //             color: "#1e293b",
+            //             font: { weight: "bold" }
+            //         },
+            //         grid: { display: false }
+            //         },
+            //         y: {
+            //         ticks: {
+            //             color: "#1e293b",
+            //             font: { weight: "bold" }
+            //         },
+            //         grid: { color: "rgba(71, 85, 105, 0.15)" },
+            //         beginAtZero: true,
+            //         grace: '10%'
+            //         }
+            //     }
+            //     },
+            //     plugins: [{
+            //     afterDatasetsDraw: (chart) => {
+            //         const ctx = chart.ctx;
+            //         chart.data.datasets.forEach((dataset, i) => {
+            //         const meta = chart.getDatasetMeta(i);
+            //         meta.data.forEach((bar, index) => {
+            //             const data = dataset.data[index];
+            //             if (data > 0) {
+            //             ctx.fillStyle = '#1e293b';
+            //             ctx.font = 'bold 11px sans-serif';
+            //             ctx.textAlign = 'center';
+            //             ctx.textBaseline = 'bottom';
+            //             ctx.fillText(data, bar.x, bar.y - 8);
+            //             }
+            //         });
+            //         });
+            //     }
+            //     }]
+            // }
+            // );
+
+                    /* ====================== 第一張圖（改這裡） ====================== */
+        const S = await this.fetchStatusChart();
+
+        console.log("📊 第一張圖(後端)", S);
+
+        const sKeys = ["New", "On Going", "Pending", "Closed"];
+        const sColors = ["#60A5FA", "#F59E0B", "#F87171", "#10B981"];
+
+        if (this.chartStatus) this.chartStatus.destroy();
+
+        this.chartStatus = new Chart(
             document.getElementById("chartStatus").getContext("2d"),
             {
                 type: "bar",
                 data: {
-                labels: S.weeks,
-                datasets: sKeys.map((k, i) => ({
-                    label: k,
-                    data: S.weeks.map(w => S.counts[w][k]),
-                    backgroundColor: sColors[i],
-                    borderRadius: 6
-                }))
+                    labels: S.weeks,   // 🔥 完全用後端
+                    datasets: sKeys.map((k, i) => ({
+                        label: k,
+                        data: S.weeks.map(w => S.counts[w]?.[k] || 0),
+                        backgroundColor: sColors[i],
+                        borderRadius: 6
+                    }))
                 },
                 options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                layout: {
-                    padding: {
-                        bottom: 40   // ⬅ 強制預留 x 軸空間
-                    }
-                },
-                plugins: {
-                    legend: {
-                    labels: {
-                        color: "#1e293b",
-                        font: { weight: "bold" }
-                    }
-                    }
-                },
-                scales: {
-                    x: {
-                    ticks: {
-                        color: "#1e293b",
-                        font: { weight: "bold" }
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: { bottom: 40 }
                     },
-                    grid: { display: false }
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: "#1e293b",
+                                font: { weight: "bold" }
+                            }
+                        }
                     },
-                    y: {
-                    ticks: {
-                        color: "#1e293b",
-                        font: { weight: "bold" }
-                    },
-                    grid: { color: "rgba(71, 85, 105, 0.15)" },
-                    beginAtZero: true,
-                    grace: '10%'
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: "#1e293b",
+                                font: { weight: "bold" }
+                            },
+                            grid: { display: false }
+                        },
+                        y: {
+                            ticks: {
+                                color: "#1e293b",
+                                font: { weight: "bold" }
+                            },
+                            grid: { color: "rgba(71, 85, 105, 0.15)" },
+                            beginAtZero: true,
+                            grace: '10%'
+                        }
                     }
-                }
                 },
                 plugins: [{
-                afterDatasetsDraw: (chart) => {
-                    const ctx = chart.ctx;
-                    chart.data.datasets.forEach((dataset, i) => {
-                    const meta = chart.getDatasetMeta(i);
-                    meta.data.forEach((bar, index) => {
-                        const data = dataset.data[index];
-                        if (data > 0) {
-                        ctx.fillStyle = '#1e293b';
-                        ctx.font = 'bold 11px sans-serif';
-                        ctx.textAlign = 'center';
-                        ctx.textBaseline = 'bottom';
-                        ctx.fillText(data, bar.x, bar.y - 8);
-                        }
-                    });
-                    });
-                }
+                    afterDatasetsDraw: (chart) => {
+                        const ctx = chart.ctx;
+                        chart.data.datasets.forEach((dataset, i) => {
+                            const meta = chart.getDatasetMeta(i);
+                            meta.data.forEach((bar, index) => {
+                                const data = dataset.data[index];
+                                if (data > 0) {
+                                    ctx.fillStyle = '#1e293b';
+                                    ctx.font = 'bold 11px sans-serif';
+                                    ctx.textAlign = 'center';
+                                    ctx.textBaseline = 'bottom';
+                                    ctx.fillText(data, bar.x, bar.y - 8);
+                                }
+                            });
+                        });
+                    }
                 }]
             }
-            );
+        );
 
             /* ---------------------- 第二張圖：工作概況累積 ---------------------- */
             const W = this.computeCumulativeWorkload();
@@ -735,6 +813,22 @@ computeOwnerDaysFromNow() {
         }
       },
 
+        async fetchStatusChart() {
+            try {
+                const res = await axios.get("http://127.0.0.1:5000/api/first_status_chart");
+
+                if (res.data && res.data.weeks && res.data.counts) {
+                    return res.data;
+                }
+
+                return { weeks: [], counts: {} };
+
+            } catch (err) {
+                console.error("❌ 第一張圖 JSON 讀取失敗：", err);
+                return { weeks: [], counts: {} };
+            }
+        },
+
       async loadMeetingRecords() {
         try {
           const res = await axios.get(
@@ -795,3 +889,5 @@ computeOwnerDaysFromNow() {
     }
   });
   app.mount("#app");
+
+//   10.11.104.247:10085

@@ -1,0 +1,29 @@
+{
+  "1772695644268": {
+    "username": "K03987",
+    "display_name": "蔡宗佑",
+    "role": "管理員",
+    "content": "麻煩確認一下搜尋條件 ＂批號＂ 足夠嗎？",
+    "images": [],
+    "created_at": "2026-03-05T15:27:24.258400",
+    "edited_at": null
+  },
+  "1774421701194": {
+    "username": "F5500",
+    "display_name": "蔡怡峰",
+    "role": "預覽人",
+    "content": "網頁已完成\n請提供人員清單設定權限(excel)\n工號、NoteID\n範例 : F5500、Gallant_Tsai",
+    "images": [],
+    "created_at": "2026-03-25T14:55:01.419768",
+    "edited_at": null
+  },
+  "1774856190772": {
+    "username": "K03987",
+    "display_name": "蔡宗佑",
+    "role": "管理員",
+    "content": "請大家測試看看，有問題再回報，會再開啟議題追蹤~",
+    "images": [],
+    "created_at": "2026-03-30T15:36:30.459940",
+    "edited_at": null
+  }
+}

@@ -101,6 +101,7 @@ const app = Vue.createApp({
         'PDCA': false,  // 預設隱藏
         '截止日期': false,  // 預設隱藏
         '專案Owner': true,  
+        '換算金額': true,  // 僅管理員可見
         '項目DueDate': false,  // 預設隱藏
         '進度紀錄': true,
         '留言討論': true,
@@ -1286,9 +1287,19 @@ const app = Vue.createApp({
     return this.checkedDescriptions && this.checkedDescriptions.length > 0;
   },
 
+    // 🆕 欄位設定清單（換算金額僅管理員可見/可設定）
+    columnSettingsList() {
+      const result = {};
+      Object.keys(this.columnVisibility).forEach(col => {
+        if (col === '換算金額' && this.userRole !== 'admin') return;
+        result[col] = this.columnVisibility[col];
+      });
+      return result;
+    },
+
     // 🆕 可見欄位列表
     visibleColumns() {
-      return Object.keys(this.columnVisibility).filter(column => this.columnVisibility[column]);
+      return Object.keys(this.columnSettingsList).filter(column => this.columnSettingsList[column]);
     },
 
     // 🆕 隱藏欄位數量
@@ -1347,6 +1358,8 @@ const app = Vue.createApp({
     
     // 🆕 檢查欄位是否可見
     isColumnVisible(columnName) {
+      // 換算金額僅限管理員可見
+      if (columnName === '換算金額' && this.userRole !== 'admin') return false;
       return this.columnVisibility[columnName];
     },
 
@@ -1375,7 +1388,8 @@ const app = Vue.createApp({
         '問題描述': true,
         'PDCA': false,          // 預設隱藏
         '截止日期': false,      // 預設隱藏
-        '專案Owner': true,     // 預設隱藏
+        '專案Owner': true,
+        '換算金額': true,      // 僅管理員可見
         '項目DueDate': false,   // 預設隱藏
         '進度紀錄': true,
         'Status': true,
@@ -2136,11 +2150,11 @@ const app = Vue.createApp({
       const 產能 = parseFloat(this.newRecord.影響產能) || 0;
       const cat = this.newRecord.案件分類;
       const weightMap = {
-        '公安':     1,
-        '品質(死貨)': 2,
+        '公安':     5,   // 工安
+        '品質(死貨)': 4,
         '效率(產能)': 3,
-        '資安':     4,
-        '日常':     5,
+        '資安':     2,
+        '日常':     1,
       };
       const weight = weightMap[cat] || 1;
       // 工程師費用（NTD）= 人數 × 時間H × 610
@@ -2148,7 +2162,20 @@ const app = Vue.createApp({
       // 附加費用：美金單價×30換NTD
       if (cat === '品質(死貨)') base += 顆數 * 1 * 30;
       else if (cat === '效率(產能)') base += 產能 * 1 * 30;
-      this.newRecord.換算金額 = base * weight;
+      // 頻率：未填寫時視為 1（不影響金額）
+      // 選「月」→ 金額維持月頻率計算；選「年」→ 月頻率 ×12 換算成年
+      const freq = parseFloat(this.newRecord.頻率) || 1;
+      const freqMultiplier = this.newRecord.頻率年月 === '年' ? 12 : 1;
+      this.newRecord.換算金額 = base * weight * freq * freqMultiplier;
+    },
+
+    // 管理員檢視用：換算金額統一以「月」呈現
+    // 頻率為「年」的記錄，儲存金額是年金額 → ÷12；「月」則正常顯示
+    getMonthlyAmount(record) {
+      const amt = parseFloat(record.換算金額) || 0;
+      if (!amt) return 0;
+      const monthly = record.頻率年月 === '年' ? amt / 12 : amt;
+      return Math.round(monthly * 100) / 100;
     },
 
 
@@ -2395,6 +2422,8 @@ const app = Vue.createApp({
         處理時間H: "",
         產品顆數: "",
         影響產能: "",
+        頻率: "",
+        頻率年月: "月",   // 內定為月頻率（月*12 = 年頻率）
         換算金額: 0,
         問題描述: "",
         PDCA: "P",
@@ -2671,7 +2700,9 @@ const app = Vue.createApp({
           站點: this.newRecord.站點.trim(),
           提案人: this.infoname,
           專案Owner: cleanedOwners,
-          進度紀錄: this.newRecord.進度紀錄 || ''
+          進度紀錄: this.newRecord.進度紀錄 || '',
+          頻率: String(this.newRecord.頻率 || ''),
+          頻率年月: this.newRecord.頻率年月 || '月'
         };
 
         const res = await fetch(`http://127.0.0.1:5000/api/add_record?username=${encodeURIComponent(this.username)}`, {
@@ -3008,7 +3039,8 @@ const app = Vue.createApp({
 
       const columns = [
         '項次', '提案日期', '距今', '棟別', '樓層', '站點', '類別',
-        '提案人', '案件分類', '問題描述', 'PDCA', '截止日期',
+        '提案人', '案件分類', '工程師人數', '處理時間H', '產品顆數', '影響產能',
+        '頻率年月', '頻率', '換算金額', '問題描述', 'PDCA', '截止日期',
         '專案Owner', '項目DueDate', '進度紀錄', 'Status'
       ];
 
@@ -3782,6 +3814,8 @@ const app = Vue.createApp({
     'newRecord.工程師人數': { handler() { this.calculateFormulaAmount(); } },
     'newRecord.產品顆數': { handler() { this.calculateFormulaAmount(); } },
     'newRecord.影響產能': { handler() { this.calculateFormulaAmount(); } },
+    'newRecord.頻率': { handler() { this.calculateFormulaAmount(); } },
+    'newRecord.頻率年月': { handler() { this.calculateFormulaAmount(); } },
     checkedBuildings: { handler() { this.onFilterChange(); }, deep: true },
     checkedFloors: { handler() { this.onFilterChange(); }, deep: true },
     checkedStations: { handler() { this.onFilterChange(); }, deep: true },

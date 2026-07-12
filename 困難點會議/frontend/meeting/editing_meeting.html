@@ -513,6 +513,33 @@
                                 </template>
                             </div>
 
+                            <!-- 頻率（月/年） -->
+                            <div class="group">
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
+                                    <i data-lucide="repeat-2" class="w-4 h-4 text-orange-400"></i>
+                                    頻率
+                                </label>
+                                <div class="flex gap-2">
+                                    <input v-model="recordData.頻率"
+                                        type="number" min="0" step="1"
+                                        :class="[
+                                            'flex-1 min-w-0 px-4 py-3 border-2 border-gray-200 rounded-xl text-sm transition-all',
+                                            isReadOnly ? 'readonly-input' : 'focus:border-orange-400 focus:ring-2 focus:ring-orange-100 input-focus'
+                                        ]"
+                                        :placeholder="isReadOnly ? '' : '輸入次數'"
+                                        :readonly="isReadOnly" />
+                                    <select v-model="recordData.頻率年月"
+                                        :class="[
+                                            'w-20 px-2 py-3 border-2 border-gray-200 rounded-xl text-sm transition-all',
+                                            isReadOnly ? 'readonly-select' : 'focus:border-orange-400 focus:ring-2 focus:ring-orange-100 input-focus'
+                                        ]"
+                                        :disabled="isReadOnly">
+                                        <option value="月">月</option>
+                                        <option value="年">年</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <!-- 換算金額(NTD) -->
                             <div class="group">
                                 <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
@@ -526,11 +553,11 @@
                                     {{ recordData.換算金額 > 0 ? 'NT$' + Number(recordData.換算金額).toLocaleString() : '—' }}
                                 </div>
                                 <div v-if="recordData.案件分類 && recordData.換算金額 > 0" class="mt-1.5 text-xs text-gray-400 leading-snug">
-                                    <template v-if="recordData.案件分類 === '品質(死貨)'">( 人×H×610 + 顆×30 ) × 比重2</template>
-                                    <template v-else-if="recordData.案件分類 === '效率(產能)'">( 人×H×610 + 產能×30 ) × 比重3</template>
-                                    <template v-else-if="recordData.案件分類 === '公安'">人×H×610 × 比重1</template>
-                                    <template v-else-if="recordData.案件分類 === '資安'">人×H×610 × 比重4</template>
-                                    <template v-else-if="recordData.案件分類 === '日常'">人×H×610 × 比重5</template>
+                                    <template v-if="recordData.案件分類 === '品質(死貨)'">( 人×H×610 + 顆×30 ) × 比重4 × 頻率{{ recordData.頻率年月 === '年' ? ' ×12(年)' : '' }}</template>
+                                    <template v-else-if="recordData.案件分類 === '效率(產能)'">( 人×H×610 + 產能×30 ) × 比重3 × 頻率{{ recordData.頻率年月 === '年' ? ' ×12(年)' : '' }}</template>
+                                    <template v-else-if="recordData.案件分類 === '公安'">人×H×610 × 比重5 × 頻率{{ recordData.頻率年月 === '年' ? ' ×12(年)' : '' }}</template>
+                                    <template v-else-if="recordData.案件分類 === '資安'">人×H×610 × 比重2 × 頻率{{ recordData.頻率年月 === '年' ? ' ×12(年)' : '' }}</template>
+                                    <template v-else-if="recordData.案件分類 === '日常'">人×H×610 × 比重1 × 頻率{{ recordData.頻率年月 === '年' ? ' ×12(年)' : '' }}</template>
                                 </div>
                             </div>
 
