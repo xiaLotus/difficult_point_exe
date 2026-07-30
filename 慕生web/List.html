@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>網址記錄管理系統</title>
+
+    <script src="js/vue.global.js"></script>
+    <script src="js/tailwind.js"></script>
+    <!-- 🔥 新增：引入 Hover.css 套件 -->
+    <link rel="stylesheet" href="css/hover-min.css">
+
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 3px;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-100 min-h-screen p-4 flex flex-col">
+    <div id="app" v-cloak class="w-full mx-auto flex flex-col gap-4">
+      <header
+        class="bg-white px-5 py-4 rounded-xl shadow flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3"
+      >
+        <!-- 左側：標題 + 用戶資訊 -->
+        <div>
+          <h1 class="text-xl font-bold text-gray-800">📋 網址記錄管理</h1>
+          <p class="text-xs text-gray-500">
+            使用者：<span class="font-mono">{{ employeeId || '未登入' }}</span>
+            <span v-if="isAdmin" class="ml-2 text-green-600 text-xs"
+              >👑 管理員</span
+            >
+          </p>
+        </div>
+
+        <!-- 右側：搜尋框 + 功能按鈕 -->
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <!-- 🔍 全域搜尋框 -->
+          <div class="relative flex-1 sm:flex-none">
+            <input
+              v-model="searchQuery"
+              @input="currentPage = 1"
+              placeholder="搜尋用途/棟/樓/網址..."
+              class="w-full sm:w-64 border border-gray-300 px-3 py-2 pl-9 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm"
+            />
+            <!-- 搜尋圖示 -->
+            <span
+              class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"
+              >🔍</span
+            >
+            <!-- 清除按鈕（有內容時顯示） -->
+            <button
+              v-if="searchQuery"
+              @click="searchQuery = ''; currentPage = 1;"
+              class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-sm"
+            >
+              ✕
+            </button>
+          </div>
+
+          <!-- ✅ Admin：顯示清空按鈕 -->
+          <button
+            v-if="isAdmin && history.length"
+            @click="clearHistory"
+            class="text-red-500 hover:bg-red-50 px-3 py-2 rounded flex items-center gap-1 transition text-sm whitespace-nowrap"
+          >
+            🗑️ 清空
+          </button>
+
+          <!-- ❌ 非 Admin：顯示提示 -->
+          <span
+            v-else-if="history.length && employeeId && !isAdmin"
+            class="text-xs text-gray-400 flex items-center gap-1 whitespace-nowrap"
+          >
+            🔒
+          </span>
+
+          <!-- ⏳ 權限檢查中 -->
+          <span v-if="authLoading" class="text-xs text-gray-400">
+            載入中...
+          </span>
+        </div>
+      </header>
+
+      <!-- Table -->
+      <main class="bg-white rounded-xl shadow overflow-hidden flex flex-col">
+        <div class="overflow-auto custom-scrollbar">
+          <table class="w-full text-sm table-fixed">
+            <thead class="bg-gray-50 sticky top-0 z-10">
+              <tr>
+                <th class="p-3 w-12 text-left font-semibold text-gray-700">
+                  #
+                </th>
+                <th class="p-3 w-[150px] text-left font-semibold text-gray-700">
+                  用途
+                </th>
+                <th
+                  class="p-3 w-[70px] text-center font-semibold text-gray-700"
+                >
+                  棟
+                </th>
+                <th
+                  class="p-3 w-[70px] text-center font-semibold text-gray-700"
+                >
+                  樓
+                </th>
+                <th class="p-3 w-[350px] text-left font-semibold text-gray-700">
+                  網址
+                </th>
+                <th class="p-3 w-[150px] text-left font-semibold text-gray-700">
+                  時間
+                </th>
+                <th
+                  class="p-3 w-[70px] text-center font-semibold text-gray-700"
+                >
+                  操作
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                v-for="item in paginatedData"
+                :key="item.index + '-' + item.time"
+                class="border-t hover:bg-blue-50 transition-colors"
+              >
+                <!-- # -->
+                <td class="p-3 text-gray-500 font-mono text-xs">
+                  {{ item.index }}
+                </td>
+
+                <!-- 用途 -->
+                <td class="p-3">
+                  <span class="text-gray-800 font-medium" :title="item.purpose">
+                    {{ item.purpose || '－' }}
+                  </span>
+                </td>
+
+                <!-- 🔥 棟別：加粗 + 深色 + title -->
+                <td class="p-3 text-center">
+                  <span
+                    class="inline-block px-2 py-1 bg-blue-50 text-blue-700 rounded text-xs font-bold"
+                    :title="item.building || '無'"
+                  >
+                    {{ item.building || '－' }}
+                  </span>
+                </td>
+
+                <!-- 🔥 樓層：加粗 + 深色 + title -->
+                <td class="p-3 text-center">
+                  <span
+                    class="inline-block px-2 py-1 bg-green-50 text-green-700 rounded text-xs font-bold"
+                    :title="item.floor || '無'"
+                  >
+                    {{ item.floor || '－' }}
+                  </span>
+                </td>
+
+                <!-- 網址 -->
+                <td class="p-3">
+                  <a
+                    :href="item.url"
+                    target="_blank"
+                    class="block text-blue-600 hover:text-blue-800 underline truncate"
+                    :title="item.url"
+                  >
+                    {{ item.url }}
+                  </a>
+                </td>
+
+                <!-- 時間 -->
+                <td class="p-3 text-gray-500 text-xs whitespace-nowrap">
+                  {{ item.time }}
+                </td>
+
+                <!-- 操作 -->
+                <td class="p-3 text-center">
+                  <!-- ✅ Admin：顯示編輯 + 刪除按鈕 -->
+                  <template v-if="isAdmin">
+                    <!-- 🔧 編輯按鈕 -->
+                    <button
+                      @click="editItem(item)"
+                      class="text-amber-500 hover:text-amber-700 hover:bg-amber-50 px-2 py-1 rounded transition mr-1"
+                      title="編輯"
+                    >
+                      修
+                    </button>
+                    <!-- 🗑️ 刪除按鈕 -->
+                    <button
+                      @click="deleteItem(item)"
+                      class="text-red-500 hover:text-red-700 hover:bg-red-50 px-2 py-1 rounded transition"
+                      title="刪除"
+                    >
+                      刪
+                    </button>
+                  </template>
+
+                  <!-- ❌ 一般用戶：顯示停用提示 -->
+                  <span
+                    v-else
+                    class="inline-flex items-center gap-1 text-gray-400 text-xs cursor-not-allowed"
+                    title="僅管理員可操作"
+                  >
+                    <span>🔒</span>
+                  </span>
+                </td>
+              </tr>
+
+
+              <!-- ✅ 改用 filteredData，搜尋無結果時也會顯示 -->
+              <tr v-if="filteredData.length === 0">
+                <td colspan="7" class="text-center py-12 text-gray-400">
+                  <div class="flex flex-col items-center gap-2">
+                    <span class="text-2xl">
+                      {{ searchQuery ? '🔍' : '📭' }}
+                    </span>
+                    <span>
+                      {{ searchQuery ? `找不到「${searchQuery}」的相關記錄` :
+                      '尚無資料，請點擊「新增記錄」' }}
+                    </span>
+                    <!-- 有搜尋時顯示清除按鈕 -->
+                    <button
+                      v-if="searchQuery"
+                      @click="searchQuery = ''; currentPage = 1;"
+                      class="mt-2 text-blue-600 hover:text-blue-800 text-sm underline"
+                    >
+                      清除搜尋
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- 分頁 -->
+          <div class="flex justify-center items-center gap-3 p-4 border-t">
+            <button
+              @click="changePage(currentPage - 1)"
+              :disabled="currentPage === 1"
+              class="px-3 py-1 rounded bg-gray-100 hover:bg-gray-200 disabled:opacity-40"
+            >
+              上一頁
+            </button>
+
+            <span class="text-sm text-gray-600">
+              第 {{ currentPage }} / {{ totalPages }} 頁
+            </span>
+
+            <button
+              @click="changePage(currentPage + 1)"
+              :disabled="currentPage === totalPages"
+              class="px-3 py-1 rounded bg-gray-100 hover:bg-gray-200 disabled:opacity-40"
+            >
+              下一頁
+            </button>
+          </div>
+        </div>
+
+        <!-- 新增 -->
+        <div class="p-4 border-t flex justify-end">
+          <!-- 🍌 浮動於右下角的新增按鈕 - 專業藍 -->
+          <button
+            @click="openModal"
+            class="fixed bottom-6 right-6 z-50 
+                  bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-600 
+                  hover:from-blue-600 hover:via-blue-700 hover:to-indigo-700
+                  text-white font-bold px-5 py-3 
+                  rounded-full shadow-xl hover:shadow-2xl hover:shadow-blue-500/40 
+                  transform hover:-translate-y-1 hover:scale-105
+                  transition-all duration-300 ease-out
+                  flex items-center gap-2
+                  hvr-float focus:outline-none focus:ring-4 focus:ring-blue-300"
+          >
+            <span class="text-2xl drop-shadow-sm">🍌</span>
+            <span class="hidden sm:inline text-sm tracking-wide">新增記錄</span>
+          </button>
+        </div>
+      </main>
+
+      <!-- Modal -->
+      <div
+        v-if="showModal"
+        class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50"
+      >
+        <div
+          class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 space-y-4 animate-[fadeIn_.2s]"
+        >
+          <!-- 標題 + 關閉按鈕 -->
+          <div class="flex justify-between items-center">
+            <h3 class="font-bold text-lg">
+              {{ isEditMode ? '✏️ 編輯網址' : '✨ 新增網址' }}
+            </h3>
+            <button
+              @click="closeModal"
+              class="text-gray-400 hover:text-gray-600 text-xl leading-none"
+            >
+              ✕
+            </button>
+          </div>
+
+          <!-- 用途 -->
+          <input
+            v-model="newPurpose"
+            placeholder="用途（選填）"
+            class="w-full border border-gray-300 p-2 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+          />
+
+          <!-- 🔥 新增：棟別 + 樓層（並排） -->
+          <div class="flex gap-3">
+            <input
+              v-model="newBuilding"
+              placeholder="棟別（例：A棟）"
+              maxlength="10"
+              class="w-1/2 border border-gray-300 p-2 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+            />
+
+            <input
+              v-model="newFloor"
+              placeholder="樓層（例：3F）"
+              maxlength="10"
+              class="w-1/2 border border-gray-300 p-2 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+            />
+          </div>
+
+          <!-- 網址 -->
+          <input
+            v-model="newUrl"
+            @keyup.enter="submitModal"
+            placeholder="https://example.com"
+            class="w-full border border-gray-300 p-2 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+          />
+
+          <!-- 錯誤訊息 -->
+          <p
+            v-if="modalError"
+            class="text-red-500 text-sm bg-red-50 px-3 py-2 rounded"
+          >
+            ⚠ {{ modalError }}
+          </p>
+
+          <!-- 按鈕 -->
+          <div class="flex justify-end gap-2 pt-2">
+            <button
+              @click="closeModal"
+              class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded transition"
+            >
+              取消
+            </button>
+            <button
+              @click="submitModal"
+              :class="[
+                'px-4 py-2 text-white rounded transition shadow',
+                isEditMode 
+                  ? 'bg-orange-500 hover:bg-orange-600'  // 編輯：橘色
+                  : 'bg-blue-600 hover:bg-blue-700'      // 新增：藍色
+              ]"
+            >
+              {{ isEditMode ? '修正' : '新增' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+
+      const app = createApp({
+        data() {
+          return {
+            history: [],
+            showModal: false,
+            newPurpose: "",
+            newBuilding: "", // 🔥 新增
+            newFloor: "", // 🔥 新增
+            newUrl: "",
+            modalError: "",
+            currentPage: parseInt(localStorage.getItem("url_page")) || 1,
+            pageSize: 12,
+            apiBase: "http://127.0.0.1:5000/api", // 🔥 統一 API 基底
+            // 🔐 權限控制相關
+            // employeeId: "", // 從 URL 或 localStorage 讀取的工號
+            employeeId: "K18251",
+            // isAdmin: false, // 是否為 admin
+            isAdmin: true, // 是否為 admin
+            // authLoading: true, // 權限檢查中
+            authLoading: false, // 權限檢查中
+            searchQuery: "", // 🔥 新增：搜尋關鍵字
+            // 🔥 編輯模式相關
+            isEditMode: false,        // 是否為編輯模式
+            editingIndex: null,       // 正在編輯的項目 index
+          };
+        },
+
+        computed: {
+          // 🔍 過濾後的資料（全域搜尋）
+          filteredData() {
+            const query = this.searchQuery.trim().toLowerCase();
+
+            // 如果沒有搜尋關鍵字，回傳全部
+            if (!query) return this.history;
+
+            // 過濾：用途、棟別、樓層、網址 任一欄位包含關鍵字
+            return this.history.filter((item) => {
+              const purpose = (item.purpose || "").toLowerCase();
+              const building = (item.building || "").toLowerCase();
+              const floor = (item.floor || "").toLowerCase();
+              const url = (item.url || "").toLowerCase();
+
+              return (
+                purpose.includes(query) ||
+                building.includes(query) ||
+                floor.includes(query) ||
+                url.includes(query)
+              );
+            });
+          },
+
+          // 📄 總頁數（✅ 改用 filteredData）
+          totalPages() {
+            return Math.ceil(this.filteredData.length / this.pageSize) || 1;
+          },
+
+          // 📑 分頁資料（✅ 改用 filteredData）
+          paginatedData() {
+            const start = (this.currentPage - 1) * this.pageSize;
+            return this.filteredData.slice(start, start + this.pageSize);
+          },
+        },
+
+        methods: {
+          // 🔐 檢查是否為 admin
+          async checkAdminAuth() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let loggedUser =
+              urlParams.get("employee_id") ||
+              localStorage.getItem("loggedUser");
+
+            if (!loggedUser) {
+              console.warn("⚠️ 未偵測到登入工號");
+              this.authLoading = false;
+              this.employeeId = "GUEST";
+              return;
+            }
+
+            this.employeeId = loggedUser.trim();
+
+            try {
+              const res = await fetch(
+                `${this.apiBase}/check-admin?employee_id=${encodeURIComponent(this.employeeId)}`,
+              );
+
+              if (!res.ok) {
+                console.warn("⚠️ check-admin API 無法使用，預設為一般用戶");
+                this.isAdmin = false;
+                return;
+              }
+
+              const data = await res.json();
+              this.isAdmin = data.is_admin;
+              console.log(
+                `🔐 權限: ${this.employeeId} → ${this.isAdmin ? "✅ Admin" : "❌ 一般用戶"}`,
+              );
+            } catch (err) {
+              console.error("❌ 權限檢查失敗:", err);
+              this.isAdmin = false;
+            } finally {
+              this.authLoading = false;
+            }
+          },
+
+          // 🔥 讀取資料
+          async fetchData() {
+            try {
+              const res = await fetch(`${this.apiBase}/urls`);
+              const data = await res.json();
+              this.history = [...data].sort((a, b) => a.index - b.index);
+            } catch (err) {
+              console.error("讀取資料失敗:", err);
+              alert("⚠️ 資料載入失敗，請檢查網路連線");
+            }
+          },
+
+          // 🔥 分頁控制
+          changePage(page) {
+            if (page < 1 || page > this.totalPages) return;
+            this.currentPage = page;
+            localStorage.setItem("url_page", page);
+          },
+
+          // 🔥 Modal 控制
+          openModal() {
+            this.showModal = true;
+            this.newPurpose = "";
+            this.newBuilding = ""; // 🔥 新增
+            this.newFloor = ""; // 🔥 新增
+            this.newUrl = "";
+            this.modalError = "";
+          },
+
+          // 🔧 開啟編輯模式
+          editItem(item) {
+            console.log("✏️ [editItem] 點擊編輯:", item);
+            this.isEditMode = true;
+            // 🔥 關鍵：用 parseInt 確保是數字，與 Flask <int:index> 對應
+            this.editingIndex = parseInt(item.index, 10);
+            console.log("✏️ [editItem] editingIndex =", this.editingIndex, "(type:", typeof this.editingIndex + ")");
+            
+            this.newPurpose = item.purpose || "";
+            this.newBuilding = item.building || "";
+            this.newFloor = item.floor || "";
+            this.newUrl = item.url;
+            this.modalError = "";
+            this.showModal = true;
+          },
+
+          async submitModal() {
+            this.modalError = "";
+
+            if (!this.newUrl.trim()) {
+              this.modalError = "請輸入網址";
+              return;
+            }
+
+            let url = this.newUrl.trim();
+            if (!/^https?:\/\//i.test(url)) url = "https://" + url;
+
+            try {
+              new URL(url);
+            } catch {
+              this.modalError = "網址格式錯誤";
+              return;
+            }
+
+            console.log("🔍 [前端] submitModal 觸發");
+            console.log("🔍 [前端] isEditMode:", this.isEditMode);
+            console.log("🔍 [前端] editingIndex:", this.editingIndex);
+
+            const payload = {
+              purpose: this.newPurpose,
+              building: this.newBuilding,
+              floor: this.newFloor,
+              url,
+            };
+
+            try {
+              let res;
+              
+              if (this.isEditMode) {
+                // 🔁 編輯模式：一定要用 PUT + 正確 URL
+                console.log(`🔁 [前端] 發送 PUT 請求: ${this.apiBase}/urls/${this.editingIndex}`);
+                
+                res = await fetch(`${this.apiBase}/urls/${this.editingIndex}`, {
+                  method: "PUT",  // ⭐ 關鍵：一定是 PUT
+                  headers: { 
+                    "Content-Type": "application/json",
+                    "X-Employee-ID": this.employeeId,
+                  },
+                  body: JSON.stringify(payload),
+                });
+              } else {
+                // ➕ 新增模式
+                console.log(`➕ [前端] 發送 POST 請求: ${this.apiBase}/urls`);
+                
+                res = await fetch(`${this.apiBase}/urls`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(payload),
+                });
+              }
+
+              console.log(`📡 [前端] 回應狀態: ${res.status}`);
+              
+              if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                console.error("❌ [前端] 錯誤回應:", errData);
+                throw new Error(errData.message || "操作失敗");
+              }
+
+              const result = await res.json();
+              console.log("✅ [前端] 成功回應:", result);
+              
+              if (this.isEditMode) {
+                // 🔁 更新本地列表
+                const idx = this.history.findIndex(i => parseInt(i.index) === parseInt(this.editingIndex));
+                if (idx !== -1) {
+                  this.history[idx] = { ...result };
+                  console.log(`🔄 [前端] 已更新本地列表 index=${this.editingIndex}`);
+                }
+              } else {
+                // ➕ 新增到列表
+                this.history = [...this.history, result].sort((a, b) => a.index - b.index);
+              }
+
+              localStorage.setItem("url_page", 1);
+              this.closeModal();
+              
+            } catch (err) {
+              this.modalError = this.isEditMode ? "編輯失敗，請查看瀏覽器控制台" : "新增失敗，請檢查伺服器";
+              console.error("❌ [前端] 錯誤:", err);
+            }
+          },
+
+          // 🔧 關閉 Modal 時重置狀態
+          closeModal() {
+            this.showModal = false;
+            this.isEditMode = false;
+            this.editingIndex = null;
+            this.newPurpose = "";
+            this.newBuilding = "";
+            this.newFloor = "";
+            this.newUrl = "";
+            this.modalError = "";
+          },
+
+
+          // 🔥 刪除單筆
+          async deleteItem(item) {
+            try {
+              await fetch(`${this.apiBase}/urls/${item.index}`, {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json",
+                  "X-Employee-ID": this.employeeId, // 🔐 附加工號
+                },
+              });
+
+              this.history = this.history.filter((i) => i.index !== item.index);
+
+              if (this.currentPage > this.totalPages) {
+                this.currentPage = this.totalPages;
+                localStorage.setItem("url_page", this.currentPage);
+              }
+            } catch (err) {
+              console.error("刪除失敗:", err);
+              alert("❌ 刪除失敗，請確認伺服器狀態");
+            }
+          },
+
+          // 🔥 清空全部（僅 Admin）
+          async clearHistory() {
+            if (!confirm("⚠️ 確定要清空所有記錄？此操作無法復原！")) return;
+
+            try {
+              // ✅ 使用 apiBase，路徑：/api/urls
+              const res = await fetch(`${this.apiBase}/urls`, {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json",
+                  "X-Employee-ID": this.employeeId,
+                },
+                body: JSON.stringify({
+                  employee_id: this.employeeId,
+                }),
+              });
+
+              if (res.status === 403) {
+                alert("❌ 權限不足，無法執行清空操作");
+                return;
+              }
+
+              this.history = [];
+              this.currentPage = 1;
+              localStorage.setItem("url_page", 1);
+              alert("✅ 已清空所有記錄");
+            } catch (err) {
+              console.error("清空失敗:", err);
+              alert("❌ 操作失敗，請確認伺服器狀態");
+            }
+          },
+        },
+
+        // 🔥 確保權限檢查完成後再載入資料
+        async mounted() {
+          // await this.checkAdminAuth();
+          await this.fetchData();
+        },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>
+
+
+<!-- http://10.11.104.247:7003/api -->

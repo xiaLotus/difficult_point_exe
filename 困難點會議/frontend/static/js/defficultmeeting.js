@@ -34,6 +34,7 @@ const app = Vue.createApp({
       scrollToastTimer: null,
 
       daysAgoSortOrder: null,
+      amountSortOrder: null,  // 換算金額(月) 排序：null / 'desc' / 'asc'
       showDateFilter: false,
       checkedDates: [], 
       // 棟別篩選相關
@@ -159,6 +160,15 @@ const app = Vue.createApp({
       }));
 
       // 根據排序狀態進行排序
+      // 換算金額(月) 排序（管理員專用欄位）
+      if (this.amountSortOrder === 'desc') {
+        // 降序：金額多的在前
+        return recordsWithDays.sort((a, b) => this.getMonthlyAmount(b) - this.getMonthlyAmount(a));
+      } else if (this.amountSortOrder === 'asc') {
+        // 升序：金額少的在前
+        return recordsWithDays.sort((a, b) => this.getMonthlyAmount(a) - this.getMonthlyAmount(b));
+      }
+
       if (this.daysAgoSortOrder === 'asc') {
         // 升序：距今天數少的在前，空值放最後
         return recordsWithDays.sort((a, b) => {
@@ -1412,6 +1422,8 @@ const app = Vue.createApp({
 
     // 切換距今天數排序
     toggleDaysAgoSort() {
+        // 啟用距今排序時，取消換算金額排序（避免互相衝突）
+        this.amountSortOrder = null;
         if (this.daysAgoSortOrder === null) {
             this.daysAgoSortOrder = 'asc';  // 升序：距今天數少的在前
         } else if (this.daysAgoSortOrder === 'asc') {
@@ -1421,6 +1433,21 @@ const app = Vue.createApp({
         }
         
         console.log("距今排序狀態:", this.daysAgoSortOrder);
+    },
+
+    // 🆕 換算金額(月) 排序切換：無 → 多到少 → 少到多 → 取消
+    toggleAmountSort() {
+        // 啟用金額排序時，取消距今排序（避免互相衝突）
+        this.daysAgoSortOrder = null;
+        if (this.amountSortOrder === null) {
+            this.amountSortOrder = 'desc';  // 降序：金額多的在前
+        } else if (this.amountSortOrder === 'desc') {
+            this.amountSortOrder = 'asc';   // 升序：金額少的在前
+        } else {
+            this.amountSortOrder = null;    // 取消排序，回到原始項次排序
+        }
+        
+        console.log("換算金額排序狀態:", this.amountSortOrder);
     },
 
     // 修改 smoothScrollTo 方法，只在自動滾動時顯示 Toast

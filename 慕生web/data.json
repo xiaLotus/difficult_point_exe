@@ -1,0 +1,178 @@
+[
+  {
+    "index": 23,
+    "purpose": "F3 3800 備料網頁",
+    "building": "K11",
+    "floor": "8F,6F",
+    "url": "http://kha3cimap01:8082/",
+    "time": "2026-05-09 19:00:38"
+  },
+  {
+    "index": 22,
+    "purpose": "K21 8F AMHS派貨網頁",
+    "building": "K21",
+    "floor": "8F",
+    "url": "http://lba3cim:8081/WebforK218FDispatch/ViewWeb/DeliveryBoard3400.html",
+    "time": "2026-05-09 12:55:33"
+  },
+  {
+    "index": 21,
+    "purpose": "K18-11F AMHS 派貨網頁",
+    "building": "K18",
+    "floor": "11F",
+    "url": "http://lba3cim:8081/WebforK1811FDispatch/ViewWeb/DeliveryBoard3400.html",
+    "time": "2026-05-09 12:54:23"
+  },
+  {
+    "index": 19,
+    "purpose": "日考",
+    "building": "ALL",
+    "floor": "ALL",
+    "url": "http://myvf:7245/EXAM/Exam_List.aspx",
+    "time": "2026-05-05 09:07:02"
+  },
+  {
+    "index": 18,
+    "purpose": "13.機台2D功能查詢系統 (新)",
+    "building": "ALL",
+    "floor": "ALL",
+    "url": "http://kha3cimap01:8080/2D_DETECTED/",
+    "time": "2026-05-04 09:51:14"
+  },
+  {
+    "index": 17,
+    "purpose": "12.Schedule Mark Die System(自由Die系統)",
+    "building": "ALL",
+    "floor": "ALL",
+    "url": "http://a3cim1/ScheduleMarkDieSystem/Login.aspx",
+    "time": "2026-05-04 09:50:29"
+  },
+  {
+    "index": 16,
+    "purpose": "11.SMT 上下蓋查詢網頁",
+    "building": "ALL",
+    "floor": "ALL",
+    "url": "http://a3cim1/QueryBoat/Default.aspx",
+    "time": "2026-05-04 09:50:08"
+  },
+  {
+    "index": 15,
+    "purpose": "10.查詢Wafer Map作業資訊",
+    "building": "ALL",
+    "floor": "ALL",
+    "url": "http://a3cim1/WaferMapinfo/WaferMap.aspx",
+    "time": "2026-05-04 09:49:47"
+  },
+  {
+    "index": 14,
+    "purpose": "09.查詢Wafer UV作業資訊",
+    "building": "ALL",
+    "floor": "ALL",
+    "url": "http://a3cim1/wafermapinfo/",
+    "time": "2026-05-04 09:49:33"
+  },
+  {
+    "index": 13,
+    "purpose": "08.手動併批(Manual Merge)登入網站",
+    "building": "ALL",
+    "floor": "ALL",
+    "url": "http://a3cim1/AutoMerge/login.aspx",
+    "time": "2026-05-04 09:49:15"
+  },
+  {
+    "index": 12,
+    "purpose": "07.F3 2845站 自動拆批 & 過帳看板系統",
+    "building": "K11、K25",
+    "floor": "ALL",
+    "url": "http://a3cim1/kanban_2845/",
+    "time": "2026-05-04 09:48:40"
+  },
+  {
+    "index": 11,
+    "purpose": "06.F1 2845站 自動拆批 & 過帳看板系統 (新)",
+    "building": "K21、K22",
+    "floor": "5F、8F、9F",
+    "url": "http://kha3cimap01:12277/",
+    "time": "2026-05-04 09:48:11"
+  },
+  {
+    "index": 10,
+    "purpose": "05.F1 釘架室儲格看板",
+    "building": "K21、K22",
+    "floor": "5F、8F、9F",
+    "url": "http://20180920-w08:8080/login.aspx",
+    "time": "2026-05-04 09:47:42"
+  },
+  {
+    "index": 9,
+    "purpose": "04.F3 3910站2D ByPass 查詢網站",
+    "building": "ALL",
+    "floor": "ALL",
+    "url": "http://a3cim1/bypass2d/",
+    "time": "2026-05-04 09:46:47"
+  },
+  {
+    "index": 8,
+    "purpose": "03.F3 3910站2D ByPass 設定網站",
+    "building": "ALL",
+    "floor": "ALL",
+    "url": "http://a3cim1/2dbypass/Login.aspx?ReturnUrl=%2f2Dbypass%2f",
+    "time": "2026-05-04 09:46:24"
+  },
+  {
+    "index": 7,
+    "purpose": "02.AutoMove In-Out-ByPass系統",
+    "building": "ALL",
+    "floor": "ALL",
+    "url": "http://a3cim1:8080/AutoMoveInOut_ByPass/Login.aspx",
+    "time": "2026-05-04 09:46:01"
+  },
+  {
+    "index": 6,
+    "purpose": "01.AutoMove In-Out-新工號網站",
+    "building": "ALL",
+    "floor": "ALL",
+    "url": "http://a3cim1/New/AssignBadgeToMachine/Login.aspx?",
+    "time": "2026-05-04 09:45:34"
+  },
+  {
+    "index": 5,
+    "purpose": "廠務工程管理",
+    "building": "ALL",
+    "floor": "ALL",
+    "url": "https://khwfap.kh.asegroup.com/FACProjectManage/ToDoList",
+    "time": "2026-04-30 14:22:33"
+  },
+  {
+    "index": 4,
+    "purpose": "震動感測器分析網頁",
+    "building": "K21",
+    "floor": "8F",
+    "url": "http://lba3cim:8084/Maintenance/VibrationSensor/Index/Home?floor=K21-8F",
+    "time": "2026-04-30 09:34:25"
+  },
+  {
+    "index": 3,
+    "purpose": " Windows - 效能監控",
+    "building": "ALL",
+    "floor": "ALL",
+    "url": "https://khit-infra-ap2.kh.asegroup.com:3000/d/eLBjcX8Hk/windows-xiao-neng-jian-kong?orgId=5&refresh=1m&var-hostname=KHA3CIMEAPAP01",
+    "time": "2026-04-29 08:34:29"
+  },
+  {
+    "index": 2,
+    "purpose": "K25 派貨網址",
+    "building": "K25",
+    "floor": "8F,9F",
+    "url": "http://lba3cim:8081/WebforK25FloorDispatch/ViewMain/DeliveryBoard.html",
+    "time": "2026-04-28 09:35:20"
+  },
+  {
+    "index": 1,
+    "purpose": "機台健康度_時序圖",
+    "building": "ALL",
+    "floor": "ALL",
+    "url": "http://10.11.99.135:5002/",
+    "time": "2026-04-23 16:38:41"
+  }
+]
