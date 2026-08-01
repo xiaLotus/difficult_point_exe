@@ -35,3 +35,54 @@
 2026-08-01 16:57:53 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
 2026-08-01 16:57:53 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
 2026-08-01 16:57:53 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-08-01 16:59:53 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '預覽人'}
+2026-08-01 16:59:53 [INFO] routes.auth: 確認 K18251 具備 預覽人 的權限
+2026-08-01 16:59:53 [INFO] routes.auth: 收到用戶名為 K18251 的登錄請求
+2026-08-01 16:59:53 [INFO] utils.auth: K18251 成功登入
+2026-08-01 16:59:53 [INFO] routes.auth: 用戶名為 K18251 的登錄成功
+2026-08-01 16:59:54 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-08-01 16:59:54 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-08-01 16:59:54 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-08-01 16:59:54 [INFO] root: 處理完成，共 114 筆記錄
+2026-08-01 16:59:54 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-08-01 16:59:56 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-08-01 16:59:56 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-08-01 16:59:56 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-08-01 16:59:56 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-08-01 16:59:56 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-08-01 16:59:56 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-08-01 16:59:56 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-08-01 16:59:56 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-08-01 16:59:56 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-08-01 17:00:32 [WARNING] utils.save_record: K18251 準備儲存新的一筆資訊
+2026-08-01 17:00:32 [WARNING] utils.save_record: 更新資訊如下：{'項次': '20260801165954', '提案日期': '20260801', '棟別': 'K61', '樓層': '1F', '站點': '3322,', '類別': '專案', '提案人': '詹睿穎', '案件分類': '品質(死貨)', '工程師人數': 205, '處理時間H': 50, '產品顆數': 40, '影響產能': '', '頻率': '10', '頻率年月': '月', '換算金額': 250148000, '問題描述': '555', 'PDCA': 'P', '截止日期': 'TBD', '專案Owner': '', '項目DueDate': 'TBD', '進度紀錄': '', 'Status': 'New', 'id': '51f100aa-9fb9-4bd3-b4f9-2f0812f7d002'}
+2026-08-01 17:00:32 [INFO] utils.save_record: K18251 的新資料已成功寫入 CSV：C:\Users\User\Desktop\github\difficult_point_exe\困難點會議\backend\static\MeetingRecording.csv
+2026-08-01 17:00:33 [INFO] root: 處理完成，共 115 筆記錄
+2026-08-01 17:00:33 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-08-01 17:00:44 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-08-01 17:00:44 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-08-01 17:00:45 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-08-01 17:00:45 [INFO] root: 處理完成，共 115 筆記錄
+2026-08-01 17:00:45 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-08-01 17:00:47 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260801165954.json
+2026-08-01 17:00:47 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: None
+2026-08-01 17:00:47 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260801165954.json
+2026-08-01 17:00:47 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-08-01 17:00:47 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-08-01 17:00:47 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-08-01 17:00:47 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-08-01 17:00:47 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-08-01 17:00:47 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-08-01 17:00:47 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-08-01 17:00:47 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-08-01 17:00:47 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-08-01 17:00:51 [INFO] utils.progress_manager: 成功儲存記錄 20260801165954 的進度歷史，共 1 筆
+2026-08-01 17:00:51 [INFO] utils.progress_manager: 新增進度記錄成功 - 記錄ID: 20260801165954, 內容: 08/01: K18251 已將此項目移除，有需求請另行通知管理員。原因：5
+2026-08-01 17:00:51 [INFO] utils.progress_manager: 載入記錄 20260801165954 的進度歷史，共 1 筆
+2026-08-01 17:00:51 [INFO] utils.progress_manager: CSV 進度紀錄已更新 - 記錄ID: 20260801165954
+2026-08-01 17:00:51 [INFO] routes.meeting_routes: 準備更新記錄，ID/項次：51f100aa-9fb9-4bd3-b4f9-2f0812f7d002
+2026-08-01 17:00:51 [WARNING] utils.save_record: K18251 準備更新記錄，ID/項次：51f100aa-9fb9-4bd3-b4f9-2f0812f7d002
+2026-08-01 17:00:51 [WARNING] utils.save_record: 更新資訊如下：{'id': '51f100aa-9fb9-4bd3-b4f9-2f0812f7d002', 'Status': 'Reject'}
+2026-08-01 17:00:51 [INFO] utils.save_record: K18251 成功更新記錄 ID/項次：51f100aa-9fb9-4bd3-b4f9-2f0812f7d002
+2026-08-01 17:00:54 [INFO] routes.meeting_routes: 已刪除進度記錄檔案: C:\Users\User\Desktop\github\difficult_point_exe\困難點會議\backend\static\progress_records\20260801165954.json
+2026-08-01 17:00:54 [INFO] routes.meeting_routes: K18251 徹底刪除了記錄 51f100aa-9fb9-4bd3-b4f9-2f0812f7d002，項次: 20260801165954

@@ -19,3 +19,33 @@
 2026-08-01 16:52:51 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:52:51] "POST /api/save_filter_state HTTP/1.1" 200 -
 2026-08-01 16:52:53 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:52:53] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
 2026-08-01 16:57:53 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:57:53] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-08-01 16:59:45 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-08-01 16:59:45 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-08-01 16:59:49 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:59:49] "GET /api/check_Permission?filename=18251&role=預覽人 HTTP/1.1" 200 -
+2026-08-01 16:59:53 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:59:53] "GET /api/check_Permission?filename=K18251&role=預覽人 HTTP/1.1" 200 -
+2026-08-01 16:59:53 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:59:53] "OPTIONS /api/login HTTP/1.1" 200 -
+2026-08-01 16:59:53 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:59:53] "POST /api/login HTTP/1.1" 200 -
+2026-08-01 16:59:54 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:59:54] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2026-08-01 16:59:54 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:59:54] "GET /api/load_filter_state?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:59:54 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:59:54] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:59:54 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:59:54] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:59:54 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:59:54] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:59:54 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:59:54] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:59:56 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:59:56] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-08-01 17:00:32 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 17:00:32] "OPTIONS /api/add_record?username=K18251 HTTP/1.1" 200 -
+2026-08-01 17:00:32 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 17:00:32] "POST /api/add_record?username=K18251 HTTP/1.1" 200 -
+2026-08-01 17:00:33 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 17:00:33] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2026-08-01 17:00:44 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 17:00:44] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2026-08-01 17:00:44 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 17:00:44] "GET /api/load_filter_state?username=K18251 HTTP/1.1" 200 -
+2026-08-01 17:00:45 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 17:00:45] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2026-08-01 17:00:45 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 17:00:45] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2026-08-01 17:00:45 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 17:00:45] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 17:00:45 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 17:00:45] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 17:00:47 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 17:00:47] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-08-01 17:00:51 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 17:00:51] "OPTIONS /api/add_progress?username=K18251 HTTP/1.1" 200 -
+2026-08-01 17:00:51 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 17:00:51] "POST /api/add_progress?username=K18251 HTTP/1.1" 200 -
+2026-08-01 17:00:51 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 17:00:51] "OPTIONS /api/update_record?username=K18251 HTTP/1.1" 200 -
+2026-08-01 17:00:51 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 17:00:51] "PUT /api/update_record?username=K18251 HTTP/1.1" 200 -
+2026-08-01 17:00:54 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 17:00:54] "OPTIONS /api/delete_record/51f100aa-9fb9-4bd3-b4f9-2f0812f7d002?username=K18251 HTTP/1.1" 200 -
+2026-08-01 17:00:54 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 17:00:54] "DELETE /api/delete_record/51f100aa-9fb9-4bd3-b4f9-2f0812f7d002?username=K18251 HTTP/1.1" 200 -
