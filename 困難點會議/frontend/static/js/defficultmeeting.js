@@ -10,8 +10,8 @@ const app = Vue.createApp({
       newRecord: this.getNewRecordTemplate(),
       showFloorDropdown: false,
       showBuildingDropdown: false,
-      floors: ["3F", "4F", "5F", "6F", "8F", "9F", "10F", '11F'],
-      buildings: ["K11", 'K18', "K21", "K22", "K25"],
+      floors: ["1F", "2F", "3F", "4F", "5F", "6F", "8F", "9F", "10F", '11F'],
+      buildings: ["K11", 'K18', "K21", "K22", "K25", "K61", "K71"],
       // 新增的權限相關屬性
       showRejectModal: false,
       rejectTarget: null,
@@ -3048,6 +3048,9 @@ const app = Vue.createApp({
         localStorage.removeItem(key);
       });
 
+      // 🆕 清除換算金額(月) 排序狀態
+      this.amountSortOrder = null;
+
       this.selectedRowId = null;
       localStorage.removeItem("selectedRowId");
 
@@ -3194,7 +3197,8 @@ const app = Vue.createApp({
             checkedPDCA: this.checkedPDCA,
             checkedProjectOwners: this.checkedProjectOwners,
             checkedDueDates: this.checkedDueDates,
-            checkedItemDueDates: this.checkedItemDueDates
+            checkedItemDueDates: this.checkedItemDueDates,
+            amountSortOrder: this.amountSortOrder  // 🆕 換算金額(月) 排序狀態
         };
 
         try {
@@ -3249,6 +3253,8 @@ const app = Vue.createApp({
       this.checkedProjectOwners = filters.checkedProjectOwners || [];
       this.checkedDueDates = filters.checkedDueDates || [];
       this.checkedItemDueDates = filters.checkedItemDueDates || [];
+      // 🆕 換算金額(月) 排序狀態（'desc' / 'asc' / null）
+      this.amountSortOrder = filters.amountSortOrder || null;
     },
     // 🔁 防抖處理的篩選變更方法
     onFilterChange() {
@@ -3855,6 +3861,7 @@ const app = Vue.createApp({
     checkedProjectOwners: { handler() { this.onFilterChange(); }, deep: true },
     checkedDueDates: { handler() { this.onFilterChange(); }, deep: true },
     checkedItemDueDates: { handler() { this.onFilterChange(); }, deep: true },
+    amountSortOrder: { handler() { this.onFilterChange(); } },  // 🆕 金額排序變更也記憶
         showMobileMenu(newVal) {
         if (newVal) {
             this.$nextTick(() => {

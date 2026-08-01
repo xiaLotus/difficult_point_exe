@@ -1,0 +1,201 @@
+2026-08-01 16:22:03 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-08-01 16:22:03 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-08-01 16:22:06 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '預覽人'}
+2026-08-01 16:22:06 [INFO] routes.auth: 確認 K18251 具備 預覽人 的權限
+2026-08-01 16:22:06 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:22:06] "GET /api/check_Permission?filename=K18251&role=預覽人 HTTP/1.1" 200 -
+2026-08-01 16:22:06 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:22:06] "OPTIONS /api/login HTTP/1.1" 200 -
+2026-08-01 16:22:06 [INFO] routes.auth: 收到用戶名為 K18251 的登錄請求
+2026-08-01 16:22:06 [INFO] utils.auth: K18251 成功登入
+2026-08-01 16:22:06 [INFO] routes.auth: 用戶名為 K18251 的登錄成功
+2026-08-01 16:22:06 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:22:06] "POST /api/login HTTP/1.1" 200 -
+2026-08-01 16:22:07 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-08-01 16:22:07 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-08-01 16:22:07 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:22:07] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2026-08-01 16:22:07 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:22:07] "GET /api/load_filter_state?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:22:07 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-08-01 16:22:07 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:22:07] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:22:07 [INFO] root: 處理完成，共 114 筆記錄
+2026-08-01 16:22:07 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-08-01 16:22:07 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:22:07] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:22:09 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-08-01 16:22:09 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-08-01 16:22:09 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-08-01 16:22:09 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-08-01 16:22:09 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-08-01 16:22:09 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-08-01 16:22:09 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-08-01 16:22:09 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-08-01 16:22:09 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-08-01 16:22:09 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:22:09] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-08-01 16:26:57 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:26:57] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:26:57 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:26:57] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:26:58 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:26:58] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:26:58 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:26:58] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:27:01 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-08-01 16:27:01 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-08-01 16:27:01 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:27:01] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2026-08-01 16:27:01 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:27:01] "GET /api/load_filter_state?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:27:01 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-08-01 16:27:01 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:27:01] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:27:01 [INFO] root: 處理完成，共 114 筆記錄
+2026-08-01 16:27:01 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-08-01 16:27:01 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:27:01] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:27:01 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:27:01] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:27:01 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:27:01] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:27:03 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-08-01 16:27:03 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-08-01 16:27:03 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-08-01 16:27:03 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-08-01 16:27:03 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-08-01 16:27:03 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-08-01 16:27:03 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-08-01 16:27:03 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-08-01 16:27:03 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-08-01 16:27:03 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:27:03] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-08-01 16:27:08 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-08-01 16:27:08 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-08-01 16:27:08 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:27:08] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2026-08-01 16:27:08 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:27:08] "GET /api/load_filter_state?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:27:08 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-08-01 16:27:08 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:27:08] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:27:09 [INFO] root: 處理完成，共 114 筆記錄
+2026-08-01 16:27:09 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-08-01 16:27:09 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:27:09] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:27:09 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:27:09] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:27:09 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:27:09] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:27:10 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-08-01 16:27:10 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-08-01 16:27:10 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-08-01 16:27:10 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-08-01 16:27:10 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-08-01 16:27:10 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-08-01 16:27:10 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-08-01 16:27:10 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-08-01 16:27:10 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-08-01 16:27:11 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:27:11] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-08-01 16:27:22 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:27:22] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:27:22 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:27:22] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:30:41 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-08-01 16:30:41 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-08-01 16:30:41 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:41] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2026-08-01 16:30:41 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:41] "GET /api/load_filter_state?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:30:42 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-08-01 16:30:42 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:42] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:30:42 [INFO] root: 處理完成，共 114 筆記錄
+2026-08-01 16:30:42 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-08-01 16:30:42 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:42] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:30:42 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:42] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:30:42 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:42] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:30:44 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-08-01 16:30:44 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-08-01 16:30:44 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-08-01 16:30:44 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-08-01 16:30:44 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-08-01 16:30:44 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-08-01 16:30:44 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-08-01 16:30:44 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-08-01 16:30:44 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-08-01 16:30:44 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:44] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-08-01 16:30:46 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:46] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:30:46 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:46] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:30:50 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:50] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:30:50 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:50] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:30:51 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:51] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:30:51 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:51] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:30:51 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:51] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:30:51 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:51] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:30:52 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-08-01 16:30:52 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-08-01 16:30:52 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:52] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2026-08-01 16:30:52 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:52] "GET /api/load_filter_state?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:30:52 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-08-01 16:30:52 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:52] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:30:52 [INFO] root: 處理完成，共 114 筆記錄
+2026-08-01 16:30:52 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-08-01 16:30:52 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:52] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:30:53 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:53] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:30:53 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:53] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:30:54 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-08-01 16:30:54 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-08-01 16:30:54 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-08-01 16:30:54 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-08-01 16:30:54 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-08-01 16:30:54 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-08-01 16:30:54 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-08-01 16:30:54 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-08-01 16:30:54 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-08-01 16:30:54 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:54] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-08-01 16:30:58 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:58] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:30:58 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:30:58] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:00 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:00] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:01 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:01] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:03 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:03] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:03 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:03] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:04 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:04] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:04 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:04] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:07 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:07] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:07 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:07] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:08 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:08] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:08 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:08] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:09 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-08-01 16:31:09 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-08-01 16:31:09 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:09] "GET /api/check_Permission?filename=K18251&role=管理員 HTTP/1.1" 200 -
+2026-08-01 16:31:09 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:09] "GET /api/load_filter_state?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:31:09 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-08-01 16:31:09 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:09] "GET /api/getinfoname?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:31:09 [INFO] root: 處理完成，共 114 筆記錄
+2026-08-01 16:31:09 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-08-01 16:31:09 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:09] "GET /api/meeting_records?username=K18251 HTTP/1.1" 200 -
+2026-08-01 16:31:10 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:10] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:10 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:10] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:11 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-08-01 16:31:11 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-08-01 16:31:11 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-08-01 16:31:11 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-08-01 16:31:11 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-08-01 16:31:11 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-08-01 16:31:11 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-08-01 16:31:11 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-08-01 16:31:11 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-08-01 16:31:11 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:11] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-08-01 16:31:14 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:14] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:14 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:14] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:16 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:16] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:16 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:16] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:17 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:17] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:17 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:17] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:18 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:18] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:18 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:18] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:19 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:19] "OPTIONS /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:31:19 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:31:19] "POST /api/save_filter_state HTTP/1.1" 200 -
+2026-08-01 16:36:11 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-08-01 16:36:11 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-08-01 16:36:11 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-08-01 16:36:11 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-08-01 16:36:11 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-08-01 16:36:11 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-08-01 16:36:11 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-08-01 16:36:11 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-08-01 16:36:11 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-08-01 16:36:11 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:36:11] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-08-01 16:41:11 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-08-01 16:41:11 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-08-01 16:41:11 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-08-01 16:41:11 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-08-01 16:41:11 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-08-01 16:41:11 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-08-01 16:41:11 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-08-01 16:41:11 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-08-01 16:41:11 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-08-01 16:41:11 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:41:11] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -
+2026-08-01 16:46:11 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-08-01 16:46:11 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-08-01 16:46:11 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-08-01 16:46:11 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-08-01 16:46:11 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-08-01 16:46:11 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-08-01 16:46:11 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-08-01 16:46:11 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-08-01 16:46:11 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-08-01 16:46:11 [INFO] werkzeug: 127.0.0.1 - - [01/Aug/2026 16:46:11] "GET /api/proposer-read/my-summary?username=詹睿穎 HTTP/1.1" 200 -

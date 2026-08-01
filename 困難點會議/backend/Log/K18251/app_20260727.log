@@ -1,0 +1,37 @@
+2026-08-01 16:51:03 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-08-01 16:51:03 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-08-01 16:51:03 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-08-01 16:51:03 [INFO] root: 處理完成，共 114 筆記錄
+2026-08-01 16:51:03 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-08-01 16:51:05 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-08-01 16:51:05 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-08-01 16:51:05 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-08-01 16:51:05 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-08-01 16:51:05 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-08-01 16:51:05 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-08-01 16:51:05 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-08-01 16:51:05 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-08-01 16:51:05 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-08-01 16:52:51 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-08-01 16:52:51 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-08-01 16:52:51 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-08-01 16:52:51 [INFO] root: 處理完成，共 114 筆記錄
+2026-08-01 16:52:51 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-08-01 16:52:53 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-08-01 16:52:53 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-08-01 16:52:53 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-08-01 16:52:53 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-08-01 16:52:53 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-08-01 16:52:53 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-08-01 16:52:53 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-08-01 16:52:53 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-08-01 16:52:53 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-08-01 16:57:53 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-08-01 16:57:53 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-08-01 16:57:53 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-08-01 16:57:53 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-08-01 16:57:53 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-08-01 16:57:53 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-08-01 16:57:53 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-08-01 16:57:53 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-08-01 16:57:53 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
