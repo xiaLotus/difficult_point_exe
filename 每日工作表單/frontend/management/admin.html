@@ -479,9 +479,9 @@
         </div>
         <!-- 專案(年) / 專案(PA) 顯示 toggle 組（預設隱藏，點擊才顯示，可各自開關） -->
         <div style="display:flex;gap:0;margin-left:.6rem;border:1px solid #cbd5e1;border-radius:.4rem;overflow:hidden">
-          <button @click="ganttShowYear=!ganttShowYear"
+          <button @click="toggleGanttCat('year')"
             :style="{padding:'.2rem .7rem',fontSize:'.72rem',cursor:'pointer',border:'none',background:ganttShowYear?'#4f46e5':'transparent',color:ganttShowYear?'#fff':'#000'}">專案(年)</button>
-          <button @click="ganttShowPA=!ganttShowPA"
+          <button @click="toggleGanttCat('pa')"
             :style="{padding:'.2rem .7rem',fontSize:'.72rem',cursor:'pointer',border:'none',borderLeft:'1px solid #cbd5e1',background:ganttShowPA?'#4f46e5':'transparent',color:ganttShowPA?'#fff':'#000'}">專案(PA)</button>
         </div>
         <!-- 日期導覽 -->
@@ -500,7 +500,7 @@
       <div :style="{display:'grid','grid-template-columns':`100px 220px repeat(${ganttDateHeaders.length},1fr)`}">
 
         <!-- header 主軸列（日=日期 / 週=W週次 / 月=年月） -->
-        <div style="padding:.3rem .5rem;font-size:.7rem;color:#000;border-bottom:1px solid rgba(255,255,255,.08);font-weight:600">提案人</div>
+        <div style="padding:.3rem .5rem;font-size:.7rem;color:#000;border-bottom:1px solid rgba(255,255,255,.08);font-weight:600">OWNER</div>
         <div style="padding:.3rem .5rem;font-size:.7rem;color:#000;border-bottom:1px solid rgba(255,255,255,.08);border-left:1px solid rgba(255,255,255,.06);font-weight:600">任務</div>
         <div v-for="d in ganttDateHeaders" :key="d.str"
           :style="{padding:'.3rem 0',fontSize:'.68rem',textAlign:'center',color:d.isToday?'#4f46e5':'#000',fontWeight:d.isToday?'700':'400',borderBottom:'1px solid rgba(255,255,255,.08)',borderLeft:'1px solid rgba(255,255,255,.04)',background:d.isToday?'rgba(99,102,241,.08)':'transparent',position:'relative'}">
@@ -550,6 +550,10 @@
       <div style="background:rgba(15,23,42,.95);backdrop-filter:blur(8px);border:1px solid rgba(129,140,248,.35);border-radius:.65rem;padding:.75rem .9rem;box-shadow:0 8px 24px rgba(0,0,0,.35)">
         <div style="font-size:.8rem;font-weight:700;color:#ffffff;margin-bottom:.45rem;line-height:1.35;white-space:pre-wrap">{{ ganttTip.task['項目描述'] }}</div>
         <div style="display:flex;flex-direction:column;gap:.2rem;font-size:.7rem">
+          <div style="display:flex;justify-content:space-between">
+            <span style="color:#ffffff">OWNER</span>
+            <span style="color:#ffffff;font-weight:600">{{ ganttPersonOf(ganttTip.task) }}</span>
+          </div>
           <div style="display:flex;justify-content:space-between">
             <span style="color:#ffffff">提案人</span>
             <span style="color:#ffffff">{{ ganttTip.task['提案人'] || '—' }}</span>

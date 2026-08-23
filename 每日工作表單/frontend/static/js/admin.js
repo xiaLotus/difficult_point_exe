@@ -522,8 +522,8 @@ const app = Vue.createApp({
             return [...new Set(
                 this.rows
                     .filter(r => this.adminOrgs.includes(r['組織類別']))
-                    .map(r => r['提案人'])
-                    .filter(Boolean)
+                    .map(r => this.ganttPersonOf(r))
+                    .filter(p => p !== '（未填）')
             )].sort()
         },
         ganttRows() {
@@ -531,21 +531,30 @@ const app = Vue.createApp({
                 this.adminOrgs.includes(r['組織類別']) &&
                 (r['日期'] || r['執行日期'] || r['項目Due Date'] || r['單項目Due Date'])
             )
-            // 專案(年)/專案(PA) 預設隱藏，各自 toggle 開啟才顯示
+            // 專案(年)/專案(PA)：toggle 開啟時 = 專屬篩選模式，只顯示被選中的專案分類；
+            // 都沒開啟時 = 一般模式，顯示非專案任務（專案類預設隱藏）
             base = base.filter(r => {
-                const c = r['案件分類'] || ''
-                if (c === '專案(年)') return this.ganttShowYear
-                if (c === '專案(PA)') return this.ganttShowPA
-                return true
+                const c = (r['案件分類'] || '')
+                    .replace(/（/g, '(').replace(/）/g, ')')   // 全形括號轉半形
+                    .trim().toUpperCase()                       // 去空白、pa→PA
+                const isYear = c === '專案(年)'
+                const isPA   = c === '專案(PA)'
+
+                if (this.ganttShowYear || this.ganttShowPA) {
+                    // 篩選模式：只留被打開的分類，其餘一律不顯示
+                    return (this.ganttShowYear && isYear) || (this.ganttShowPA && isPA)
+                }
+                // 一般模式：專案類隱藏，其他照常
+                return !isYear && !isPA
             })
             if (!this.ganttProposer) return base
-            return base.filter(r => r['提案人'] === this.ganttProposer)
+            return base.filter(r => this.ganttPersonOf(r) === this.ganttProposer)
         },
-        // 依提案人分組：{ 人名: [任務...] }
+        // 依顯示人分組（項目OWNER 優先，空白 fallback 提案人）：{ 人名: [任務...] }
         ganttPersonRows() {
             const groups = {}
             for (const r of this.ganttRows) {
-                const p = r['提案人'] || '（未填）'
+                const p = this.ganttPersonOf(r)
                 if (!groups[p]) groups[p] = []
                 groups[p].push(r)
             }
@@ -789,6 +798,20 @@ const app = Vue.createApp({
         logout() { ftLogout() },
 
         // ── 甘特圖 ──
+        // 專案(年)/專案(PA) 互斥切換（2選1）：開啟其一自動關閉另一個；再點一次則關閉回一般模式
+        toggleGanttCat(cat) {
+            if (cat === 'year') {
+                this.ganttShowYear = !this.ganttShowYear
+                if (this.ganttShowYear) this.ganttShowPA = false
+            } else {
+                this.ganttShowPA = !this.ganttShowPA
+                if (this.ganttShowPA) this.ganttShowYear = false
+            }
+        },
+        // 顯示人判定：項目OWNER 有值優先，空白則 fallback 提案人
+        ganttPersonOf(row) {
+            return (row['項目OWNER'] || '').trim() || (row['提案人'] || '').trim() || '（未填）'
+        },
         // ── 甘特圖 tooltip ──
         _ganttTipPos(e) {
             const pad = 12
