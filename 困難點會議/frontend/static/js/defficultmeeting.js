@@ -86,6 +86,10 @@ const app = Vue.createApp({
       showItemDueDateFilter: false,
       checkedItemDueDates: [],
 
+      // 🆕 Close Day 篩選相關
+      showCloseDayFilter: false,
+      checkedCloseDays: [],
+
       // 🆕 新增欄位顯示/隱藏功能
       showColumnSettings: false,
       columnVisibility: {
@@ -104,6 +108,7 @@ const app = Vue.createApp({
         '專案Owner': true,  
         '換算金額': true,  // 僅管理員可見
         '項目DueDate': false,  // 預設隱藏
+        'CloseDay': false,       // 🆕 Close Day（管理員登入後預設開啟，其他角色需到欄位設定開啟）
         '進度紀錄': true,
         '留言討論': true,
         'Status': true,
@@ -279,11 +284,12 @@ const app = Vue.createApp({
               );
             const matchDueDate = this.checkedDueDates.length === 0 || this.checkedDueDates.includes(formattedDueDate);
             const matchItemDueDate = this.checkedItemDueDates.length === 0 || this.checkedItemDueDates.includes(formattedItemDueDate);
+            const matchCloseDay = this.checkedCloseDays.length === 0 || this.checkedCloseDays.includes(this.getCloseDayYM(record));
 
 
         return matchProposalDate && matchBuilding && matchFloor && matchStation && matchCategory && matchProposer
           && matchDescription && matchCaseCategory && matchStatus && matchPDCA && matchProjectOwner && matchDueDate
-          && matchItemDueDate;
+          && matchItemDueDate && matchCloseDay;
       });
     },
 
@@ -335,9 +341,10 @@ const app = Vue.createApp({
         const matchProjectOwner = this.checkedProjectOwners.length === 0 || this.checkedProjectOwners.includes(record['專案Owner']);
         const matchDueDate = this.checkedDueDates.length === 0 || this.checkedDueDates.includes(formattedDueDate);
         const matchItemDueDate = this.checkedItemDueDates.length === 0 || this.checkedItemDueDates.includes(formattedItemDueDate);
+        const matchCloseDay = this.checkedCloseDays.length === 0 || this.checkedCloseDays.includes(this.getCloseDayYM(record));
 
         return matchBuilding && matchFloor && matchStation && matchCategory && matchProposer && matchDescription && matchCaseCategory 
-          && matchStatus && matchPDCA && matchProjectOwner && matchDueDate && matchItemDueDate;
+          && matchStatus && matchPDCA && matchProjectOwner && matchDueDate && matchItemDueDate && matchCloseDay;
       })
       .forEach(record => {
         const proposalDate = record['提案日期'];
@@ -425,10 +432,11 @@ const app = Vue.createApp({
           const matchProjectOwner = this.checkedProjectOwners.length === 0 || this.checkedProjectOwners.includes(record['專案Owner']);
           const matchDueDate = this.checkedDueDates.length === 0 || this.checkedDueDates.includes(formattedDueDate);
           const matchItemDueDate = this.checkedItemDueDates.length === 0 || this.checkedItemDueDates.includes(formattedItemDueDate);
+          const matchCloseDay = this.checkedCloseDays.length === 0 || this.checkedCloseDays.includes(this.getCloseDayYM(record));
 
           return matchProposalDate && matchFloor && matchStation && matchCategory && matchProposer
             && matchDescription && matchCaseCategory && matchStatus && matchPDCA && matchProjectOwner 
-            && matchDueDate && matchItemDueDate;
+            && matchDueDate && matchItemDueDate && matchCloseDay;
         })
         .forEach(record => {
           // 處理棟別資料，支援多種格式
@@ -504,10 +512,11 @@ const app = Vue.createApp({
           const matchProjectOwner = this.checkedProjectOwners.length === 0 || this.checkedProjectOwners.includes(record['專案Owner']);
           const matchDueDate = this.checkedDueDates.length === 0 || this.checkedDueDates.includes(formattedDueDate);
           const matchItemDueDate = this.checkedItemDueDates.length === 0 || this.checkedItemDueDates.includes(formattedItemDueDate);
+          const matchCloseDay = this.checkedCloseDays.length === 0 || this.checkedCloseDays.includes(this.getCloseDayYM(record));
       
           return matchProposalDate && matchBuilding && matchStation && matchCategory
              && matchProposer && matchDescription && matchCaseCategory && matchStatus 
-            && matchPDCA && matchProjectOwner && matchDueDate && matchItemDueDate; 
+            && matchPDCA && matchProjectOwner && matchDueDate && matchItemDueDate && matchCloseDay;
         })
         .forEach(record => {
           // 處理樓層資料，支援多種格式
@@ -585,10 +594,11 @@ const app = Vue.createApp({
           const matchProjectOwner = this.checkedProjectOwners.length === 0 || this.checkedProjectOwners.includes(record['專案Owner']);
           const matchDueDate = this.checkedDueDates.length === 0 || this.checkedDueDates.includes(formattedDueDate);
           const matchItemDueDate = this.checkedItemDueDates.length === 0 || this.checkedItemDueDates.includes(formattedItemDueDate);
+          const matchCloseDay = this.checkedCloseDays.length === 0 || this.checkedCloseDays.includes(this.getCloseDayYM(record));
 
           return matchProposalDate && matchBuilding && matchFloor && matchCategory
            && matchProposer && matchDescription && matchCaseCategory && matchStatus
-           && matchPDCA && matchProjectOwner && matchDueDate && matchItemDueDate;
+           && matchPDCA && matchProjectOwner && matchDueDate && matchItemDueDate && matchCloseDay;
         })
         .forEach(record => {
           // 處理站點資料，支援多種格式
@@ -659,10 +669,11 @@ const app = Vue.createApp({
         const matchProjectOwner = this.checkedProjectOwners.length === 0 || this.checkedProjectOwners.includes(record['專案Owner']);
         const matchDueDate = this.checkedDueDates.length === 0 || this.checkedDueDates.includes(formattedDueDate);
         const matchItemDueDate = this.checkedItemDueDates.length === 0 || this.checkedItemDueDates.includes(formattedItemDueDate);
+        const matchCloseDay = this.checkedCloseDays.length === 0 || this.checkedCloseDays.includes(this.getCloseDayYM(record));
 
 
         return matchProposalDate && matchBuilding && matchFloor && matchStation && matchProposer && matchDescription 
-          && matchCaseCategory && matchStatus && matchPDCA && matchProjectOwner && matchDueDate && matchItemDueDate;
+          && matchCaseCategory && matchStatus && matchPDCA && matchProjectOwner && matchDueDate && matchItemDueDate && matchCloseDay;
       })
       .forEach(record => {
         const category = record['類別'];
@@ -729,9 +740,10 @@ const app = Vue.createApp({
         const matchProjectOwner = this.checkedProjectOwners.length === 0 || this.checkedProjectOwners.includes(record['專案Owner']);
         const matchDueDate = this.checkedDueDates.length === 0 || this.checkedDueDates.includes(formattedDueDate);
         const matchItemDueDate = this.checkedItemDueDates.length === 0 || this.checkedItemDueDates.includes(formattedItemDueDate);
+        const matchCloseDay = this.checkedCloseDays.length === 0 || this.checkedCloseDays.includes(this.getCloseDayYM(record));
 
         return matchProposalDate && matchBuilding && matchFloor && matchStation && matchCategory && matchDescription 
-          && matchCaseCategory && matchStatus && matchPDCA && matchProjectOwner && matchDueDate && matchItemDueDate;
+          && matchCaseCategory && matchStatus && matchPDCA && matchProjectOwner && matchDueDate && matchItemDueDate && matchCloseDay;
       })
       .forEach(record => {
         const proposer = record['提案人'];
@@ -799,9 +811,10 @@ const app = Vue.createApp({
         const matchProjectOwner = this.checkedProjectOwners.length === 0 || this.checkedProjectOwners.includes(record['專案Owner']);
         const matchDueDate = this.checkedDueDates.length === 0 || this.checkedDueDates.includes(formattedDueDate);
         const matchItemDueDate = this.checkedItemDueDates.length === 0 || this.checkedItemDueDates.includes(formattedItemDueDate);
+        const matchCloseDay = this.checkedCloseDays.length === 0 || this.checkedCloseDays.includes(this.getCloseDayYM(record));
 
         return matchProposalDate && matchBuilding && matchFloor && matchStation && matchCategory && matchProposer 
-          && matchCaseCategory && matchStatus && matchPDCA && matchProjectOwner && matchDueDate && matchItemDueDate;
+          && matchCaseCategory && matchStatus && matchPDCA && matchProjectOwner && matchDueDate && matchItemDueDate && matchCloseDay;
       })
       .forEach(record => {
         const description = record['問題描述'];
@@ -874,9 +887,10 @@ const app = Vue.createApp({
             const matchProjectOwner = this.checkedProjectOwners.length === 0 || this.checkedProjectOwners.includes(i['專案Owner']);
             const matchDueDate = this.checkedDueDates.length === 0 || this.checkedDueDates.includes(formattedDueDate);
             const matchItemDueDate = this.checkedItemDueDates.length === 0 || this.checkedItemDueDates.includes(formattedItemDueDate);
+            const matchCloseDay = this.checkedCloseDays.length === 0 || this.checkedCloseDays.includes(this.getCloseDayYM(i));
 
             return matchProposalDate && matchBuilding && matchFloor && matchStation && matchCategory && matchProposer 
-              && matchDescription && matchStatus && matchPDCA && matchProjectOwner && matchDueDate && matchItemDueDate;
+              && matchDescription && matchStatus && matchPDCA && matchProjectOwner && matchDueDate && matchItemDueDate && matchCloseDay;
           })
           .map(i => i['案件分類'])
           .filter(Boolean)
@@ -940,9 +954,10 @@ const app = Vue.createApp({
             const matchProjectOwner = this.checkedProjectOwners.length === 0 || this.checkedProjectOwners.includes(i['專案Owner']);
             const matchDueDate = this.checkedDueDates.length === 0 || this.checkedDueDates.includes(formattedDueDate);
             const matchItemDueDate = this.checkedItemDueDates.length === 0 || this.checkedItemDueDates.includes(formattedItemDueDate);
+            const matchCloseDay = this.checkedCloseDays.length === 0 || this.checkedCloseDays.includes(this.getCloseDayYM(i));
 
             return matchProposalDate && matchBuilding && matchFloor && matchStation && matchCategory && matchProposer 
-              && matchDescription && matchCaseCategory && matchPDCA && matchProjectOwner && matchDueDate && matchItemDueDate;
+              && matchDescription && matchCaseCategory && matchPDCA && matchProjectOwner && matchDueDate && matchItemDueDate && matchCloseDay;
           })
           .map(i => i['Status'])
           .filter(Boolean)
@@ -1003,10 +1018,11 @@ const app = Vue.createApp({
           const matchProjectOwner = this.checkedProjectOwners.length === 0 || this.checkedProjectOwners.includes(i['專案Owner']);
           const matchDueDate = this.checkedDueDates.length === 0 || this.checkedDueDates.includes(formattedDueDate);
           const matchItemDueDate = this.checkedItemDueDates.length === 0 || this.checkedItemDueDates.includes(formattedItemDueDate);
+          const matchCloseDay = this.checkedCloseDays.length === 0 || this.checkedCloseDays.includes(this.getCloseDayYM(i));
 
           return matchProposalDate && matchBuilding && matchFloor && matchStation && matchCategory 
             && matchProposer && matchDescription && matchCaseCategory && matchStatus && matchProjectOwner 
-            && matchDueDate && matchItemDueDate;
+            && matchDueDate && matchItemDueDate && matchCloseDay;
         })
         .map(i => i['PDCA'])
         .filter(Boolean)
@@ -1070,10 +1086,11 @@ const app = Vue.createApp({
         const matchPDCA = this.checkedPDCA.length === 0 || this.checkedPDCA.includes(record['PDCA']);
         const matchDueDate = this.checkedDueDates.length === 0 || this.checkedDueDates.includes(formattedDueDate);
         const matchItemDueDate = this.checkedItemDueDates.length === 0 || this.checkedItemDueDates.includes(formattedItemDueDate);
+        const matchCloseDay = this.checkedCloseDays.length === 0 || this.checkedCloseDays.includes(this.getCloseDayYM(record));
 
         return matchProposalDate && matchBuilding && matchFloor && matchStation && matchCategory 
           && matchProposer && matchDescription && matchCaseCategory && matchStatus && matchPDCA
-          && matchDueDate && matchItemDueDate;
+          && matchDueDate && matchItemDueDate && matchCloseDay;
       })
       .forEach(record => {
         // --- 修改的部分從這裡開始 ---
@@ -1138,10 +1155,11 @@ const app = Vue.createApp({
         const matchPDCA = this.checkedPDCA.length === 0 || this.checkedPDCA.includes(record['PDCA']);
         const matchProjectOwner = this.checkedProjectOwners.length === 0 || this.checkedProjectOwners.includes(record['專案Owner']);
         const matchItemDueDate = this.checkedItemDueDates.length === 0 || this.checkedItemDueDates.includes(formattedItemDueDate);
+        const matchCloseDay = this.checkedCloseDays.length === 0 || this.checkedCloseDays.includes(this.getCloseDayYM(record));
         
         return matchProposalDate && matchBuilding && matchFloor && matchStation && matchCategory && matchProposer 
           && matchDescription && matchCaseCategory && matchStatus && matchPDCA && matchProjectOwner
-          && matchItemDueDate;
+          && matchItemDueDate && matchCloseDay;
       })
       .forEach(record => {
         const due = record['截止日期'];
@@ -1209,10 +1227,11 @@ const app = Vue.createApp({
         const matchPDCA = this.checkedPDCA.length === 0 || this.checkedPDCA.includes(record['PDCA']);
         const matchProjectOwner = this.checkedProjectOwners.length === 0 || this.checkedProjectOwners.includes(record['專案Owner']);
         const matchDueDate = this.checkedDueDates.length === 0 || this.checkedDueDates.includes(formattedDueDate);
+        const matchCloseDay = this.checkedCloseDays.length === 0 || this.checkedCloseDays.includes(this.getCloseDayYM(record));
 
         return matchProposalDate && matchBuilding && matchFloor && matchStation && matchCategory && matchProposer &&
               matchDescription && matchCaseCategory && matchStatus && matchPDCA && matchProjectOwner 
-              && matchDueDate;
+              && matchDueDate && matchCloseDay;
       })
       .forEach(record => {
         const val = record['項目DueDate'];
@@ -1237,8 +1256,86 @@ const app = Vue.createApp({
   },
 
 
+  // 🆕 4. Close Day
+  uniqueCloseDays() {
+    const closeDays = new Set();
+
+    this.records
+      .filter(record => {
+        if (!record['提案日期']) return false;
+
+        let formattedProposalDate;
+        const dateStr = String(record['提案日期']);
+
+        if (dateStr.length === 8) {
+          formattedProposalDate = `${dateStr.slice(0, 4)}/${dateStr.slice(4, 6)}`;
+        } else if (dateStr.includes('/') && dateStr.length >= 7) {
+          const parts = dateStr.split('/');
+          formattedProposalDate = `${parts[0]}/${parts[1].padStart(2, '0')}`;
+        } else {
+          formattedProposalDate = dateStr;
+        }
+
+        // 截止日期篩選
+        let formattedDueDate;
+        if (String(record['截止日期']).length === 8) {
+          const dateStr = String(record['截止日期']);
+          formattedDueDate = `${dateStr.slice(0, 4)}/${dateStr.slice(4, 6)}`;
+        } else if (String(record['截止日期']).includes('/') && String(record['截止日期']).length >= 7) {
+          const parts = String(record['截止日期']).split('/');
+          formattedDueDate = `${parts[0]}/${parts[1].padStart(2, '0')}`;
+        } else {
+          formattedDueDate = String(record['截止日期']);
+        }
+
+        const matchProposalDate = this.checkedDates.length === 0 || this.checkedDates.includes(formattedProposalDate);
+        const matchBuilding = this.checkedBuildings.length === 0 || this.checkBuildingMatch(record['棟別']);
+        const matchFloor = this.checkedFloors.length === 0 || this.checkFloorMatch(record['樓層']);
+        const matchStation = this.checkedStations.length === 0 || this.checkStationMatch(record['站點']);
+        const matchCategory = this.checkedCategories.length === 0 || this.checkedCategories.includes(record['類別']);
+        const matchProposer = this.checkedProposers.length === 0 || this.checkedProposers.includes(record['提案人']);
+        const matchDescription = this.checkedDescriptions.length === 0 || this.checkDescriptionMatch(record['問題描述']);
+        const matchCaseCategory = this.checkedCaseCategories.length === 0 || this.checkedCaseCategories.includes(record['案件分類']);
+        const matchStatus = this.checkedStatus.length === 0 || this.checkedStatus.includes(record['Status']);
+        const matchPDCA = this.checkedPDCA.length === 0 || this.checkedPDCA.includes(record['PDCA']);
+        const matchProjectOwner = this.checkedProjectOwners.length === 0 || this.checkedProjectOwners.includes(record['專案Owner']);
+        const matchDueDate = this.checkedDueDates.length === 0 || this.checkedDueDates.includes(formattedDueDate);
+        const matchItemDueDate = this.checkedItemDueDates.length === 0 || this.checkedItemDueDates.includes(this.getItemDueDateYM(record));
+
+        return matchProposalDate && matchBuilding && matchFloor && matchStation && matchCategory && matchProposer &&
+              matchDescription && matchCaseCategory && matchStatus && matchPDCA && matchProjectOwner 
+              && matchDueDate && matchItemDueDate;
+      })
+      .forEach(record => {
+        const val = record['CloseDay'];
+        if (!val) return;
+
+        let ym;
+        if (String(val).length === 8) {
+          const dateStr = String(val);
+          ym = `${dateStr.slice(0, 4)}/${dateStr.slice(4, 6)}`;
+        } else if (String(val).includes('/')) {
+          const parts = String(val).split('/');
+          if (parts.length >= 2) {
+            ym = `${parts[0]}/${parts[1].padStart(2, '0')}`;
+          }
+        }
+        if (ym) {
+          closeDays.add(ym);
+        }
+      });
+
+    return Array.from(closeDays).sort().reverse();
+  },
+
+
   isItemDueDateFiltered() {
     return this.checkedItemDueDates && this.checkedItemDueDates.length > 0;
+  },
+
+  // 🆕 Close Day 是否有篩選
+  isCloseDayFiltered() {
+    return this.checkedCloseDays && this.checkedCloseDays.length > 0;
   },
 
 
@@ -1312,6 +1409,14 @@ const app = Vue.createApp({
       return Object.keys(this.columnSettingsList).filter(column => this.columnSettingsList[column]);
     },
 
+    // 🆕 表格寬度模式：顯示欄位少時用 w-full 自動塞進畫面（不出現水平捲軸），
+    //    欄位開很多（含 換算金額 / 距今 / 截止日期 等）才切成 min-w-max 讓它可以橫向捲動
+    tableWidthClass() {
+      const visible = Object.keys(this.columnVisibility).filter(c => this.columnVisibility[c]);
+      // table-fit：縮小 padding / 最小寬度，貼齊視窗；min-w-max：欄位太多時允許橫向捲動
+      return visible.length > 15 ? 'min-w-max' : 'table-fit';
+    },
+
     // 🆕 隱藏欄位數量
     hiddenColumnsCount() {
       return Object.values(this.columnVisibility).filter(visible => !visible).length;
@@ -1364,6 +1469,7 @@ const app = Vue.createApp({
         this.showProjectOwnerFilter = false;
         this.showItemDueDateFilter = false;
         this.showStatusFilter = false;
+        this.showCloseDayFilter = false;
     },
     
     // 🆕 檢查欄位是否可見
@@ -1401,11 +1507,24 @@ const app = Vue.createApp({
         '專案Owner': true,
         '換算金額': true,      // 僅管理員可見
         '項目DueDate': false,   // 預設隱藏
+        'CloseDay': this.userRole === 'admin',   // 🆕 Close Day：僅管理員預設顯示
         '進度紀錄': true,
         'Status': true,
         '操作': true
       };
       localStorage.setItem('columnVisibility', JSON.stringify(this.columnVisibility));
+    },
+
+    // 🆕 依角色決定 Close Day 預設顯示（只在 localStorage 沒有存過 CloseDay 設定時套用）
+    applyCloseDayDefaultByRole() {
+      let saved = {};
+      try {
+        saved = JSON.parse(localStorage.getItem('columnVisibility') || '{}');
+      } catch (e) {
+        saved = {};
+      }
+      if (Object.prototype.hasOwnProperty.call(saved, 'CloseDay')) return; // 使用者調整過 → 不覆蓋
+      this.columnVisibility['CloseDay'] = (this.userRole === 'admin');
     },
 
     // 🆕 載入欄位顯示設定
@@ -2298,6 +2417,7 @@ const app = Vue.createApp({
       const isCurrentlyOpen = this[targetDropdown];
       // 先關閉所有下拉選單
       this.showItemDueDateFilter = false;
+      this.showCloseDayFilter = false;
       this.showDateFilter = false;
       this.showBuildingDropdown = false;
       this.showFloorDropdown = false;
@@ -2389,6 +2509,9 @@ const app = Vue.createApp({
       }
       if (this.$refs.ItemDueDateFilterWrapper && !this.$refs.ItemDueDateFilterWrapper.contains(event.target)) {
         this.showItemDueDateFilter = false;
+      }
+      if (this.$refs.CloseDayFilterWrapper && !this.$refs.CloseDayFilterWrapper.contains(event.target)) {
+        this.showCloseDayFilter = false;
       }
       // 處理手機選單
       if (this.$refs.mobileMenuWrapper && !this.$refs.mobileMenuWrapper.contains(event.target)) {
@@ -2996,6 +3119,32 @@ const app = Vue.createApp({
       this.refreshIcons();
     },
 
+    // 🆕 清除 Close Day 篩選
+    clearCloseDayFilter() {
+      this.checkedCloseDays = [];
+      this.refreshIcons();
+    },
+
+    // 🆕 日期欄位 → YYYY/MM（篩選用），支援 YYYYMMDD / YYYY/MM/DD / 其他原樣
+    toYearMonth(val) {
+      if (val === undefined || val === null) return '';
+      const str = String(val);
+      if (str.length === 8 && /^\d{8}$/.test(str)) {
+        return `${str.slice(0, 4)}/${str.slice(4, 6)}`;
+      }
+      if (str.includes('/') && str.length >= 7) {
+        const parts = str.split('/');
+        return `${parts[0]}/${parts[1].padStart(2, '0')}`;
+      }
+      return str;
+    },
+    getCloseDayYM(record) {
+      return this.toYearMonth(record['CloseDay']);
+    },
+    getItemDueDateYM(record) {
+      return this.toYearMonth(record['項目DueDate']);
+    },
+
 
       // 檢查棟別是否匹配（處理多種棟別格式）
     checkBuildingMatch(buildingData) {
@@ -3040,7 +3189,8 @@ const app = Vue.createApp({
         'checkedPDCA',
         'checkedProjectOwners',
         'checkedDueDates',
-        'checkedItemDueDates'
+        'checkedItemDueDates',
+        'checkedCloseDays'
       ];
 
       keys.forEach(key => {
@@ -3071,7 +3221,7 @@ const app = Vue.createApp({
         '項次', '提案日期', '距今', '棟別', '樓層', '站點', '類別',
         '提案人', '案件分類', '工程師人數', '處理時間H', '產品顆數', '影響產能',
         '頻率年月', '頻率', '換算金額', '問題描述', 'PDCA', '截止日期',
-        '專案Owner', '項目DueDate', '進度紀錄', 'Status'
+        '專案Owner', '項目DueDate', '進度紀錄', 'Status', 'CloseDay'
       ];
 
       // 整理資料 & 避免科學記號 + 處理 Proxy(Array)
@@ -3198,6 +3348,7 @@ const app = Vue.createApp({
             checkedProjectOwners: this.checkedProjectOwners,
             checkedDueDates: this.checkedDueDates,
             checkedItemDueDates: this.checkedItemDueDates,
+            checkedCloseDays: this.checkedCloseDays,  // 🆕 Close Day
             amountSortOrder: this.amountSortOrder  // 🆕 換算金額(月) 排序狀態
         };
 
@@ -3253,6 +3404,7 @@ const app = Vue.createApp({
       this.checkedProjectOwners = filters.checkedProjectOwners || [];
       this.checkedDueDates = filters.checkedDueDates || [];
       this.checkedItemDueDates = filters.checkedItemDueDates || [];
+      this.checkedCloseDays = filters.checkedCloseDays || [];  // 🆕 Close Day
       // 🆕 換算金額(月) 排序狀態（'desc' / 'asc' / null）
       this.amountSortOrder = filters.amountSortOrder || null;
     },
@@ -3861,6 +4013,7 @@ const app = Vue.createApp({
     checkedProjectOwners: { handler() { this.onFilterChange(); }, deep: true },
     checkedDueDates: { handler() { this.onFilterChange(); }, deep: true },
     checkedItemDueDates: { handler() { this.onFilterChange(); }, deep: true },
+    checkedCloseDays: { handler() { this.onFilterChange(); }, deep: true },  // 🆕 Close Day
     amountSortOrder: { handler() { this.onFilterChange(); } },  // 🆕 金額排序變更也記憶
         showMobileMenu(newVal) {
         if (newVal) {
@@ -3915,6 +4068,8 @@ const app = Vue.createApp({
     if (this.username) {
       await this.checkUserPermissions();
       console.log("🔌 用戶角色:", this.userRole);
+      // 🆕 Close Day 欄位：管理員預設顯示；若使用者已在欄位設定手動調整過則尊重其設定
+      this.applyCloseDayDefaultByRole();
     }
     
     if (this.username) {

@@ -32,14 +32,15 @@ const app = Vue.createApp({
         專案Owner: '',
         項目DueDate: 'TBD',
         進度紀錄: '',
-        Status: 'New'
+        Status: 'New',
+        CloseDay: ''
       },
       newProgressRecord: '',
       progressHistory: [],
       showFloorDropdown: false,
       showBuildingDropdown: false,
-      floors: ["3F", "4F", "5F", "6F", "8F", "9F", "10F", '11F'],
-      buildings: ["K11", 'K18', "K21", "K22", "K25"],
+      floors: ["1F", '2F', "3F", "4F", "5F", "6F", "8F", "9F", "10F", '11F'],
+      buildings: ["K11", 'K18', "K21", "K22", "K25", "K61", "K71"],
       allOwnersData: [],        // 存放所有員工資料
       ownerSearchResults: [],   // 存放搜尋結果
       showOwnerDropdown: false,   // 控制下拉選單顯示
@@ -368,7 +369,8 @@ const app = Vue.createApp({
           截止日期: this.originalData.截止日期,
           專案Owner: this.originalData.專案Owner,
           項目DueDate: this.originalData.項目DueDate,
-          Status: this.originalData.Status
+          Status: this.originalData.Status,
+          CloseDay: this.originalData.CloseDay || ""
         };
         
         // 重置狀態
@@ -406,7 +408,8 @@ const app = Vue.createApp({
         截止日期: this.recordData.截止日期,
         專案Owner: this.recordData.專案Owner,
         項目DueDate: this.recordData.項目DueDate,
-        Status: this.recordData.Status
+        Status: this.recordData.Status,
+        CloseDay: this.recordData.CloseDay || ""
       };
 
       return JSON.stringify(currentData) !== JSON.stringify(this.originalData);
@@ -538,6 +541,8 @@ parseUrlParams() {
             // 頻率欄位：舊資料可能沒有，補上預設值（內定月頻率）
             this.recordData.頻率 = this.recordData.頻率 || "";
             this.recordData.頻率年月 = this.recordData.頻率年月 || "月";
+            // 🆕 Close Day：舊資料可能沒有此欄位，補上空字串
+            this.recordData.CloseDay = this.recordData.CloseDay || "";
             
             // 保存原始資料用於變更檢測和復原
             this.originalData = {
@@ -561,7 +566,8 @@ parseUrlParams() {
               截止日期: this.recordData.截止日期,
               專案Owner: this.recordData.專案Owner,
               項目DueDate: this.recordData.項目DueDate,
-              Status: this.recordData.Status
+              Status: this.recordData.Status,
+              CloseDay: this.recordData.CloseDay || ""
             };
             
             await this.loadProgressHistory();
@@ -702,14 +708,14 @@ parseUrlParams() {
     },
 
     // === 編輯操作方法（帶權限檢查） ===
-    updateRecordDate(field, val) {
+    updateRecordDate(field, val, emptyValue = "TBD") {
       if (this.isReadOnly) {
         this.checkOperationPermission();
         return;
       }
       
       if (!val) {
-        this.recordData[field] = "TBD";
+        this.recordData[field] = emptyValue;   // 🆕 Close Day 清空時為 ''，其餘維持 'TBD'
         return;
       }
       const yyyymmdd = val.replace(/-/g, "");
@@ -1126,7 +1132,8 @@ parseUrlParams() {
             截止日期: this.recordData.截止日期,
             專案Owner: this.recordData.專案Owner,
             項目DueDate: this.recordData.項目DueDate,
-            Status: this.recordData.Status
+            Status: this.recordData.Status,
+            CloseDay: this.recordData.CloseDay || ""
           };
           
           // 儲存當前滾動位置到 localStorage

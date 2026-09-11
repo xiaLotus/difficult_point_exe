@@ -1,0 +1,155 @@
+2026-09-11 19:29:13 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '預覽人'}
+2026-09-11 19:29:13 [INFO] routes.auth: 確認 K18251 具備 預覽人 的權限
+2026-09-11 19:29:13 [INFO] routes.auth: 收到用戶名為 K18251 的登錄請求
+2026-09-11 19:29:13 [INFO] utils.auth: K18251 成功登入
+2026-09-11 19:29:13 [INFO] routes.auth: 用戶名為 K18251 的登錄成功
+2026-09-11 19:29:14 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-09-11 19:29:14 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-09-11 19:29:14 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-09-11 19:29:14 [INFO] root: 處理完成，共 120 筆記錄
+2026-09-11 19:29:14 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-09-11 19:29:17 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-09-11 19:29:17 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-09-11 19:29:17 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-09-11 19:29:17 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-09-11 19:29:17 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-09-11 19:29:17 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-09-11 19:29:17 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-09-11 19:29:17 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-09-11 19:29:17 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-09-11 19:34:06 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-09-11 19:34:06 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-09-11 19:34:06 [INFO] root: 處理完成，共 120 筆記錄
+2026-09-11 19:34:06 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-09-11 19:34:06 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-09-11 19:34:09 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-09-11 19:34:09 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-09-11 19:34:09 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-09-11 19:34:09 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-09-11 19:34:09 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-09-11 19:34:09 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-09-11 19:34:09 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-09-11 19:34:09 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-09-11 19:34:09 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-09-11 19:35:11 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-09-11 19:35:11 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-09-11 19:35:11 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-09-11 19:35:11 [INFO] root: 處理完成，共 120 筆記錄
+2026-09-11 19:35:12 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-09-11 19:35:12 [INFO] routes.meeting_routes: K18251 取得記錄 20260814112215 的進度歷史
+2026-09-11 19:35:18 [INFO] routes.meeting_routes: 準備更新記錄，ID/項次：243fc170-ff0a-47ca-8e92-c802bbcac2c2
+2026-09-11 19:35:18 [WARNING] utils.save_record: K18251 準備更新記錄，ID/項次：243fc170-ff0a-47ca-8e92-c802bbcac2c2
+2026-09-11 19:35:18 [WARNING] utils.save_record: 更新資訊如下：{'CloseDay': '20260908', 'PDCA': 'P', 'Status': 'Closed', 'id': '243fc170-ff0a-47ca-8e92-c802bbcac2c2', '問題描述': 'KL擴廠需求需新增BN50_ePR請購網頁彙整資訊', '專案Owner': '詹睿穎', '工程師人數': '', '影響產能': '', '截止日期': 'TBD', '提案人': '陳思維', '提案日期': 20260814, '換算金額': 0, '案件分類': '日常', '棟別': 'K61', '樓層': '1F, 2F', '產品顆數': '', '留言討論': [], '站點': 'All', '處理時間H': '', '項次': 20260814112215, '項目DueDate': 'TBD', '頻率': '', '頻率年月': '月', '類別': '工作'}
+2026-09-11 19:35:18 [INFO] utils.save_record: K18251 成功更新記錄 ID/項次：243fc170-ff0a-47ca-8e92-c802bbcac2c2
+2026-09-11 19:35:20 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-09-11 19:35:20 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-09-11 19:35:20 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-09-11 19:35:20 [INFO] root: 處理完成，共 120 筆記錄
+2026-09-11 19:35:20 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-09-11 19:35:22 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-09-11 19:35:22 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-09-11 19:35:22 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-09-11 19:35:22 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-09-11 19:35:22 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-09-11 19:35:22 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-09-11 19:35:22 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-09-11 19:35:22 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-09-11 19:35:22 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-09-11 19:35:37 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-09-11 19:35:37 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-09-11 19:35:37 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-09-11 19:35:37 [INFO] root: 處理完成，共 120 筆記錄
+2026-09-11 19:35:37 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-09-11 19:35:39 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-09-11 19:35:39 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-09-11 19:35:39 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-09-11 19:35:39 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-09-11 19:35:39 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-09-11 19:35:39 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-09-11 19:35:39 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-09-11 19:35:39 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-09-11 19:35:39 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-09-11 19:36:02 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-09-11 19:36:02 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-09-11 19:36:02 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-09-11 19:36:02 [INFO] root: 處理完成，共 120 筆記錄
+2026-09-11 19:36:02 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-09-11 19:36:02 [INFO] routes.meeting_routes: K18251 取得記錄 20260814112215 的進度歷史
+2026-09-11 19:36:06 [INFO] routes.meeting_routes: 準備更新記錄，ID/項次：243fc170-ff0a-47ca-8e92-c802bbcac2c2
+2026-09-11 19:36:06 [WARNING] utils.save_record: K18251 準備更新記錄，ID/項次：243fc170-ff0a-47ca-8e92-c802bbcac2c2
+2026-09-11 19:36:06 [WARNING] utils.save_record: 更新資訊如下：{'CloseDay': '20260911', 'PDCA': 'P', 'Status': 'Closed', 'id': '243fc170-ff0a-47ca-8e92-c802bbcac2c2', '問題描述': 'KL擴廠需求需新增BN50_ePR請購網頁彙整資訊', '專案Owner': '詹睿穎', '工程師人數': '', '影響產能': '', '截止日期': 'TBD', '提案人': '陳思維', '提案日期': 20260814, '換算金額': 0, '案件分類': '日常', '棟別': 'K61', '樓層': '1F, 2F', '產品顆數': '', '留言討論': [], '站點': 'All', '處理時間H': '', '項次': 20260814112215, '項目DueDate': 'TBD', '頻率': '', '頻率年月': '月', '類別': '工作'}
+2026-09-11 19:36:06 [INFO] utils.save_record: K18251 成功更新記錄 ID/項次：243fc170-ff0a-47ca-8e92-c802bbcac2c2
+2026-09-11 19:36:08 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-09-11 19:36:08 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-09-11 19:36:08 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-09-11 19:36:08 [INFO] root: 處理完成，共 120 筆記錄
+2026-09-11 19:36:08 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-09-11 19:36:10 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-09-11 19:36:10 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-09-11 19:36:10 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-09-11 19:36:10 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-09-11 19:36:10 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-09-11 19:36:10 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-09-11 19:36:10 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-09-11 19:36:10 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-09-11 19:36:10 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-09-11 19:38:13 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-09-11 19:38:13 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-09-11 19:38:13 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-09-11 19:38:13 [INFO] root: 處理完成，共 120 筆記錄
+2026-09-11 19:38:13 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-09-11 19:38:15 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-09-11 19:38:15 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-09-11 19:38:15 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-09-11 19:38:15 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-09-11 19:38:15 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-09-11 19:38:15 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-09-11 19:38:15 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-09-11 19:38:15 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-09-11 19:38:15 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-09-11 19:43:42 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '預覽人'}
+2026-09-11 19:43:42 [INFO] routes.auth: 確認 K18251 具備 預覽人 的權限
+2026-09-11 19:43:42 [INFO] routes.auth: 收到用戶名為 K18251 的登錄請求
+2026-09-11 19:43:42 [INFO] utils.auth: K18251 成功登入
+2026-09-11 19:43:42 [INFO] routes.auth: 用戶名為 K18251 的登錄成功
+2026-09-11 19:43:43 [INFO] routes.auth: 收到權限檢查請求，參數：{'filename': 'K18251', 'role': '管理員'}
+2026-09-11 19:43:43 [INFO] routes.auth: 確認 K18251 具備 管理員 的權限
+2026-09-11 19:43:43 [INFO] routes.auth: 使用者: K18251 查詢中文名，搜索成功 - {'工號': 'K18251', '姓名': '詹睿穎'}
+2026-09-11 19:43:43 [INFO] root: 處理完成，共 120 筆記錄
+2026-09-11 19:43:43 [INFO] routes.meeting_routes: K18251 從後端抓取資料
+2026-09-11 19:43:45 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-09-11 19:43:45 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-09-11 19:43:45 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-09-11 19:43:45 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-09-11 19:43:45 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-09-11 19:43:45 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-09-11 19:43:45 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-09-11 19:43:45 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-09-11 19:43:45 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-09-11 19:48:46 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-09-11 19:48:46 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-09-11 19:48:46 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-09-11 19:48:46 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-09-11 19:48:46 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-09-11 19:48:46 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-09-11 19:48:46 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-09-11 19:48:46 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-09-11 19:48:46 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-09-11 19:53:46 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-09-11 19:53:46 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-09-11 19:53:46 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-09-11 19:53:46 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-09-11 19:53:46 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-09-11 19:53:46 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-09-11 19:53:46 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-09-11 19:53:46 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-09-11 19:53:46 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json
+2026-09-11 19:58:46 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20260226104239.json
+2026-09-11 19:58:46 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-04-01 13:02:18.525606
+2026-09-11 19:58:46 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20260226104239.json
+2026-09-11 19:58:46 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251027152229.json
+2026-09-11 19:58:46 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 13:49:35.079933
+2026-09-11 19:58:46 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251027152229.json
+2026-09-11 19:58:46 [INFO] utils.proposer_read_tracker: 🔍 檢查進度檔案: static\progress_records\20251014160845.json
+2026-09-11 19:58:46 [INFO] utils.proposer_read_tracker: 🔍 最後閱讀時間: 2026-01-14 15:22:51.787129
+2026-09-11 19:58:46 [INFO] utils.proposer_read_tracker: ⚠️ 進度檔案不存在: static\progress_records\20251014160845.json

@@ -18,7 +18,8 @@ def save_new_record(username, newrecords):
     fieldnames = [
         "id", "項次", "提案日期", "棟別", "樓層", "站點", "類別", "提案人", "案件分類",
         "工程師人數", "處理時間H", "產品顆數", "影響產能", "頻率年月", "頻率", "換算金額",
-        "問題描述", "PDCA", "截止日期", "專案Owner", "項目DueDate", "進度紀錄", "Status"
+        "問題描述", "PDCA", "截止日期", "專案Owner", "項目DueDate", "進度紀錄", "Status",
+        "CloseDay"  # 🆕 Close Day (YYYYMMDD 或空字串)
     ]
     
     try:
@@ -35,7 +36,11 @@ def save_new_record(username, newrecords):
                 newrecords[field] = ""
 
         df = pd.concat([pd.DataFrame([newrecords]), df], ignore_index=True)
-        df = df[fieldnames]
+        # 🆕 舊 CSV 可能缺少新欄位（如 CloseDay），先補上避免 KeyError
+        for field in fieldnames:
+            if field not in df.columns:
+                df[field] = ""
+        df = df[fieldnames].fillna("")
         
         df.to_csv(path, index=False, encoding='utf-8-sig')
         logger.info(f"{username} 的新資料已成功寫入 CSV：{path}")
@@ -54,7 +59,8 @@ def update_existing_record(username, record_id, updated_data):
     fieldnames = [
         "id", "項次", "提案日期", "棟別", "樓層", "站點", "類別", "提案人", "案件分類",
         "工程師人數", "處理時間H", "產品顆數", "影響產能", "頻率年月", "頻率", "換算金額",
-        "問題描述", "PDCA", "截止日期", "專案Owner", "項目DueDate", "進度紀錄", "Status"
+        "問題描述", "PDCA", "截止日期", "專案Owner", "項目DueDate", "進度紀錄", "Status",
+        "CloseDay"  # 🆕 Close Day (YYYYMMDD 或空字串)
     ]
     
     try:
@@ -138,6 +144,11 @@ def update_existing_record(username, record_id, updated_data):
             updated_data["進度紀錄"] = json.dumps(final_progress, ensure_ascii=False, separators=(',', ':'))
             logger.info(f"最終進度紀錄 JSON: {updated_data['進度紀錄']}")
         
+        # 🆕 舊 CSV 可能缺少新欄位（如 CloseDay），先補上再寫入
+        for field in fieldnames:
+            if field not in df.columns:
+                df[field] = ""
+
         for key, value in updated_data.items():
             if key in df.columns:
                 df.loc[record_index[0], key] = str(value) if value is not None else ""

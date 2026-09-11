@@ -15,6 +15,12 @@ def load_meeting_records(file_path=None):
     # 讀取 CSV 並將 NaN 替換為空字串
     df = pd.read_csv(file_path, encoding="utf-8-sig")
     df = df.fillna("")
+    # 🆕 舊 CSV 尚未有 CloseDay 欄位時補上空字串，前端才不會拿到 undefined
+    if "CloseDay" not in df.columns:
+        df["CloseDay"] = ""
+    else:
+        # 避免 pandas 把 YYYYMMDD 讀成 float (20260911.0)
+        df["CloseDay"] = df["CloseDay"].apply(lambda v: str(v).split('.')[0] if v != "" else "")
     
     records = df.to_dict(orient="records")
 
