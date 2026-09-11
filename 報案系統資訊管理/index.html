@@ -7,7 +7,6 @@
   <script src="static/js/chart.js"></script>
   <script src="static/js/chartjs-plugin-datalabels.js"></script>
   <script src="static/js/tailwinds.js"></script>
-  
 </head>
 <body class="bg-gray-900 text-white min-h-screen p-10">
   <div id="app" class="mx-auto">
@@ -23,6 +22,37 @@
         {{ tab }}
         </button>
     </div>
+
+    <!-- 🔙 回溯列（新增） -->
+    <div class="flex flex-wrap justify-center items-center gap-3 mb-6 text-sm">
+        <span class="text-gray-300 font-semibold">回溯查詢：</span>
+
+        <select v-model="lookbackYear" @change="lookbackWeek=''"
+                class="bg-gray-700 text-white rounded px-3 py-1">
+            <option value="">年份</option>
+            <option v-for="y in lookbackYears" :key="y" :value="y">{{ y }}</option>
+        </select>
+
+        <select v-model="lookbackWeek" :disabled="!lookbackYear"
+                class="bg-gray-700 text-white rounded px-3 py-1 disabled:opacity-40">
+            <option value="">週數</option>
+            <option v-for="w in lookbackWeeks" :key="w.week" :value="w.week">W{{ String(w.num).padStart(2, '0') }}</option>
+        </select>
+
+        <button @click="applyLookback" :disabled="!lookbackWeek || loading"
+                class="px-4 py-1 rounded bg-amber-500 text-black font-bold hover:bg-amber-400 disabled:opacity-40">
+            {{ loading ? '載入中…' : '套用' }}
+        </button>
+        <button @click="resetLookback" v-if="selectedWeek" :disabled="loading"
+                class="px-4 py-1 rounded bg-gray-600 hover:bg-gray-500 disabled:opacity-40">
+            回到最新
+        </button>
+
+        <span v-if="selectedWeek" class="ml-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40">
+            目前顯示：{{ selectedWeek }}
+        </span>
+    </div>
+
     <div v-show="activeTab === 0">
         <h1 class="text-3xl font-bold mb-6 text-center">{{ this.week }} - 報案柱狀圖</h1>
         <div class="flex justify-center">
@@ -90,7 +120,7 @@
             <tbody>
             <tr v-for="row in top3Stats" :key="row.category" class="bg-gray-800">
                 <td class="px-4 py-2 font-semibold w-1/4">{{ row.category }}</td>
-                <td v-for="item in row.operList" :key="item" class="text-center w-1/4 px-2 py-2">
+                <td v-for="(item, i) in row.operList" :key="i" class="text-center w-1/4 px-2 py-2">
                 {{ item }}
                 </td>
                 <td class="text-center font-bold text-amber-400 px-4 py-2">{{ row.totalCount }}</td>
@@ -131,11 +161,9 @@
               </tr>
             </tbody>
           </table>
-            </div>
-          </div>
-          
+        </div>
     </div>
-      
+
   </div>
 
   <script src="static/js/app.js"></script>

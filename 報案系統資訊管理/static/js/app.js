@@ -1,5 +1,7 @@
 Chart.register(ChartDataLabels);
 
+const API_BASE = "http://127.0.0.1:5000";
+
 const app = Vue.createApp({
     data() {
         return {
@@ -16,25 +18,38 @@ const app = Vue.createApp({
             detailedData: [],
             chart: null,
             dailyChart: null,
-            weeklyChart: null, 
+            weeklyChart: null,
             categories: [
                 "2D消除", "EAP重開", "過帳異常",
                 "關閉比對", "其他事項", "更新/搬遷", "總計"
             ],
-            summaryItems: [], 
+            summaryItems: [],
             top3Stats: [],
             summaryList_error_total: [],
-            top3Total: []
+            top3Total: [],
+
+            // 🔙 回溯功能
+            availableWeeks: [],   // [{week, year, num}]
+            lookbackYear: '',
+            lookbackWeek: '',
+            selectedWeek: null,   // null = 最新週（原本行為）
+            loading: false,
+            reqId: 0              // 請求序號，用來丟棄過期回應
         };
     },
+    computed: {
+        lookbackYears() {
+            return [...new Set(this.availableWeeks.map(w => w.year))].sort((a, b) => b - a);
+        },
+        lookbackWeeks() {
+            return this.availableWeeks
+                .filter(w => w.year === Number(this.lookbackYear))
+                .sort((a, b) => b.num - a.num);
+        }
+    },
     mounted() {
-        this.getweek();
-        this.loadChartData();
-        this.loadDailyChart(); 
-        this.loadWeeklyChart(); // 👈 新增
-        this.loadFactorySummary(); // 👈 呼叫載入
-        this.loadTop3OperStats(); // ✅ 加這行
-        this.loadDetailedData(); // ✅ 加這行
+        this.loadAvailableWeeks();
+        this.reloadAll();
         const savedTab = localStorage.getItem('activeTab');
         if (savedTab !== null) {
             this.activeTab = parseInt(savedTab);
@@ -42,10 +57,69 @@ const app = Vue.createApp({
         window.addEventListener("keydown", this.handleArrowKeys);
     },
     beforeUnmount() {
-        // 清除事件
         window.removeEventListener("keydown", this.handleArrowKeys);
     },
     methods: {
+
+        // 組 API 網址，回溯模式時自動帶 ?week=
+        api(path) {
+            const url = `${API_BASE}${path}`;
+            return this.selectedWeek ? `${url}?week=${encodeURIComponent(this.selectedWeek)}` : url;
+        },
+
+        async reloadAll() {
+            const id = ++this.reqId;
+            this.loading = true;
+            try {
+                await Promise.all([
+                    this.getweek(id),
+                    this.loadChartData(id),
+                    this.loadDailyChart(id),
+                    this.loadWeeklyChart(id),
+                    this.loadFactorySummary(id),
+                    this.loadTop3OperStats(id),
+                    this.loadDetailedData(id)
+                ]);
+            } finally {
+                if (id === this.reqId) this.loading = false;
+            }
+        },
+
+        // 回應是否已過期（使用者已經又切換了週次）
+        stale(id) {
+            return id !== undefined && id !== this.reqId;
+        },
+
+        // 安全地銷毀舊圖表
+        destroyChart(name) {
+            const c = this[name];
+            if (!c) return;
+            try { c.stop(); c.destroy(); } catch (e) { /* ignore */ }
+            this[name] = null;
+        },
+
+        async loadAvailableWeeks() {
+            try {
+                const res = await fetch(`${API_BASE}/api/weeks`);
+                this.availableWeeks = await res.json();
+            } catch (err) {
+                console.error("載入週次清單失敗：", err);
+            }
+        },
+
+        applyLookback() {
+            if (!this.lookbackWeek || this.loading) return;
+            this.selectedWeek = this.lookbackWeek;
+            this.reloadAll();
+        },
+
+        resetLookback() {
+            if (this.loading) return;
+            this.selectedWeek = null;
+            this.lookbackYear = '';
+            this.lookbackWeek = '';
+            this.reloadAll();
+        },
 
         setActiveTab(tabIndex) {
             this.activeTab = tabIndex;
@@ -54,39 +128,38 @@ const app = Vue.createApp({
 
         parseAndSum(value) {
             if (!value || value === "0") return 0;
-            let matches = value.match(/\((\d+)\)/g); // 抓所有 () 內的數字
+            let matches = value.match(/\((\d+)\)/g);
             if (!matches) return 0;
             return matches.map(m => parseInt(m.replace(/[()]/g, ""))).reduce((a, b) => a + b, 0);
         },
 
-        async getweek(){
+        async getweek(id){
             try{
-                const res = await fetch("http://127.0.0.1:5000/api/week_num");
+                const res = await fetch(this.api("/api/week_num"));
                 const rawData = await res.json();
-                
+                if (this.stale(id)) return;
                 this.week = rawData.latest_week;
-            } 
+            }
             catch (err) {
                 console.error("載入資料失敗：", err);
             }
         },
 
-        async loadChartData() {
+        async loadChartData(id) {
             try {
-                const res = await fetch("http://127.0.0.1:5000/api/factory-data");
+                const res = await fetch(this.api("/api/factory-data"));
                 const rawData = await res.json();
+                if (this.stale(id)) return;
 
-                // ✅ 取出 records
                 const records = rawData.records || [];
 
                 const asef1 = records.find(d => d.Factory === "ASEF1") || {};
                 const asef3 = records.find(d => d.Factory === "ASEF3") || {};
-                const asef5 = records.find(d => d.Factory === "ASEF5") || {}; 
+                const asef5 = records.find(d => d.Factory === "ASEF5") || {};
 
-                // ✅ 支援「(12)」與「27」這種純數字
                 const parseTotal = (val) => {
                     if (!val || val === "0") return 0;
-                    if (/^\d+$/.test(val)) return parseInt(val);  // 純數字
+                    if (/^\d+$/.test(val)) return parseInt(val);
                     const matches = val.match(/\((\d+)\)/g);
                     if (!matches) return 0;
                     return matches
@@ -94,25 +167,21 @@ const app = Vue.createApp({
                         .reduce((a, b) => a + b, 0);
                 };
 
-                // ✅ 解析各分類數據
                 const asef1Data = this.categories.map(c => parseTotal(asef1[c]));
                 const asef3Data = this.categories.map(c => parseTotal(asef3[c]));
                 const asef5Data = this.categories.map(c => parseTotal(asef5[c]));
 
-                // ✅ 總計 (使用純數字直接加總)
                 const asef1Total = Number(asef1["總計"]) || 0;
                 const asef3Total = Number(asef3["總計"]) || 0;
                 const asef5Total = Number(asef5["總計"]) || 0;
 
-                // ✅ 統計總合（最後一欄為 "總計"）
                 const totalData = this.categories.map((c, i) => {
                     if (c === "總計") return asef1Total + asef3Total + asef5Total;
                     return (asef1Data[i] ?? 0) + (asef3Data[i] ?? 0) + (asef5Data[i] ?? 0);
                 });
 
-                // ✅ 畫圖
                 const ctx = document.getElementById('myChart').getContext('2d');
-                if (this.chart) this.chart.destroy();
+                this.destroyChart('chart');
 
                 this.chart = new Chart(ctx, {
                     type: 'bar',
@@ -229,16 +298,16 @@ const app = Vue.createApp({
             }
         },
 
-
-        async loadDailyChart() {
-            const res = await fetch("http://127.0.0.1:5000/api/posting-counts");
+        async loadDailyChart(id) {
+            const res = await fetch(this.api("/api/posting-counts"));
             const data = await res.json();
+            if (this.stale(id)) return;
 
             const dates = data.map(d => d.date);
             const counts = data.map(d => d.count);
 
             const ctx = document.getElementById('dailyChart').getContext('2d');
-            if (this.dailyChart) this.dailyChart.destroy();
+            this.destroyChart('dailyChart');
 
             this.dailyChart = new Chart(ctx, {
                 type: 'bar',
@@ -284,9 +353,10 @@ const app = Vue.createApp({
             });
         },
 
-        async loadWeeklyChart() {
-            const res = await fetch("http://127.0.0.1:5000/api/weekly-summary");
+        async loadWeeklyChart(id) {
+            const res = await fetch(this.api("/api/weekly-summary"));
             const data = await res.json();
+            if (this.stale(id)) return;
 
             const labels = data.map(d => d["週次"]);
             const postAbnormal = data.map(d => d["過帳異常"]);
@@ -295,7 +365,7 @@ const app = Vue.createApp({
             const total = data.map(d => d["總計"]);
 
             const ctx = document.getElementById('weeklyChart').getContext('2d');
-            if (this.weeklyChart) this.weeklyChart.destroy();
+            this.destroyChart('weeklyChart');
 
             this.weeklyChart = new Chart(ctx, {
                 type: 'bar',
@@ -323,11 +393,11 @@ const app = Vue.createApp({
                         {
                             label: '總計',
                             data: total,
-                            type: 'line',                  // 顯示為折線圖
-                            borderColor: 'rgba(255, 165, 0, 1)', // 橘色線
+                            type: 'line',
+                            borderColor: 'rgba(255, 165, 0, 1)',
                             borderWidth: 3,
                             pointBackgroundColor: 'rgba(255, 165, 0, 1)',
-                            tension: 0.3,                  // 曲線平滑
+                            tension: 0.3,
                             yAxisID: 'y'
                         }
                     ]
@@ -366,29 +436,21 @@ const app = Vue.createApp({
             });
         },
 
-        async loadFactorySummary() {
-            const res = await fetch("http://127.0.0.1:5000/api/factory-data");
+        async loadFactorySummary(id) {
+            const res = await fetch(this.api("/api/factory-data"));
             const rawData = await res.json();
+            if (this.stale(id)) return;
             const data = rawData.records || [];
             this.summaryList_error_total = rawData.summary || {};
-
 
             const asef1 = data.find(d => d.Factory === "ASEF1");
             const asef3 = data.find(d => d.Factory === "ASEF3");
             const asef5 = data.find(d => d.Factory === "ASEF5");
 
-            console.log("工廠資料：", data); // ⬅️ 印出全部資料
-            console.log("ASEF5:", asef5); // ⬅️ 驗證 ASEF5 是否存在
-
-            if (!asef1 || !asef3 || !asef5) return;
-            
-            // 解析 () 內數字並加總
-            const parseTotal = (val) => {
-                if (!val || val === "0") return 0;
-                const matches = val.match(/\((\d+)\)/g);
-                if (!matches) return 0;
-                return matches.map(m => parseInt(m.replace(/[()]/g, ''))).reduce((a, b) => a + b, 0);
-            };
+            if (!asef1 || !asef3 || !asef5) {
+                this.summaryItems = [];
+                return;
+            }
 
             this.summaryItems = [
                 { label: "2D消除", asef1: asef1["2D消除"], asef3: asef3["2D消除"], asef5: asef5["2D消除"], 總計: this.summaryList_error_total["2D消除統計"] || 0,},
@@ -401,9 +463,10 @@ const app = Vue.createApp({
             ];
         },
 
-        async loadTop3OperStats() {
-            const res = await fetch("http://127.0.0.1:5000/api/oper-stats");
+        async loadTop3OperStats(id) {
+            const res = await fetch(this.api("/api/oper-stats"));
             const raw = await res.json();
+            if (this.stale(id)) return;
 
             const records = raw.records || raw;
             const summary = raw.summary || [];
@@ -414,7 +477,6 @@ const app = Vue.createApp({
                 grouped[item.分類].push(item);
             });
 
-            // 🔽 指定排序順序
             const categoryOrder = [
                 "2D消除",
                 "EAP重開",
@@ -424,7 +486,6 @@ const app = Vue.createApp({
                 "更新/搬遷"
             ];
 
-            // 🔽 按照順序排序 summary
             const sortedSummary = categoryOrder.map(cat => {
                 const matched = summary.find(s => s.分類 === cat);
                 return matched || { 分類: cat, 總次數: 0 };
@@ -448,30 +509,29 @@ const app = Vue.createApp({
             });
 
             function sumCount(str) {
-                const nums = (str.match(/\((\d+)\)/g) || []).map(s => parseInt(s.replace(/[()]/g, '')));
+                const nums = (String(str).match(/\((\d+)\)/g) || []).map(s => parseInt(s.replace(/[()]/g, '')));
                 return nums.reduce((a, b) => a + b, 0);
             }
         },
 
-        async loadDetailedData() {
-            const res = await fetch("http://127.0.0.1:5000/api/detailed-logs");
+        async loadDetailedData(id) {
+            const res = await fetch(this.api("/api/detailed-logs"));
             const data = await res.json();
+            if (this.stale(id)) return;
             this.detailedData = data;
         },
 
         handleArrowKeys(e) {
+            // 下拉選單有焦點時不攔截左右鍵
+            if (e.target && e.target.tagName === "SELECT") return;
             if (e.key === "ArrowRight") {
                 this.activeTab = (this.activeTab + 1) % this.tabs.length;
-                const newIndex = this.activeTab
-                this.setActiveTab(newIndex)
+                this.setActiveTab(this.activeTab);
             } else if (e.key === "ArrowLeft") {
                 this.activeTab = (this.activeTab - 1 + this.tabs.length) % this.tabs.length;
-                const newIndex = this.activeTab
-                this.setActiveTab(newIndex)
+                this.setActiveTab(this.activeTab);
             }
         },
-
-
 
     },
 });

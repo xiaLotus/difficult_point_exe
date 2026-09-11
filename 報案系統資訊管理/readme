@@ -1,0 +1,42 @@
+# 報案系統資料整理 — 回溯功能更新說明
+
+## 需要更新的檔案
+
+| 檔案 | 放置位置 | 說明 |
+|------|----------|------|
+| `app.py` | 專案根目錄（覆蓋原檔） | 新增 `/api/weeks`，各 API 支援 `?week=yyyy-Wxx` 參數 |
+| `index.html` | 專案根目錄（覆蓋原檔） | Tabs 下方新增回溯列（年份 / 週數 / 套用 / 回到最新） |
+| `app.js` | `static/js/app.js`（覆蓋原檔） | 所有 fetch 改經 `api()` 帶週次；新增請求序號與載入鎖 |
+
+其餘檔案（`static/js/vue.global.js`、`chart.js`、`chartjs-plugin-datalabels.js`、`tailwinds.js`、各 CSV）不需變動。
+
+## 變更內容
+
+### app.py
+- 新增共用工具：`parse_week_tag`、`week_key`、`get_week_arg`、`find_week_file`
+- 新增 `GET /api/weeks`：掃描 `報案資料表/`、`每日過帳相關統計/`、`分類_Oper_No_Top3/`，回傳 `[{week, year, num}]`
+- 以下 API 新增選用參數 `?week=yyyy-Wxx`，未帶時行為與原本相同（取最新週）：
+  - `/api/week_num`
+  - `/api/factory-data`（依 `各週資料.csv` 的 `Week` 欄位篩選）
+  - `/api/posting-counts`
+  - `/api/weekly-summary`（以指定週為結尾往前取 8 週）
+  - `/api/oper-stats`
+  - `/api/detailed-logs`
+
+### index.html
+- Tabs 下方新增回溯列：年份 → 週數 → 套用 / 回到最新，並顯示目前週次
+- 載入中按鈕顯示「載入中…」並鎖住
+- 修正 Top 3 表格 `:key` 重複警告（改用索引 `i`）
+- 原有 6 個分頁、圖表、表格位置與內容皆未變動
+
+### app.js
+- 新增狀態：`availableWeeks`、`lookbackYear`、`lookbackWeek`、`selectedWeek`、`loading`、`reqId`
+- 新增方法：`api()`、`reloadAll()`、`loadAvailableWeeks()`、`applyLookback()`、`resetLookback()`、`stale()`、`destroyChart()`
+- 各 `load*` 方法改為接收請求序號，過期回應直接丟棄，避免快速切換時 Chart.js 報錯
+- 左右方向鍵切換分頁時，若焦點在下拉選單則不攔截
+- 圖表繪製設定（顏色、字型、資料集）完全未變動
+
+## 使用方式
+1. 選擇年份 → 選擇週數 → 按「套用」，所有分頁改顯示該週資料
+2. 按「回到最新」恢復原本行為（最新週）
+3. 重新整理頁面後預設回到最新週（回溯狀態不儲存）
