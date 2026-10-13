@@ -93,15 +93,24 @@ def add_url():
 
 
 # ======================
-# DELETE（用 index）
+# DELETE（用 index）🔐 僅管理員
 # ======================
 @app.route("/api/urls/<int:index>", methods=["DELETE"])
 def delete_url(index):
+    # 🔐 權限檢查
+    employee_id = request.headers.get("X-Employee-ID", "").strip()
+    admins = load_admins()
+
+    if not employee_id or employee_id not in admins:
+        logger.info(f"❌ [DELETE] 權限拒絕: employee_id='{employee_id}' index={index}")
+        return jsonify({"message": "權限不足: 僅管理員可刪除"}), 403
+
     data = load_data()
 
     data = [item for item in data if item.get("index") != index]
 
     save_data(data)
+    logger.info(f"🗑️ [DELETE] index={index} 已由 {employee_id} 刪除")
 
     return jsonify({"status": "deleted"})
 
@@ -117,21 +126,7 @@ def check_admin():
         "employee_id": employee_id if is_admin else None
     })
 
-# 🗑️ 清空全部（帶有權限驗證）
-@app.route("/api/urls", methods=["DELETE"])
-def clear_urls():
-    # 從 header 或 body 取得工號
-    emp_id = (request.headers.get("X-Employee-ID") or 
-              (request.json.get("employee_id") if request.json else None))
-    
-    admins = load_admins()
-    
-    # 🔐 後端二次驗證：即使繞過前端，這裡仍會擋下
-    if not emp_id or emp_id not in admins:
-        return jsonify({"error": "權限不足: 僅管理員可執行清空操作"}), 403
-        
-    save_data([])  # 清空資料
-    return jsonify({"status": "cleared", "cleared_by": emp_id})
+# 🗑️ 清空全部功能已移除（避免誤刪全部資料）
 
 
 
