@@ -66,6 +66,9 @@ const app = Vue.createApp({
             ganttShowYear: false,      // 顯示 專案(年) 任務（預設隱藏）
             ganttShowPA:   false,      // 顯示 專案(PA) 任務（預設隱藏）
             ganttTip: { show: false, x: 0, y: 0, task: null },   // 自製 tooltip   // null = 全部，string = 指定提案人
+
+            // ── 每月填寫率/結案率 統計 ──
+            statOffset: 0,        // 0 = 本期（上月16 ~ 本月15），-1 = 往前一期，以此類推
             account: '',
             userName: '',
             isAdmin: false,
@@ -121,7 +124,7 @@ const app = Vue.createApp({
 
         // ── 主篩選結果 ──────────────────────────────
         filteredData() {
-            return this.baseRows.filter(i => {
+            const list = this.baseRows.filter(i => {
                 const kw = this.keyword.trim().toLowerCase()
                 if (kw) {
                     const fields = ['日期','提案人','棟別','樓層','站點','組織類別',
@@ -148,6 +151,14 @@ const app = Vue.createApp({
                 return matchDate && matchPerson && matchBuilding && matchFloor && matchSite &&
                        matchOrg && matchCase && matchDesc && matchMgr && matchDue && matchAgo &&
                        matchOwner && matchSingleDue && matchStatus
+            })
+            // 表格顯示順序：依「日期」倒敘（日期近的在上，以前的在下），空日期排最後；同日期維持原順序
+            return list.sort((a, b) => {
+                const da = a['日期'] || '', db = b['日期'] || ''
+                if (da === db) return 0
+                if (!da) return 1
+                if (!db) return -1
+                return db.localeCompare(da)
             })
         },
 
@@ -632,6 +643,70 @@ const app = Vue.createApp({
             if (!headers.length) return ''
             return `${headers[0].startStr} ~ ${headers[headers.length-1].endStr}`
         },
+
+        // ── 每月填寫率/結案率 統計（上月16 ~ 本月15）──
+        // 統計區間：statOffset=0 → 上月16 ~ 本月15；每 -1 往前推一個月
+        statPeriod() {
+            const now  = new Date()
+            const base = new Date(now.getFullYear(), now.getMonth() + this.statOffset, 1)
+            const start = new Date(base.getFullYear(), base.getMonth() - 1, 16)
+            const end   = new Date(base.getFullYear(), base.getMonth(), 15)
+            const fmt = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
+            return { start, end, startStr: fmt(start), endStr: fmt(end) }
+        },
+        // 區間內的工作日（週一~週五）日期字串集合
+        statWorkdays() {
+            const days = []
+            const d = new Date(this.statPeriod.start)
+            const end = this.statPeriod.end
+            while (d <= end) {
+                const dow = d.getDay()
+                if (dow !== 0 && dow !== 6) {
+                    days.push(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`)
+                }
+                d.setDate(d.getDate() + 1)
+            }
+            return days
+        },
+        // 每人統計：填寫率 = 區間內「工作日」有填寫紀錄（日期欄）的天數 ÷ 區間工作日數
+        //           結案率 = 區間內任務（依提案人 + 日期欄歸屬）中 Done_Day 有值或狀態 Done 的比例
+        statRows() {
+            const { startStr, endStr } = this.statPeriod
+            const workdaySet = new Set(this.statWorkdays)
+            const workdayCount = workdaySet.size
+
+            // 人員母集合：管轄組織內出現過的所有提案人（期間內沒填任何紀錄的人也要列出，填寫率 0%）
+            const persons = [...new Set(
+                this.rows
+                    .filter(r => this.adminOrgs.includes(r['組織類別']))
+                    .map(r => (r['提案人'] || '').trim())
+                    .filter(Boolean)
+            )]
+            const groups = {}
+            for (const p of persons) groups[p] = { person: p, total: 0, done: 0, days: new Set() }
+
+            // 區間內任務（依「日期」欄歸屬到區間）
+            for (const r of this.rows) {
+                if (!this.adminOrgs.includes(r['組織類別'])) continue
+                const date = (r['日期'] || '').trim()
+                if (!date || date < startStr || date > endStr) continue
+                const p = (r['提案人'] || '').trim()
+                if (!p || !groups[p]) continue
+                groups[p].total++
+                if ((r['Done_Day'] || '').trim() || (r['狀態'] || '').trim() === 'Done') groups[p].done++
+                if (workdaySet.has(date)) groups[p].days.add(date)
+            }
+
+            return Object.values(groups).map(g => ({
+                person:   g.person,
+                total:    g.total,
+                done:     g.done,
+                fillDays: g.days.size,
+                workdays: workdayCount,
+                fillRate: workdayCount ? Math.round(g.days.size / workdayCount * 100) : 0,
+                doneRate: g.total ? Math.round(g.done / g.total * 100) : 0,
+            })).sort((a, b) => (b.fillRate - a.fillRate) || a.person.localeCompare(b.person, 'zh-TW'))
+        },
     },
 
     // ─────────────────────────────────────────────
@@ -740,6 +815,13 @@ const app = Vue.createApp({
             if (val === '今日') return 'tag-today'
             if (val.startsWith('剩')) return 'tag-ok'
             return 'tag-overdue'   // X天（無前綴）= 逾期
+        },
+
+        // ── 填寫率/結案率 顏色：≥80% 綠、50~79% 黃、<50% 紅 ──
+        rateColor(rate) {
+            if (rate >= 80) return '#10b981'
+            if (rate >= 50) return '#eab308'
+            return '#ef4444'
         },
 
 

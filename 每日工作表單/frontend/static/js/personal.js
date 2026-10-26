@@ -67,7 +67,7 @@ const app = Vue.createApp({
                    this.checkedStatuses.length>0
         },
         filteredData() {
-            return this.baseRows.filter(i => {
+            const list = this.baseRows.filter(i => {
                 const kw = this.keyword.trim().toLowerCase()
                 if (kw) {
                     const fields = ['日期','棟別','站點','組織類別','案件分類','項目描述','項目Due Date','距今','當前最新進度','狀態']
@@ -83,6 +83,14 @@ const app = Vue.createApp({
                 const mAgo    = this.checkedAgos.length===0    || this.checkedAgos.includes(i['距今']||'')
                 const mStatus = this.checkedStatuses.length===0 || this.checkedStatuses.includes(i['狀態']||'')
                 return mDate&&mBldg&&mSite&&mOrg&&mCase&&mDesc&&mDue&&mAgo&&mStatus
+            })
+            // 表格顯示順序：依「日期」倒敘（日期近的在上，以前的在下），空日期排最後；同日期維持原順序
+            return list.sort((a, b) => {
+                const da = a['日期'] || '', db = b['日期'] || ''
+                if (da === db) return 0
+                if (!da) return 1
+                if (!db) return -1
+                return db.localeCompare(da)
             })
         },
         // uniqueXxx computed (simplified set for personal page)

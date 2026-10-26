@@ -448,6 +448,83 @@
 
   </div><!-- ══ END 上中區 ══ -->
 
+  <!-- ══ 每月填寫率／結案率（上月16 ~ 本月15）══ -->
+  <div style="padding:0 1.5rem 1rem">
+  <div class="glass-card p-4">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem">
+      <div style="font-size:.85rem;font-weight:600;color:#000">
+        <i class="fas fa-chart-column" style="color:#818cf8;margin-right:.4rem"></i>每月填寫率／結案率
+        <span style="font-weight:400;font-size:.7rem;color:#64748b;margin-left:.5rem">統計區間：上月16日 ~ 本月15日</span>
+      </div>
+      <!-- 期間導覽 -->
+      <div style="display:flex;align-items:center;gap:.4rem">
+        <button v-if="statOffset!==0" @click="statOffset=0"
+          style="padding:.2rem .6rem;border-radius:.4rem;border:1px solid #cbd5e1;background:transparent;color:#334155;font-size:.72rem;cursor:pointer">
+          回本期
+        </button>
+        <button @click="statOffset--"
+          style="padding:.2rem .6rem;border-radius:.4rem;border:1px solid #cbd5e1;background:transparent;color:#334155;font-size:.75rem;cursor:pointer">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <span style="font-size:.78rem;color:#334155;min-width:160px;text-align:center;font-weight:600">{{ statPeriod.startStr }} ~ {{ statPeriod.endStr }}</span>
+        <button @click="statOffset++"
+          style="padding:.2rem .6rem;border-radius:.4rem;border:1px solid #cbd5e1;background:transparent;color:#334155;font-size:.75rem;cursor:pointer">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:820px">
+        <thead>
+          <tr style="color:#000;border-bottom:1px solid rgba(0,0,0,.18);text-align:left">
+            <th style="padding:.4rem .6rem;font-weight:600;white-space:nowrap">人員</th>
+            <th style="padding:.4rem .6rem;font-weight:600;text-align:center;white-space:nowrap">期間任務數</th>
+            <th style="padding:.4rem .6rem;font-weight:600;text-align:center;white-space:nowrap">填寫天數 / 工作日</th>
+            <th style="padding:.4rem .6rem;font-weight:600;min-width:170px">填寫率</th>
+            <th style="padding:.4rem .6rem;font-weight:600;text-align:center;white-space:nowrap">已結案 / 任務</th>
+            <th style="padding:.4rem .6rem;font-weight:600;min-width:170px">結案率</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="s in statRows" :key="s.person" style="border-bottom:1px solid rgba(0,0,0,.08)">
+            <td style="padding:.45rem .6rem;color:#000;font-weight:600;white-space:nowrap">{{ s.person }}</td>
+            <td style="padding:.45rem .6rem;text-align:center;color:#334155">{{ s.total }}</td>
+            <td style="padding:.45rem .6rem;text-align:center;color:#334155">{{ s.fillDays }} / {{ s.workdays }}</td>
+            <td style="padding:.45rem .6rem">
+              <div style="display:flex;align-items:center;gap:.5rem">
+                <div style="flex:1;height:8px;border-radius:999px;background:rgba(0,0,0,.08);overflow:hidden">
+                  <div :style="{height:'100%',borderRadius:'999px',width:Math.min(s.fillRate,100)+'%',background:rateColor(s.fillRate)}"></div>
+                </div>
+                <span :style="{fontWeight:'700',minWidth:'44px',textAlign:'right',color:rateColor(s.fillRate)}">{{ s.fillRate }}%</span>
+              </div>
+            </td>
+            <td style="padding:.45rem .6rem;text-align:center;color:#334155">{{ s.done }} / {{ s.total }}</td>
+            <td style="padding:.45rem .6rem">
+              <div v-if="s.total>0" style="display:flex;align-items:center;gap:.5rem">
+                <div style="flex:1;height:8px;border-radius:999px;background:rgba(0,0,0,.08);overflow:hidden">
+                  <div :style="{height:'100%',borderRadius:'999px',width:s.doneRate+'%',background:rateColor(s.doneRate)}"></div>
+                </div>
+                <span :style="{fontWeight:'700',minWidth:'44px',textAlign:'right',color:rateColor(s.doneRate)}">{{ s.doneRate }}%</span>
+              </div>
+              <span v-else style="color:#94a3b8">—</span>
+            </td>
+          </tr>
+          <tr v-if="statRows.length===0">
+            <td colspan="6" style="padding:1rem;text-align:center;color:#94a3b8">管轄組織內無人員資料</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:.6rem;font-size:.68rem;color:#64748b;line-height:1.6">
+      填寫率＝區間內「工作日（週一～週五）」有填寫紀錄（依日期欄）的天數 ÷ 區間工作日數；
+      結案率＝區間內任務（依提案人＋日期欄歸屬）中已結案（Done_Day 有值或狀態 Done）的比例。
+      區間內未填任何紀錄的人員也會列出（填寫率 0%），僅統計此管理員管轄組織的資料。
+    </div>
+  </div>
+  </div><!-- ══ END 統計 padding wrapper ══ -->
+
   <!-- ══ 甘特圖（下方，100vh以下）══ -->
   <div style="padding:0 1.5rem 4.5rem">
   <div class="glass-card p-4">
